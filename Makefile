@@ -16,6 +16,12 @@ SHELL = /usr/bin/env bash
 # HackerOoT options
 -include .make_hackeroot.mk
 
+# Include my environment variables
+ifneq (,$(wildcard .env))
+  include .env
+  export
+endif
+
 COMPILER ?= gcc
 
 # Target game version. Ensure the corresponding input ROM is placed in baseroms/$(VERSION)/baserom.z64.
@@ -49,7 +55,8 @@ DEBUG_OBJECTS ?= 0
 # In nearly all cases, not having 'mips-linux-gnu-*' binaries on the PATH indicates missing dependencies.
 MIPS_BINUTILS_PREFIX ?= mips-linux-gnu-
 # Emulator w/ flags for 'make run'.
-N64_EMULATOR ?=
+# N64_EMULATOR ?= "it's in my .env!!!"
+
 # Set to override game region in the ROM header (options: JP, US, EU). This can be used to build a fake US version
 # of the debug ROM for better emulator compatibility, or to build US versions of NTSC N64 ROMs.
 # REGION ?= US

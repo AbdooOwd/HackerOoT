@@ -39,3 +39,8 @@ tools/Flips/**/CMakeLists.txt
 # If you want to use your own gitignore rules without modifying this file:
 # - use `git config core.excludesFile path/to/my_gitignore_file`
 # - or edit `.git/info/exclude`
+
+
+# Well, imma ignore what's above and put my rules here
+
+.env
