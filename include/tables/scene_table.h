@@ -130,3 +130,5 @@
 /* 0x6C */ DEFINE_SCENE(example_scene, none, SCENE_EXAMPLE, SDC_HAUNTED_WASTELAND, 0, 0)
 #endif
 #endif
+
+DEFINE_SCENE(playground0_scene, none, SCENE_PLAYGROUND0, SDC_DEFAULT, 0, 0)
