@@ -19,7 +19,6 @@ SHELL = /usr/bin/env bash
 # Include my environment variables
 ifneq (,$(wildcard .env))
   include .env
-  export
 endif
 
 COMPILER ?= gcc
