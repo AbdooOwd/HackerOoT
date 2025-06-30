@@ -33,7 +33,7 @@
 /**
  * Enable fast text
  */
-#define ENABLE_FAST_TEXT false
+#define ENABLE_FAST_TEXT true
 
 /**
  * Splits Farore's Wind warp point across ages. One point for child Link, one point for adult Link.
