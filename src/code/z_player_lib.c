@@ -867,7 +867,11 @@ int Player_HoldsHookshot(Player* this) {
     return (this->heldItemAction == PLAYER_IA_HOOKSHOT) || (this->heldItemAction == PLAYER_IA_LONGSHOT);
 }
 
-int func_8008F128(Player* this) {
+/**
+ * Returns `true` if shooting the hookshot
+ * (if the hookshot is extended?)
+ */
+int Player_isShootingHookshot(Player* this) {
     return Player_HoldsHookshot(this) && (this->heldActor == NULL);
 }
 
