@@ -26,8 +26,12 @@ def addEntranceTable(scene_name: str) -> None:
 def addSpec(scene_name: str, scene_path: str, room_count: int) -> None:
 	print("> Adding scene to spec")
 	print("> Adding scene objects to spec...")
+
 	# Add Scene
-	removed_mod_dir = scene_path.replace("mod_assets/scenes", "")
+
+	# safety check, to remove the 'mod_assets' prefix if I ever am paranoid
+	removed_mod_dir = scene_path.replace("mod_assets/scenes/", "")
+
 	with open(spec_path, 'a') as file:
 		file.write(
 			 "\nbeginseg\n"
@@ -66,7 +70,7 @@ def addSceneSelection(scene_name: str) -> None:
 
 	for i, line in enumerate(content):
 		if titleScreenZSelect in line:
-			content.insert(i + 1, "\t{ \"" + scene_name.capitalize().replace("_", "") + "\", MapSelect_LoadGame, ENTR_" + scene_name.upper() + "_0 },\n")
+			content.insert(i + 1, "\t{ \"" + scene_name.capitalize().replace("_", "") + "\", MapSelect_LoadGame, ENTR_" + scene_name.upper() + "_0_0 },\n")
 			break
 	
 	with open(z_select_path, "w") as file:
