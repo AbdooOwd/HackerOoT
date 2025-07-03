@@ -706,7 +706,7 @@ typedef struct WeaponInfo {
 #define PLAYER_STATE1_0 (1 << 0)
 #define PLAYER_STATE1_SWINGING_BOTTLE (1 << 1) // Bottle is swung; Bottle is active and can catch things
 #define PLAYER_STATE1_2 (1 << 2)
-#define PLAYER_STATE1_3 (1 << 3)
+#define PLAYER_STATE1_3 (1 << 3) // Aiming?
 #define PLAYER_STATE1_HOSTILE_LOCK_ON (1 << 4) // Currently locked onto a hostile actor. Triggers a "battle" variant of many actions.
 #define PLAYER_STATE1_5 (1 << 5)
 #define PLAYER_STATE1_TALKING (1 << 6) // Currently talking to an actor. This includes item exchanges.
@@ -1020,7 +1020,7 @@ s32 Player_HasMirrorShieldEquipped(struct PlayState* play);
 int Player_HasMirrorShieldSetToDraw(struct PlayState* play);
 s32 Player_ActionToMagicSpell(Player* this, s32 itemAction);
 int Player_HoldsHookshot(Player* this);
-int func_8008F128(Player* this);
+int Player_isShootingHookshot(Player* this);
 s32 Player_ActionToMeleeWeapon(s32 itemAction);
 s32 Player_GetMeleeWeaponHeld(Player* this);
 s32 Player_HoldsTwoHandedWeapon(Player* this);

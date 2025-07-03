@@ -27,6 +27,8 @@
 #include "overlays/actors/ovl_En_Horse/z_en_horse.h"
 #include "config.h"
 
+#include "debug.h"
+
 #pragma increment_block_number "gc-eu:128 gc-eu-mq:128 gc-jp:128 gc-jp-ce:128 gc-jp-mq:128 gc-us:128 gc-us-mq:128" \
                                "ique-cn:128 ntsc-1.0:128 ntsc-1.1:128 ntsc-1.2:128 pal-1.0:128 pal-1.1:128"
 
@@ -4385,7 +4387,6 @@ s32 Camera_Subj3(Camera* camera) {
     Vec3f* at = &camera->at;
     Vec3f* eyeNext = &camera->eyeNext;
     Vec3f sp98;
-    UNUSED Vec3f sp8C;
     VecGeo sp84;
     VecGeo sp7C;
     VecGeo tGeo;
@@ -4403,7 +4404,6 @@ s32 Camera_Subj3(Camera* camera) {
 
     sp60 = Actor_GetFocus(&camera->player->actor);
     playerHeight = Player_GetHeight(camera->player);
-
     if (camera->play->view.unk_124 == 0) {
         camera->play->view.unk_124 = camera->camId | 0x50;
         return true;
@@ -4431,7 +4431,6 @@ s32 Camera_Subj3(Camera* camera) {
     sp98 = sp60.pos;
     sp98.y += roData->eyeNextYOffset;
 
-    sp8C = Camera_AddVecGeoToVec3f(&sp98, &sp84);
     sp7C = OLib_Vec3fDiffToVecGeo(at, eye);
 
     sCameraInterfaceField = roData->interfaceField;
@@ -4450,6 +4449,11 @@ s32 Camera_Subj3(Camera* camera) {
     tGeo.yaw = rwData->yaw;
     tGeo.pitch = rwData->pitch;
     if (rwData->animTimer != 0) {
+
+        // animTimer != 0 means we're still transitioning the camera
+        // to the player's eyes (from Third Person to First Person
+        // and vice-versa)
+
         temp_f0_3 = (1.0f / rwData->animTimer);
         at->x = F32_LERPIMP(at->x, sp98.x, temp_f0_3);
         at->y = F32_LERPIMP(at->y, sp98.y, temp_f0_3);
@@ -4489,7 +4493,7 @@ s32 Camera_Subj3(Camera* camera) {
         at->z = roData->atOffset.z + sp60.pos.z;
         sp7C.r = roData->eyeNextDist;
         sp7C.yaw = sp60.rot.y - 0x7FFF;
-        sp7C.pitch = sp60.rot.x;
+        sp7C.pitch = sp60.rot.x; // removing this = camera doesn't rotate on X axis
         *eyeNext = Camera_AddVecGeoToVec3f(at, &sp7C);
         sp7C.r = roData->eyeDist;
         *eye = Camera_AddVecGeoToVec3f(at, &sp7C);
@@ -4501,6 +4505,8 @@ s32 Camera_Subj3(Camera* camera) {
     camera->fov = Camera_LERPCeilF(roData->fovTarget, camera->fov, 0.25f, 1.0f);
     camera->roll = 0;
     camera->atLERPStepScale = 0.0f;
+    Print_Screen(&gDebug.printer, 1, 16, COLOR_WHITE, "END At: %3.2f, %3.2f, %3.2f", at->x, at->y, at->z);
+
     return 1;
 }
 
@@ -7451,7 +7457,6 @@ s32 Camera_Special9(Camera* camera) {
                 CAMERA_CHECK_BTN(&D_8015BD7C->state.input[0], BTN_CRIGHT) ||
                 CAMERA_CHECK_BTN(&D_8015BD7C->state.input[0], BTN_R) ||
                 CAMERA_CHECK_BTN(&D_8015BD7C->state.input[0], BTN_Z) || (roData->interfaceField & SPECIAL9_FLAG_3)) {
-
                 Camera_RequestSettingImpl(camera, camera->prevSetting, CAM_REQUEST_SETTING_IGNORE_PRIORITY);
                 camera->stateFlags |= (CAM_STATE_CHECK_WATER | CAM_STATE_CHECK_BG);
             }

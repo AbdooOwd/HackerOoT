@@ -56,6 +56,8 @@
 
 #include "config.h"
 
+#include "debug.h"
+
 // Some player animations are played at this reduced speed, for reasons yet unclear.
 // This is called "adjusted" for now.
 #define PLAYER_ANIM_ADJUSTED_SPEED (2.0f / 3.0f)
@@ -2661,7 +2663,7 @@ void Player_ProcessItemButtons(Player* this, PlayState* play) {
         }
     }
 
-    if (!(this->stateFlags1 & (PLAYER_STATE1_CARRYING_ACTOR | PLAYER_STATE1_29)) && !func_8008F128(this)) {
+    if (!(this->stateFlags1 & (PLAYER_STATE1_CARRYING_ACTOR | PLAYER_STATE1_29)) && !Player_isShootingHookshot(this)) {
         if (this->itemAction >= PLAYER_IA_FISHING_POLE) {
             if (!Player_ItemIsInUse(this, B_BTN_ITEM) && !Player_ItemIsInUse(this, C_BTN_ITEM(0)) &&
                 !Player_ItemIsInUse(this, C_BTN_ITEM(1)) && !Player_ItemIsInUse(this, C_BTN_ITEM(2))) {
@@ -4293,7 +4295,7 @@ s32 Player_TryActionHandlerList(PlayState* play, Player* this, s8* actionHandler
             }
         }
 
-        if (func_8008F128(this)) {
+        if (Player_isShootingHookshot(this)) {
             this->unk_6AE_rotFlags |= UNK6AE_ROT_FOCUS_X | UNK6AE_ROT_UPPER_X;
             return true;
         }
@@ -7936,6 +7938,7 @@ s32 func_8083FD78(Player* this, f32* arg1, s16* arg2, PlayState* play) {
             func_8083DB98(this, true);
         } else {
             Math_SmoothStepToS(&this->actor.focus.rot.x, sControlInput->rel.stick_y * 240.0f, 14, 4000, 30);
+             Print_Screen(&gDebug.printer, 1, 9, COLOR_GREEN, "Smoothed: %3.2f", this->actor.focus.rot.x);
             func_80836AB8(this, true);
         }
     } else {
@@ -12453,6 +12456,7 @@ s16 func_8084ABD8(PlayState* play, Player* this, s32 arg2, s16 arg3) {
     s16 temp3;
 
     if (!func_8002DD78(this) && !func_808334B4(this) && !arg2) {
+        // OH J'T'AI TELLEMENT TROUVÉ MON REUF
         temp2 = sControlInput->rel.stick_y * 240.0f;
         Math_SmoothStepToS(&this->actor.focus.rot.x, temp2, 14, 4000, 30);
 
@@ -12594,9 +12598,13 @@ void Player_Action_8084B1D8(Player* this, PlayState* play) {
         func_8083C148(this, play);
         Sfx_PlaySfxCentered(NA_SE_SY_CAMERA_ZOOM_UP);
     } else if ((DECR(this->av2.actionVar2) == 0) || (this->unk_6AD != 2)) {
-        if (func_8008F128(this)) {
+        if (Player_isShootingHookshot(this)) {
+            // What the what are these flags for?
             this->unk_6AE_rotFlags |= UNK6AE_ROT_FOCUS_X | UNK6AE_ROT_FOCUS_Y | UNK6AE_ROT_UPPER_X;
         } else {
+            // TODO: Here is the C-Up view handling thingie
+            Print_Screen(&gDebug.printer, 1, 21, COLOR_GREEN, "Non j'suis pas d'accord");
+            Print_Screen(&gDebug.printer, 1, 8, COLOR_RED, "CamMode: %u", GET_ACTIVE_CAM(play)->mode);
             this->actor.shape.rot.y = func_8084ABD8(play, this, false, 0);
         }
     }
@@ -15547,7 +15555,7 @@ void func_808514C0(PlayState* play, Player* this, CsCmdActorCue* cue) {
 
     LinkAnimation_Update(play, &this->skelAnime);
 
-    if (func_8008F128(this) || (this->stateFlags1 & PLAYER_STATE1_CARRYING_ACTOR)) {
+    if (Player_isShootingHookshot(this) || (this->stateFlags1 & PLAYER_STATE1_CARRYING_ACTOR)) {
         Player_UpdateUpperBody(this, play);
         return;
     }
@@ -15596,7 +15604,7 @@ void func_80851688(PlayState* play, Player* this, CsCmdActorCue* cue) {
 
         LinkAnimation_Update(play, &this->skelAnime);
 
-        if (func_8008F128(this) || (this->stateFlags1 & PLAYER_STATE1_CARRYING_ACTOR)) {
+        if (Player_isShootingHookshot(this) || (this->stateFlags1 & PLAYER_STATE1_CARRYING_ACTOR)) {
             Player_UpdateUpperBody(this, play);
         }
     }
@@ -16257,7 +16265,7 @@ s32 Player_StartFishing(PlayState* play) {
 }
 
 s32 func_80852F38(PlayState* play, Player* this) {
-    if (!Player_InBlockingCsMode(play, this) && (this->invincibilityTimer >= 0) && !func_8008F128(this) &&
+    if (!Player_InBlockingCsMode(play, this) && (this->invincibilityTimer >= 0) && !Player_isShootingHookshot(this) &&
         !(this->stateFlags3 & PLAYER_STATE3_FLYING_WITH_HOOKSHOT)) {
         func_80832564(play, this);
         Player_SetupAction(play, this, Player_Action_8084F308, 0);
