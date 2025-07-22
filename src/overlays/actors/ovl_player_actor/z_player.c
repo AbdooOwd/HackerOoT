@@ -62,6 +62,10 @@
 // This is called "adjusted" for now.
 #define PLAYER_ANIM_ADJUSTED_SPEED (2.0f / 3.0f)
 
+#define PLAYER_DEFAULT_GRAVITY -1.0f
+#define PLAYER_CAN_GLIDE(flags) \
+    (!((flags) & (BGCHECKFLAG_GROUND_STRICT | BGCHECKFLAG_WATER | BGCHECKFLAG_GROUND_LEAVE)))
+
 typedef struct GetItemEntry {
     /* 0x00 */ u8 itemId;
     /* 0x01 */ u8 field; // various bit-packed data
@@ -5673,6 +5677,7 @@ void func_8083A388(PlayState* play, Player* this) {
     Player_SetupAction(play, this, Player_Action_8084B78C, 0);
 }
 
+// happens when I climb a Ladder
 void func_8083A3B0(PlayState* play, Player* this) {
     s32 sp1C = this->av2.actionVar2;
     s32 sp18 = this->av1.actionVar1;
@@ -6992,7 +6997,20 @@ void func_8083D6EC(PlayState* play, Player* this) {
     Vec3f ripplePos;
 
     this->actor.minVelocityY = FRAMERATE_CONST(-20.0f, -24.0f);
-    this->actor.gravity = REG(68) / 100.0f;
+
+    // default gravity?
+    // originally did 'REG(68) / 100.0f'
+
+    this->actor.gravity = PLAYER_DEFAULT_GRAVITY;
+
+    // glide
+    /** Conditons:
+     * - Not on the ground, nor in water
+     * - Pressing button A
+     */
+    if (this->gliding) {
+        this->actor.velocity.y /= 5.0f;
+    }
 
     if (func_8083816C(sFloorType)) {
         f32 temp1;
@@ -9493,6 +9511,7 @@ static FallImpactInfo D_80854600[] = {
     { -16, 255, 140, 150, NA_SE_VO_LI_LAND_DAMAGE_S },
 };
 
+// handles falling?
 s32 func_80843E64(PlayState* play, Player* this) {
     s32 fallDistance;
 
@@ -9502,10 +9521,16 @@ s32 func_80843E64(PlayState* play, Player* this) {
         fallDistance = this->fallDistance;
     }
 
+    // the more u fall, the less u control (:
     Math_StepToF(&this->speedXZ, 0.0f, 1.0f);
 
     this->stateFlags1 &= ~(PLAYER_STATE1_18 | PLAYER_STATE1_19);
 
+
+    /**
+     * Fall damage is handled here. If we've been falling for 400units, we fall OOF.
+     * 
+     */
     if (fallDistance >= 400) {
         s32 impactIndex;
         FallImpactInfo* impactInfo;
@@ -9545,7 +9570,6 @@ s32 func_80843E64(PlayState* play, Player* this) {
             Player_PlayVoiceSfx(this, NA_SE_VO_LI_CLIMB_END);
         }
     }
-
     Player_PlayLandingSfx(this);
 
     return 0;
@@ -9658,6 +9682,7 @@ void Player_Action_8084411C(Player* this, PlayState* play) {
             anim = &gPlayerAnim_link_anchor_landingR;
             func_80833C3C(this);
         } else if (this->fallDistance <= 80) {
+            // short fall/landing
             anim = GET_PLAYER_ANIM(PLAYER_ANIMGROUP_short_landing, this->modelAnimType);
         } else if ((this->fallDistance < 800) &&
                    (this->controlStickDirections[this->controlStickDataIndex] == PLAYER_STICK_DIR_FORWARD) &&
@@ -10865,6 +10890,8 @@ void Player_Init(Actor* thisx, PlayState* play2) {
         Actor_PlaySfx(&this->actor, ((void)0, gSaveContext.entranceSound));
         gSaveContext.entranceSound = 0;
     }
+
+    this->gliding = PLAYER_GET_PARAMS_SPECIAL_BIT(this->actor.params, PLAYER_SPARAMS_GLIDING);
 
     Map_SavePlayerInitialInfo(play);
     MREG(64) = 0;
@@ -12234,6 +12261,18 @@ void Player_Update(Actor* thisx, PlayState* play) {
         }
     }
 
+    // switch glide
+    /**
+     * If the player can Glide and button A has been pressed, we toggle gliding.
+     * But if we cannot glide anymore, force gliding into false.
+     */
+    if (PLAYER_CAN_GLIDE(this->actor.bgCheckFlags)) {
+        if (CHECK_BTN_ALL(input.press.button, BTN_A))
+            this->gliding = !this->gliding;
+    } else {
+        this->gliding = false;
+    }
+
     Player_UpdateCommon(this, play, &input);
 
 #if DEBUG_FEATURES
@@ -12482,6 +12521,7 @@ s16 func_8084ABD8(PlayState* play, Player* this, s32 arg2, s16 arg3) {
     return func_80836AB8(this, (play->shootingGalleryStatus != 0) || func_8002DD78(this) || func_808334B4(this)) - arg3;
 }
 
+// swimming?
 void func_8084AEEC(Player* this, f32* arg1, f32 arg2, s16 arg3) {
     f32 temp1;
     f32 temp2;
@@ -12545,6 +12585,11 @@ void func_8084B000(Player* this) {
     }
 
     this->actor.velocity.y += phi_f18;
+    // TODO: does this control gravity effects?
+    /*
+    PRINT_SCREEN(20, 12, "velo: %.5f", this->actor.velocity.y);
+    PRINT_SCREEN(20, 13, "f_18: %.5f", phi_f18);
+    */
 
     if (((this->actor.velocity.y - phi_f14) * phi_f18) > 0) {
         this->actor.velocity.y = phi_f14;
@@ -12603,8 +12648,6 @@ void Player_Action_8084B1D8(Player* this, PlayState* play) {
             this->unk_6AE_rotFlags |= UNK6AE_ROT_FOCUS_X | UNK6AE_ROT_FOCUS_Y | UNK6AE_ROT_UPPER_X;
         } else {
             // TODO: Here is the C-Up view handling thingie
-            Print_Screen(&gDebug.printer, 1, 21, COLOR_GREEN, "Non j'suis pas d'accord");
-            Print_Screen(&gDebug.printer, 1, 8, COLOR_RED, "CamMode: %u", GET_ACTIVE_CAM(play)->mode);
             this->actor.shape.rot.y = func_8084ABD8(play, this, false, 0);
         }
     }

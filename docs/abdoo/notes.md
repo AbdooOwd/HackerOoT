@@ -7,12 +7,14 @@
     -   `pitch` = X-Axis
 
 
+
+
 ## Blender
 
 -   You mean Adult Link is 7meters tall (in blender)?
 -   Adult Link is (I think) 6.8meters tall in Blender (10x Actor size
     applied). So, without modifications: 0.68 meters.
-
+-   And now it's saying Adult Link is 6.5 meters tall???
 
 
 # Discoveries
@@ -26,9 +28,25 @@
 
 # Modifications
 
+## Game Actors
+
+### Player *(`z_player`)*
+
+#### "Special Params"
+
+Now, the player uses the params' 4-last bits *(`0xF000`)* for "special states"
+(there's nothing special about them. I need another name). And this is for some
+player's states like gliding. It is to control if it spawns with that state active
+or not. For example, setting the first bit (from the right, of course: `0b0001`)
+of the special bits makes the player spawn already gliding (makes `player->gliding` `true` 
+on initialization).
+
+
+## Functions
+
 Here are the functions I modified (names, mostly):
 
-## `func_8008F128`
+### `func_8008F128`
 
 Renamed to `Player_isShootingHookshot`
 

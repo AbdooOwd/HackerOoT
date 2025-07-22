@@ -10,6 +10,12 @@ struct Player;
 
 #define PLAYER_PARAMS(startMode, startBgCamIndex) (PARAMS_PACK_NOMASK(startMode, 8) | PARAMS_PACK_NOMASK(startBgCamIndex, 0))
 
+// TODO: change the name of  this macro
+// in the player's params "ABCD" (imagine a hex value),
+// we take the "A" as bits to tweak things like gliding.
+// 'bit_mask' should be specified using the macros like 'PLAYER_SPPARAMS_<insert name>'
+#define PLAYER_GET_PARAMS_SPECIAL_BIT(params, bit_mask) ((params) >> 3) & (bit_mask)
+
 // Determines behavior when spawning. See `PlayerStartMode`.
 #define PLAYER_GET_START_MODE(thisx) PARAMS_GET_S((thisx)->params, 8, 4)
 
@@ -778,6 +784,9 @@ typedef struct WeaponInfo {
 #define PLAYER_STATE3_RESTORE_NAYRUS_LOVE (1 << 6) // Set by ocarina effects actors when destroyed to signal Nayru's Love may be restored (see `ACTOROVL_ALLOC_ABSOLUTE`)
 #define PLAYER_STATE3_FLYING_WITH_HOOKSHOT (1 << 7) // Flying in the air with the hookshot as it pulls Player toward its destination
 
+// Special Params Bit Masks
+#define PLAYER_SPARAMS_GLIDING (1 << 0)
+
 #if ENABLE_CUTSCENE_IMPROVEMENTS
 #define PLAYER_STATE3_CS_HALT (1 << 8) // Prevents updating the actor while a cutscene is playing
 #else
@@ -993,7 +1002,8 @@ typedef struct Player {
     /* 0x0A86 */ s8 unk_A86;
     /* 0x0A87 */ u8 unk_A87;
     /* 0x0A88 */ Vec3f unk_A88; // previous body part 0 position
-} Player; // size = 0xA94
+    /* 0x0A94 */ u8 gliding;  // bool
+} Player; // size = 0xA95
 
 // z_player_lib.c
 void Player_SetBootData(struct PlayState* play, Player* this);
