@@ -10,7 +10,7 @@ from os import path
 from pathlib import Path
 
 createObject = True
-useModAssets = True
+useModAssets = False
 useActorProfile = True
 
 def convertActorName(name: str):
