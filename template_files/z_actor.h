@@ -2,7 +2,8 @@
 #define {actorFileNameCaps}_H
 
 #include "ultra64.h"
-#include "global.h"{includeObject}
+#include "z64play.h"
+{includeObject}
 
 struct {actorSpec};
 

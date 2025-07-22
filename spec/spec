@@ -1127,6 +1127,12 @@ endseg
 #endif
 
 beginseg
+    name "ovl_Obj_Glider"
+    include "$(BUILD_DIR)/src/overlays/actors/ovl_Obj_Glider/z_obj_glider.o"
+    include "$(BUILD_DIR)/src/overlays/actors/ovl_Obj_Glider/ovl_Obj_Glider_reloc.o"
+endseg
+
+beginseg
     name "gameplay_keep"
     compress
     romalign 0x1000
