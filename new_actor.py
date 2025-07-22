@@ -10,8 +10,8 @@ from os import path
 from pathlib import Path
 
 createObject = True
-useModAssets = False
-useActorProfile = False
+useModAssets = True
+useActorProfile = True
 
 def convertActorName(name: str):
     actorSpec = "_".join(it[0].upper() + it[1:] for it in name.split("_"))
@@ -122,7 +122,7 @@ def addToSpec(actorSpec, actorFileName, objectSpec, actorFileLine):
     # read tables and get actor located specifically before the most recently added one
     # use that to determine where in the spec file to write
     filePathActor = Path(path.curdir, "include/tables/actor_table.h")
-    filePathSpec = Path(path.curdir, "spec")
+    filePathSpec = Path(path.curdir, "spec/spec")
 
     useNewBuild = False
 
@@ -237,6 +237,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-n", "--name", required = True, help = "Name of actor. Use alphanumeric and/or _ as valid characters", default = "")
     parser.add_argument("-no", "--noobject", required = False, help = "Optional. Use if you do not want to create an object for this actor", action='store_false')
+    parser.add_argument("-uiv", "--useinitvar", required=False, help="Optional. Use it to use 'InitVar' instead of 'Profile' (not recommended for HackerOoT)", action='store_false')
+    parser.add_argument("-nm", "--nomod", required=False, help="Optional. Use it to work with 'assets/' instead of 'mod_assets/'", action="store_false")
     args = parser.parse_args()
 
     if not os.path.exists(Path(path.curdir, "src") or not os.path.exists(Path(path.curdir, "spec"))):
@@ -247,6 +249,9 @@ if __name__ == "__main__":
 
     if args.noobject == False:
         createObject = args.noobject
+    
+    useActorProfile = args.useinitvar
+    useModAssets = args.usemod
 
     if os.path.exists(Path(path.curdir, "mod_assets/objects")):
         useModAssets = True
