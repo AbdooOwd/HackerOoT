@@ -52,6 +52,7 @@
 #include "z64skin_matrix.h"
 
 #include "assets/objects/gameplay_keep/gameplay_keep.h"
+#include "assets/objects/gameplay_field_keep/gameplay_field_keep.h"
 #include "assets/objects/object_link_child/object_link_child.h"
 
 #include "config.h"
@@ -368,6 +369,8 @@ void Player_Action_HookshotFly(Player* this, PlayState* play);
 void Player_Action_80850C68(Player* this, PlayState* play);
 void Player_Action_80850E84(Player* this, PlayState* play);
 void Player_Action_CsAction(Player* this, PlayState* play);
+
+void Player_ToggleGliding(PlayState* play, Player* this, u8 new_gliding);
 
 // .bss part 1
 
@@ -10891,7 +10894,7 @@ void Player_Init(Actor* thisx, PlayState* play2) {
         gSaveContext.entranceSound = 0;
     }
 
-    this->gliding = PLAYER_GET_PARAMS_SPECIAL_BIT(this->actor.params, PLAYER_SPARAMS_GLIDING);
+    Player_ToggleGliding(play, this, PLAYER_GET_PARAMS_SPECIAL_BIT(this->actor.params, PLAYER_SPARAMS_GLIDING));
 
     Map_SavePlayerInitialInfo(play);
     MREG(64) = 0;
@@ -12268,9 +12271,9 @@ void Player_Update(Actor* thisx, PlayState* play) {
      */
     if (PLAYER_CAN_GLIDE(this->actor.bgCheckFlags)) {
         if (CHECK_BTN_ALL(input.press.button, BTN_A))
-            this->gliding = !this->gliding;
+            Player_ToggleGliding(play, this, !this->gliding);
     } else {
-        this->gliding = false;
+        Player_ToggleGliding(play, this, false);
     }
 
     Player_UpdateCommon(this, play, &input);
@@ -16436,5 +16439,29 @@ void Player_StartTalking(PlayState* play, Actor* actor) {
     if ((this->naviActor == this->talkActor) && ((this->talkActor->textId & 0xFF00) != 0x200)) {
         this->naviActor->flags |= ACTOR_FLAG_TALK;
         func_80835EA4(play, 0xB);
+    }
+}
+
+
+/* THA ABDOO KINGDUMMM */
+
+/**
+ * Sets player's `gliding` to `new_gliding` (bool) while handling visuals
+ * (eg. spawning the glider)
+ */
+void Player_ToggleGliding(PlayState* play, Player* this, u8 new_gliding) {
+    this->gliding = new_gliding;
+    if (this->gliding) {
+        // draw glider
+        Actor_SpawnAsChild(
+            &play->actorCtx, &this->actor, play, ACTOR_OBJ_GLIDER,
+            this->actor.world.pos.x, this->actor.world.pos.y + Player_GetHeight(this) + 0.1f,
+            this->actor.world.pos.z, this->actor.world.rot.x,
+            this->actor.world.rot.y, this->actor.world.rot.z, 0x0000
+        );
+    } else {
+        // remove glider
+        if (this->actor.child != NULL)
+            Actor_Delete(&play->actorCtx, this->actor.child, play);
     }
 }
