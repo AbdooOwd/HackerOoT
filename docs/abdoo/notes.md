@@ -7,6 +7,8 @@
     -   `pitch` = X-Axis
 -   The devs should really fix their `new_actor.py`... It's outdated!
     -   Nevermind. It's just I didn't use it correctly.
+-   Apparently, `mod_assets/` is now outdated in HackerOoT. I must use
+    `assets/` instead. Dumb me confused the content of `extracted/` with `assets/`.
 
 
 
