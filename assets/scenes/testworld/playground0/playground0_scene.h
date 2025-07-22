@@ -32,6 +32,7 @@ extern Vec3s playground0_scene_vertices[26];
 extern CollisionPoly playground0_scene_polygons[48];
 extern CollisionHeader playground0_scene_collisionHeader;
 extern SceneCmd playground0_room_0_header00[];
+extern ActorEntry playground0_room_0_header00_actorList[];
 extern Gfx playground0_room_0_shapeHeader_entry_0_opaque[];
 extern u64 playground0_room_0_dl_mahouya_room_0_03000080_RoomShapeNormal_0300008C_DListsEntries_03006548_DL_03000540_DL_00009A20_Tex_rgba16_ci8[];
 extern u64 playground0_room_0_dl_mahouya_room_0_03000080_RoomShapeNormal_0300008C_DListsEntries_03006548_DL_03000540_DL_00009A20_Tex_rgba16_pal_rgba16[];

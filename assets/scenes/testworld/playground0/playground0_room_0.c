@@ -3,13 +3,25 @@
 /**
  * Header Child Day (Default)
 */
+#define LENGTH_PLAYGROUND0_ROOM_0_HEADER00_ACTORLIST 1
 SceneCmd playground0_room_0_header00[] = {
     SCENE_CMD_ROOM_SHAPE(&playground0_room_0_shapeHeader),
     SCENE_CMD_ECHO_SETTINGS(0x00),
     SCENE_CMD_ROOM_BEHAVIOR(0x00, 0x00, false, false),
     SCENE_CMD_SKYBOX_DISABLES(false, false),
     SCENE_CMD_TIME_SETTINGS(255, 255, 10),
+    SCENE_CMD_ACTOR_LIST(LENGTH_PLAYGROUND0_ROOM_0_HEADER00_ACTORLIST, playground0_room_0_header00_actorList),
     SCENE_CMD_END(),
+};
+
+ActorEntry playground0_room_0_header00_actorList[LENGTH_PLAYGROUND0_ROOM_0_HEADER00_ACTORLIST] = {
+    // Custom Actor
+    {
+        /* Actor ID   */ ACTOR_OBJ_GLIDER,
+        /* Position   */ { -60, -90, 60 },
+        /* Rotation   */ { DEG_TO_BINANG(0.000), DEG_TO_BINANG(0.000), DEG_TO_BINANG(0.000) },
+        /* Parameters */ 0x0000
+    },
 };
 
 RoomShapeNormal playground0_room_0_shapeHeader = {
@@ -251,11 +263,11 @@ Gfx playground0_room_0_dl_Floor_mesh_layer_Opaque_tri_3[] = {
 };
 
 Gfx mat_playground0_room_0_dl_exit0_layerOpaque[] = {
-	gsSPLoadGeometryMode(G_FOG | G_SHADING_SMOOTH | G_LIGHTING | G_SHADE | G_ZBUFFER | G_CULL_BACK),
+	gsSPLoadGeometryMode(G_FOG | G_ZBUFFER | G_SHADE | G_SHADING_SMOOTH | G_CULL_BACK | G_LIGHTING),
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, 1, COMBINED, 0, PRIMITIVE, 0, 0, 0, 0, COMBINED),
-	gsSPSetOtherMode(G_SETOTHERMODE_H, 4, 20, G_TL_TILE | G_CK_NONE | G_TC_FILT | G_AD_NOISE | G_TF_BILERP | G_CYC_2CYCLE | G_PM_NPRIMITIVE | G_CD_MAGICSQ | G_TP_PERSP | G_TD_CLAMP | G_TT_NONE),
-	gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 32, G_ZS_PIXEL | G_RM_AA_ZB_OPA_SURF2 | G_AC_NONE | G_RM_FOG_SHADE_A),
+	gsSPSetOtherMode(G_SETOTHERMODE_H, 4, 20, G_TP_PERSP | G_TT_NONE | G_TF_BILERP | G_TD_CLAMP | G_TL_TILE | G_CD_MAGICSQ | G_CYC_2CYCLE | G_CK_NONE | G_TC_FILT | G_PM_NPRIMITIVE | G_AD_NOISE),
+	gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 32, G_AC_NONE | G_RM_FOG_SHADE_A | G_RM_AA_ZB_OPA_SURF2 | G_ZS_PIXEL),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPSetPrimColor(0, 0, 255, 47, 101, 255),
 	gsSPEndDisplayList(),
@@ -263,16 +275,16 @@ Gfx mat_playground0_room_0_dl_exit0_layerOpaque[] = {
 
 Gfx mat_revert_playground0_room_0_dl_exit0_layerOpaque[] = {
 	gsDPPipeSync(),
-	gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 32, G_AC_NONE | G_ZS_PIXEL | G_RM_AA_ZB_OPA_SURF2 | G_RM_AA_ZB_OPA_SURF),
+	gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 32, G_AC_NONE | G_RM_AA_ZB_OPA_SURF2 | G_RM_AA_ZB_OPA_SURF | G_ZS_PIXEL),
 	gsSPEndDisplayList(),
 };
 
 Gfx mat_playground0_room_0_dl_floor_mat_layerOpaque[] = {
-	gsSPLoadGeometryMode(G_FOG | G_SHADING_SMOOTH | G_LIGHTING | G_SHADE | G_ZBUFFER | G_CULL_BACK),
+	gsSPLoadGeometryMode(G_FOG | G_ZBUFFER | G_SHADE | G_SHADING_SMOOTH | G_CULL_BACK | G_LIGHTING),
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, 1, COMBINED, 0, PRIMITIVE, 0, 0, 0, 0, COMBINED),
-	gsSPSetOtherMode(G_SETOTHERMODE_H, 4, 20, G_TL_TILE | G_CK_NONE | G_TC_FILT | G_AD_NOISE | G_TF_BILERP | G_CYC_2CYCLE | G_PM_NPRIMITIVE | G_CD_MAGICSQ | G_TP_PERSP | G_TD_CLAMP | G_TT_NONE),
-	gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 32, G_ZS_PIXEL | G_RM_AA_ZB_OPA_SURF2 | G_AC_NONE | G_RM_FOG_SHADE_A),
+	gsSPSetOtherMode(G_SETOTHERMODE_H, 4, 20, G_TP_PERSP | G_TT_NONE | G_TF_BILERP | G_TD_CLAMP | G_TL_TILE | G_CD_MAGICSQ | G_CYC_2CYCLE | G_CK_NONE | G_TC_FILT | G_PM_NPRIMITIVE | G_AD_NOISE),
+	gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 32, G_AC_NONE | G_RM_FOG_SHADE_A | G_RM_AA_ZB_OPA_SURF2 | G_ZS_PIXEL),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPSetPrimColor(0, 0, 255, 255, 255, 255),
 	gsSPEndDisplayList(),
@@ -280,16 +292,16 @@ Gfx mat_playground0_room_0_dl_floor_mat_layerOpaque[] = {
 
 Gfx mat_revert_playground0_room_0_dl_floor_mat_layerOpaque[] = {
 	gsDPPipeSync(),
-	gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 32, G_AC_NONE | G_ZS_PIXEL | G_RM_AA_ZB_OPA_SURF2 | G_RM_AA_ZB_OPA_SURF),
+	gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 32, G_AC_NONE | G_RM_AA_ZB_OPA_SURF2 | G_RM_AA_ZB_OPA_SURF | G_ZS_PIXEL),
 	gsSPEndDisplayList(),
 };
 
 Gfx mat_playground0_room_0_dl_wooden_floor_layerOpaque[] = {
-	gsSPLoadGeometryMode(G_FOG | G_SHADING_SMOOTH | G_LIGHTING | G_SHADE | G_ZBUFFER | G_CULL_BACK),
+	gsSPLoadGeometryMode(G_FOG | G_ZBUFFER | G_SHADE | G_SHADING_SMOOTH | G_CULL_BACK | G_LIGHTING),
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, 0, 0, 0, 1, COMBINED, 0, PRIMITIVE, 0, 0, 0, 0, COMBINED),
-	gsSPSetOtherMode(G_SETOTHERMODE_H, 4, 20, G_TL_TILE | G_CK_NONE | G_TC_FILT | G_AD_NOISE | G_TT_RGBA16 | G_TF_BILERP | G_PM_NPRIMITIVE | G_CD_MAGICSQ | G_TP_PERSP | G_TD_CLAMP | G_CYC_2CYCLE),
-	gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 32, G_ZS_PIXEL | G_RM_AA_ZB_OPA_SURF2 | G_AC_NONE | G_RM_FOG_SHADE_A),
+	gsSPSetOtherMode(G_SETOTHERMODE_H, 4, 20, G_TP_PERSP | G_TT_RGBA16 | G_TF_BILERP | G_TD_CLAMP | G_TL_TILE | G_CD_MAGICSQ | G_CYC_2CYCLE | G_CK_NONE | G_TC_FILT | G_PM_NPRIMITIVE | G_AD_NOISE),
+	gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 32, G_AC_NONE | G_RM_FOG_SHADE_A | G_RM_AA_ZB_OPA_SURF2 | G_ZS_PIXEL),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPSetPrimColor(0, 0, 255, 255, 255, 255),
 	gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, playground0_room_0_dl_mahouya_room_0_03000080_RoomShapeNormal_0300008C_DListsEntries_03006548_DL_03000540_DL_00009A20_Tex_rgba16_pal_rgba16),
@@ -305,16 +317,16 @@ Gfx mat_playground0_room_0_dl_wooden_floor_layerOpaque[] = {
 
 Gfx mat_revert_playground0_room_0_dl_wooden_floor_layerOpaque[] = {
 	gsDPPipeSync(),
-	gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 32, G_AC_NONE | G_ZS_PIXEL | G_RM_AA_ZB_OPA_SURF2 | G_RM_AA_ZB_OPA_SURF),
+	gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 32, G_AC_NONE | G_RM_AA_ZB_OPA_SURF2 | G_RM_AA_ZB_OPA_SURF | G_ZS_PIXEL),
 	gsSPEndDisplayList(),
 };
 
 Gfx mat_playground0_room_0_dl_walls_idk_layerOpaque[] = {
-	gsSPLoadGeometryMode(G_FOG | G_SHADING_SMOOTH | G_LIGHTING | G_SHADE | G_ZBUFFER | G_CULL_BACK),
+	gsSPLoadGeometryMode(G_FOG | G_ZBUFFER | G_SHADE | G_SHADING_SMOOTH | G_CULL_BACK | G_LIGHTING),
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, 0, 0, 0, 1, COMBINED, 0, PRIMITIVE, 0, 0, 0, 0, COMBINED),
-	gsSPSetOtherMode(G_SETOTHERMODE_H, 4, 20, G_TL_TILE | G_CK_NONE | G_TC_FILT | G_AD_NOISE | G_TT_RGBA16 | G_TF_BILERP | G_PM_NPRIMITIVE | G_CD_MAGICSQ | G_TP_PERSP | G_TD_CLAMP | G_CYC_2CYCLE),
-	gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 32, G_ZS_PIXEL | G_RM_AA_ZB_OPA_SURF2 | G_AC_NONE | G_RM_FOG_SHADE_A),
+	gsSPSetOtherMode(G_SETOTHERMODE_H, 4, 20, G_TP_PERSP | G_TT_RGBA16 | G_TF_BILERP | G_TD_CLAMP | G_TL_TILE | G_CD_MAGICSQ | G_CYC_2CYCLE | G_CK_NONE | G_TC_FILT | G_PM_NPRIMITIVE | G_AD_NOISE),
+	gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 32, G_AC_NONE | G_RM_FOG_SHADE_A | G_RM_AA_ZB_OPA_SURF2 | G_ZS_PIXEL),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPSetPrimColor(0, 0, 255, 255, 255, 255),
 	gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, playground0_room_0_dl_tokinoma_room_0_03000100_RoomShapeNormal_0300010C_DListsEntries_03008128_DL_03006F80_DL_000141D8_Tex_rgba16_pal_rgba16),
@@ -330,7 +342,7 @@ Gfx mat_playground0_room_0_dl_walls_idk_layerOpaque[] = {
 
 Gfx mat_revert_playground0_room_0_dl_walls_idk_layerOpaque[] = {
 	gsDPPipeSync(),
-	gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 32, G_AC_NONE | G_ZS_PIXEL | G_RM_AA_ZB_OPA_SURF2 | G_RM_AA_ZB_OPA_SURF),
+	gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 32, G_AC_NONE | G_RM_AA_ZB_OPA_SURF2 | G_RM_AA_ZB_OPA_SURF | G_ZS_PIXEL),
 	gsSPEndDisplayList(),
 };
 
