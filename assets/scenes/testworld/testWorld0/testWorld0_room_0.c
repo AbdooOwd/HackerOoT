@@ -10,13 +10,9 @@ SceneCmd testWorld0_room_0_header00[] = {
     SCENE_CMD_ROOM_BEHAVIOR(0x00, 0x00, false, false),
     SCENE_CMD_SKYBOX_DISABLES(false, false),
     SCENE_CMD_TIME_SETTINGS(255, 255, 10),
-    SCENE_CMD_OBJECT_LIST(LENGTH_TESTWORLD0_ROOM_0_HEADER00_OBJECTLIST, testWorld0_room_0_header00_objectList),
     SCENE_CMD_END(),
 };
 
-s16 testWorld0_room_0_header00_objectList[LENGTH_TESTWORLD0_ROOM_0_HEADER00_OBJECTLIST] = {
-    OBJECT_GLIDER,
-};
 
 RoomShapeNormal testWorld0_room_0_shapeHeader = {
     ROOM_SHAPE_TYPE_NORMAL,

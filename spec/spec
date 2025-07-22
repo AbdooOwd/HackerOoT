@@ -4189,14 +4189,14 @@ endseg
 
 /* OBJECT FOR PYTHON */
 
-beginseg
+/*beginseg
 	name "object_glider"
 	compress
 	romalign 0x1000
 	include "$(BUILD_DIR)/assets/objects/object_glider/gGlider.o"
 	number 6
 endseg
-
+*/
 
 beginseg
     name "g_pn_01"

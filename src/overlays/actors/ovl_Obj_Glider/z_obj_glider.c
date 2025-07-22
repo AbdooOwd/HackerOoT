@@ -20,7 +20,7 @@ ActorProfile Obj_Glider_Profile = {
     ACTOR_OBJ_GLIDER,
     ACTORCAT_PROP,
     FLAGS,
-    OBJECT_GLIDER,
+    OBJECT_GAMEPLAY_FIELD_KEEP,
     sizeof(Obj_Glider),
     (ActorFunc)Obj_Glider_Init,
     (ActorFunc)Obj_Glider_Destroy,
