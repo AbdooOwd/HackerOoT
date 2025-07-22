@@ -65,7 +65,7 @@
 
 #define PLAYER_DEFAULT_GRAVITY -1.0f
 #define PLAYER_CAN_GLIDE(flags) \
-    (!((flags) & (BGCHECKFLAG_GROUND_STRICT | BGCHECKFLAG_WATER | BGCHECKFLAG_GROUND_LEAVE)))
+    (!((flags) & (BGCHECKFLAG_GROUND_STRICT | BGCHECKFLAG_GROUND | BGCHECKFLAG_WATER | BGCHECKFLAG_GROUND_LEAVE)))
 
 typedef struct GetItemEntry {
     /* 0x00 */ u8 itemId;
@@ -371,6 +371,7 @@ void Player_Action_80850E84(Player* this, PlayState* play);
 void Player_Action_CsAction(Player* this, PlayState* play);
 
 void Player_ToggleGliding(PlayState* play, Player* this, u8 new_gliding);
+void Player_PositionGlider(Player* this);
 
 // .bss part 1
 
@@ -7012,7 +7013,7 @@ void func_8083D6EC(PlayState* play, Player* this) {
      * - Pressing button A
      */
     if (this->gliding) {
-        this->actor.velocity.y /= 5.0f;
+        this->actor.minVelocityY = -1.0f;
     }
 
     if (func_8083816C(sFloorType)) {
@@ -12273,8 +12274,16 @@ void Player_Update(Actor* thisx, PlayState* play) {
         if (CHECK_BTN_ALL(input.press.button, BTN_A))
             Player_ToggleGliding(play, this, !this->gliding);
     } else {
+        // TODO: the safety check below should be enough. So this becomes unnecessary
         Player_ToggleGliding(play, this, false);
     }
+
+    // safety check
+    PRINT_SCREEN(0, 15, "gliding: %d", this->gliding);
+    PRINT_SCREEN(0, 16, "has child: %d", this->actor.child != NULL);
+
+    if (this->actor.child != NULL && this->actor.child->id == ACTOR_OBJ_GLIDER)
+        Player_PositionGlider(this);
 
     Player_UpdateCommon(this, play, &input);
 
@@ -16461,7 +16470,22 @@ void Player_ToggleGliding(PlayState* play, Player* this, u8 new_gliding) {
         );
     } else {
         // remove glider
-        if (this->actor.child != NULL)
-            Actor_Delete(&play->actorCtx, this->actor.child, play);
+        if (this->actor.child != NULL && this->actor.child->id == ACTOR_OBJ_GLIDER) {
+            this->actor.child = NULL;
+        }
     }
+}
+
+/**
+ * Places Glider "correctly" above Link
+ */
+void Player_PositionGlider(Player* this) {
+    // copy position + tweak to be above head
+    Math_Vec3f_Copy(&this->actor.child->world.pos, &this->actor.world.pos);
+    this->actor.child->world.pos.y += Player_GetHeight(this) + 0.1f;
+
+    // copy rotation
+    Vec3f* glider_rot = (Vec3f*) &this->actor.child->world.rot;
+    Vec3f* player_rot = (Vec3f*) &this->actor.world.rot;
+    Math_Vec3f_Copy(glider_rot, player_rot);
 }

@@ -1145,7 +1145,6 @@ beginseg
     compress
     romalign 0x1000
     include "$(BUILD_DIR)/assets/objects/gameplay_field_keep/gameplay_field_keep.o"
-    include "$(BUILD_DIR)/assets/objects/object_glider/object_glider.o"
     number 5
 endseg
 
@@ -4190,13 +4189,13 @@ endseg
 
 /* OBJECT FOR PYTHON */
 
-/*beginseg
+beginseg
 	name "object_glider"
 	compress
 	romalign 0x1000
 	include "$(BUILD_DIR)/assets/objects/object_glider/gGlider.o"
 	number 6
-endseg*/
+endseg
 
 
 beginseg
@@ -5136,5 +5135,21 @@ beginseg
 	compress
 	romalign 0x1000
 	include "$(BUILD_DIR)/assets/scenes/testworld/playground0/playground0_room_0.o"
+	number 3
+endseg
+
+beginseg
+	name "testWorld0_scene"
+	compress
+	romalign 0x1000
+	include "$(BUILD_DIR)/assets/scenes/testworld/testWorld0/testWorld0_scene.o"
+	number 2
+endseg
+
+beginseg
+	name "testWorld0_room_0"
+	compress
+	romalign 0x1000
+	include "$(BUILD_DIR)/assets/scenes/testworld/testWorld0/testWorld0_room_0.o"
 	number 3
 endseg

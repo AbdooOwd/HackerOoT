@@ -5,7 +5,6 @@
  */
 
 #include "z_obj_glider.h"
-#include "assets/objects/gameplay_field_keep/gameplay_field_keep.h"
 #include "assets/objects/object_glider/object_glider.h"
 
 #define FLAGS (0)
@@ -21,7 +20,7 @@ ActorProfile Obj_Glider_Profile = {
     ACTOR_OBJ_GLIDER,
     ACTORCAT_PROP,
     FLAGS,
-    OBJECT_GAMEPLAY_FIELD_KEEP,
+    OBJECT_GLIDER,
     sizeof(Obj_Glider),
     (ActorFunc)Obj_Glider_Init,
     (ActorFunc)Obj_Glider_Destroy,

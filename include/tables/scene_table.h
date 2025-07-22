@@ -132,3 +132,4 @@
 #endif
 
 DEFINE_SCENE(playground0_scene, none, SCENE_PLAYGROUND0, SDC_DEFAULT, 0, 0)
+DEFINE_SCENE(testWorld0_scene, none, SCENE_TESTWORLD0, SDC_DEFAULT, 0, 0)
