@@ -5,7 +5,8 @@
     -   `r` (radius) = Z-Axis
     -   `yaw` = Y-Axis
     -   `pitch` = X-Axis
-
+-   The devs should really fix their `new_actor.py`... It's outdated!
+    -   Nevermind. It's just I didn't use it correctly.
 
 
 
@@ -52,3 +53,9 @@ Renamed to `Player_isShootingHookshot`
 
 -   It appears to return `true` when using the hookshot (when pressing
     its action button) a.k.a shooting the hookshot.
+
+
+# Idiotics
+
+-   You mean I've been trying to implement Gliding, just to remember
+    that the cucco works the **EXACT SAME** way? ... Welp.

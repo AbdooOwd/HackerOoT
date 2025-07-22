@@ -16,3 +16,4 @@
         integer sooo I don't need the `<=` operator).
     -   I want to be able to spawn the player gliding. I must check which param's
         values aren't used so I can spawn Link gliding using his params.
+    -   Add the glider as an actor to be spawned above Link's head.
