@@ -1,6 +1,6 @@
 #include "gGlider.h"
 
-u64 gGlider_hylian_cret_glider_ci4[] = {
+u64 gGlider_hylian_cret_glider_Tex_rgba16_ci4[] = {
 	0x0000000000000000, 0x0000000000000000, 0x0000000000000000, 0x0000000000000000, 0x0000000000000000, 0x0000000000000000, 0x0000000000000000, 0x0000000000000000, 
 	0x0000000000000000, 0x0000000000000000, 0x0000000000000000, 0x0000000000000000, 0x0000000000000000, 0x0000000000000000, 0x0000000000000000, 0x0000000000000000, 
 	0x0000000000000000, 0x0000000000000000, 0x0000000000000000, 0x0000000000000000, 0x0000000000000000, 0x0000000000000000, 0x0000000000000000, 0x0000000000000000, 
@@ -68,7 +68,7 @@ u64 gGlider_hylian_cret_glider_ci4[] = {
 	
 };
 
-u64 gGlider_hylian_cret_glider_pal_rgba16[] = {
+u64 gGlider_hylian_cret_glider_Tex_rgba16_pal_rgba16[] = {
 	0x9a95cd6bd631cdad, 0xcdefd5efd5edcdab, 
 };
 
@@ -100,7 +100,7 @@ Vtx gGlider_gGlider_mesh_layer_Opaque_vtx_0[12] = {
 
 Gfx gGlider_gGlider_mesh_layer_Opaque_tri_0[] = {
 	gsDPLoadSync(),
-	gsDPSetTextureImage(G_IM_FMT_CI, G_IM_SIZ_8b, 64, gGlider_hylian_cret_glider_ci4),
+	gsDPSetTextureImage(G_IM_FMT_CI, G_IM_SIZ_8b, 64, gGlider_hylian_cret_glider_Tex_rgba16_ci4),
 	gsDPSetTile(G_IM_FMT_CI, G_IM_SIZ_8b, 3, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 0, 0),
 	gsDPLoadTile(7, 184, 0, 250, 252),
 	gsDPSetTile(G_IM_FMT_CI, G_IM_SIZ_4b, 3, 0, 0, 0, G_TX_CLAMP | G_TX_NOMIRROR, 0, 0, G_TX_CLAMP | G_TX_NOMIRROR, 0, 0),
@@ -181,14 +181,14 @@ Gfx gGlider_gGlider_mesh_layer_Opaque_tri_1[] = {
 };
 
 Gfx mat_gGlider_f3dlite_gliderLogo_layerOpaque[] = {
-	gsSPLoadGeometryMode(G_FOG | G_LIGHTING | G_ZBUFFER | G_CULL_BACK | G_SHADE | G_SHADING_SMOOTH),
+	gsSPLoadGeometryMode(G_ZBUFFER | G_FOG | G_CULL_BACK | G_LIGHTING | G_SHADING_SMOOTH | G_SHADE),
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, 0, 0, 0, 1, COMBINED, 0, PRIMITIVE, 0, 0, 0, 0, COMBINED),
-	gsSPSetOtherMode(G_SETOTHERMODE_H, 4, 20, G_CYC_2CYCLE | G_AD_NOISE | G_TC_FILT | G_TF_BILERP | G_TP_PERSP | G_PM_NPRIMITIVE | G_CD_MAGICSQ | G_CK_NONE | G_TT_RGBA16 | G_TD_CLAMP | G_TL_TILE),
-	gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 32, G_RM_FOG_SHADE_A | G_AC_NONE | G_ZS_PIXEL | G_RM_AA_ZB_OPA_SURF2),
+	gsSPSetOtherMode(G_SETOTHERMODE_H, 4, 20, G_CK_NONE | G_AD_NOISE | G_CD_MAGICSQ | G_TD_CLAMP | G_TF_BILERP | G_CYC_2CYCLE | G_TL_TILE | G_PM_NPRIMITIVE | G_TT_RGBA16 | G_TP_PERSP | G_TC_FILT),
+	gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 32, G_RM_AA_ZB_OPA_SURF2 | G_RM_FOG_SHADE_A | G_ZS_PIXEL | G_AC_NONE),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPSetPrimColor(0, 0, 255, 255, 255, 255),
-	gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, gGlider_hylian_cret_glider_pal_rgba16),
+	gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, gGlider_hylian_cret_glider_Tex_rgba16_pal_rgba16),
 	gsDPSetTile(0, 0, 0, 256, 5, 0, G_TX_WRAP | G_TX_NOMIRROR, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 0, 0),
 	gsDPLoadTLUTCmd(5, 7),
 	gsSPEndDisplayList(),
@@ -196,16 +196,16 @@ Gfx mat_gGlider_f3dlite_gliderLogo_layerOpaque[] = {
 
 Gfx mat_revert_gGlider_f3dlite_gliderLogo_layerOpaque[] = {
 	gsDPPipeSync(),
-	gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 32, G_ZS_PIXEL | G_AC_NONE | G_RM_AA_ZB_OPA_SURF | G_RM_AA_ZB_OPA_SURF2),
+	gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 32, G_RM_AA_ZB_OPA_SURF | G_RM_AA_ZB_OPA_SURF2 | G_ZS_PIXEL | G_AC_NONE),
 	gsSPEndDisplayList(),
 };
 
 Gfx mat_gGlider_f3dlite_gliderColor_layerOpaque[] = {
-	gsSPLoadGeometryMode(G_FOG | G_LIGHTING | G_ZBUFFER | G_CULL_BACK | G_SHADE | G_SHADING_SMOOTH),
+	gsSPLoadGeometryMode(G_ZBUFFER | G_FOG | G_CULL_BACK | G_LIGHTING | G_SHADING_SMOOTH | G_SHADE),
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, 1, COMBINED, 0, PRIMITIVE, 0, 0, 0, 0, COMBINED),
-	gsSPSetOtherMode(G_SETOTHERMODE_H, 4, 20, G_CYC_2CYCLE | G_AD_NOISE | G_TC_FILT | G_TF_BILERP | G_TP_PERSP | G_PM_NPRIMITIVE | G_CD_MAGICSQ | G_CK_NONE | G_TT_NONE | G_TD_CLAMP | G_TL_TILE),
-	gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 32, G_RM_FOG_SHADE_A | G_AC_NONE | G_ZS_PIXEL | G_RM_AA_ZB_OPA_SURF2),
+	gsSPSetOtherMode(G_SETOTHERMODE_H, 4, 20, G_TT_NONE | G_CK_NONE | G_AD_NOISE | G_CD_MAGICSQ | G_TD_CLAMP | G_TF_BILERP | G_CYC_2CYCLE | G_TL_TILE | G_PM_NPRIMITIVE | G_TP_PERSP | G_TC_FILT),
+	gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 32, G_RM_AA_ZB_OPA_SURF2 | G_RM_FOG_SHADE_A | G_ZS_PIXEL | G_AC_NONE),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPSetPrimColor(0, 0, 160, 84, 81, 255),
 	gsSPEndDisplayList(),
@@ -213,11 +213,11 @@ Gfx mat_gGlider_f3dlite_gliderColor_layerOpaque[] = {
 
 Gfx mat_revert_gGlider_f3dlite_gliderColor_layerOpaque[] = {
 	gsDPPipeSync(),
-	gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 32, G_ZS_PIXEL | G_AC_NONE | G_RM_AA_ZB_OPA_SURF | G_RM_AA_ZB_OPA_SURF2),
+	gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 32, G_RM_AA_ZB_OPA_SURF | G_RM_AA_ZB_OPA_SURF2 | G_ZS_PIXEL | G_AC_NONE),
 	gsSPEndDisplayList(),
 };
 
-Gfx gGlider[] = {
+Gfx gGliderDL[] = {
 	gsSPClearGeometryMode(G_LIGHTING),
 	gsSPVertex(gGlider_gGlider_mesh_layer_Opaque_vtx_cull + 0, 8, 0),
 	gsSPSetGeometryMode(G_LIGHTING),
