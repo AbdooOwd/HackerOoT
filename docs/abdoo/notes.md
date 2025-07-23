@@ -15,6 +15,7 @@
     include my objects .h file into gameplay_keep's .h file.
     -   I have also been told that I can just include my object in
         gameplay_keep's spec. But I don't know how to do that.
+-   When changing build versions (ntsc-1.0, pal-1.0, ...), I must run `make setup`.
 
 
 ## Blender
