@@ -240,6 +240,33 @@
                 "GBI_DOWHILE"
             ],
             "cStandard": "gnu89"
+        },
+        {
+            "name": "hackeroot-ntsc-1.0",
+            "compilerArgs": [
+                "-m32"
+            ],
+            "includePath": [
+                "include",
+                "include/libc",
+                "src",
+                "build/ntsc-1.0",
+                ".",
+                "extracted/ntsc-1.0"
+            ],
+            "defines": [
+                "_LANGUAGE_C",
+                "OOT_VERSION=NTSC_1_0",
+                "OOT_REGION=REGION_JP",
+                "PLATFORM_N64=1",
+                "PLATFORM_GC=0",
+                "DEBUG_FEATURES=1",
+                "NDEBUG",
+                "F3DEX_GBI_2",
+
+                "AVOID_UB"
+            ],
+            "cStandard": "gnu89"
         }
     ],
     "version": 4
