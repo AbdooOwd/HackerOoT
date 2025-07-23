@@ -61,3 +61,5 @@ Renamed to `Player_isShootingHookshot`
 
 -   You mean I've been trying to implement Gliding, just to remember
     that the cucco works the **EXACT SAME** way? ... Welp.
+-   [23/07/2025] The HackerOoT repo has merged the decomp into its main branch.
+    Now, I'm trying to fix conflicts and all to have the latest repo.
