@@ -10,6 +10,7 @@ import sys
 entrance_table_path = "include/tables/entrance_table.h"
 scene_table_path = "include/tables/scene_table.h"
 spec_path = "spec/spec"
+scene_spec_path = "spec/scenes_n64.inc"
 z_select_path = "src/overlays/gamestates/ovl_select/z_select.h"
 
 sScenesArray = "static SceneSelectEntry sScenes[] = {"	# hardcoded, used to detect where the array is
@@ -25,42 +26,44 @@ def addEntranceTable(scene_name: str) -> None:
 
 def addSpec(scene_name: str, scene_path: str, room_count: int) -> None:
 	print("> Adding scene to spec")
-	print("> Adding scene objects to spec...")
-
-	# Add Scene
 
 	# safety check, to remove the 'mod_assets' prefix if I ever am paranoid
-	removed_mod_dir = scene_path.replace("mod_assets/scenes/", "")
+	correct_dir = scene_path.replace("mod_assets/scenes/", "")
 
-	with open(spec_path, 'a') as file:
-		file.write(
-			 "\nbeginseg\n"
-			f"\tname \"{scene_name}_scene\"\n"
-			 "\tcompress\n"
-			 "\tromalign 0x1000\n"
-    		f"\tinclude \"$(BUILD_DIR)/assets/scenes/{removed_mod_dir}/{scene_name}/{scene_name}_scene.o\"\n"
-    		 "\tnumber 2\n"
-			   "endseg\n"
+	scene_spec_data = "\n" \
+			"\nbeginseg\n" \
+			f"\tname \"{scene_name}_scene\"\n" \
+			"\tcompress\n" \
+			"\tromalign 0x1000\n" \
+    		f"\tinclude \"$(BUILD_DIR)/assets/scenes/{correct_dir}/{scene_name}_scene.o\"\n" \
+    		"\tnumber 2\n" \
+			"endseg\n"
+
+	room_spec_data: list[str] = []
+
+	for room_id in range(room_count):
+			room_spec_data.append(
+				"\nbeginseg\n" \
+    			f"\tname \"{scene_name}_room_{room_id}\"\n" \
+    			"\tcompress\n" \
+    			"\tromalign 0x1000\n" \
+    			f"\tinclude \"$(BUILD_DIR)/assets/scenes/{correct_dir}/{scene_name}_room_{room_id}.o\"\n" \
+    			"\tnumber 3\n" \
+				"endseg\n"
 			)
-	
-	print(" > Adding room(s) objects to spec")
-	# Add rooms
-	for i in range(room_count):
-		with open(spec_path, 'a') as file:
-			file.write(
-				 "\nbeginseg\n"
-    			f"\tname \"{scene_name}_room_{i}\"\n"
-    			 "\tcompress\n"
-    			 "\tromalign 0x1000\n"
-    			f"\tinclude \"$(BUILD_DIR)/assets/scenes/{removed_mod_dir}/{scene_name}/{scene_name}_room_{i}.o\"\n"
-    			 "\tnumber 3\n"
-				   "endseg\n"
-				)
+			
+
+	with open(scene_spec_path, 'a') as file:
+		file.write(
+			 scene_spec_data +
+			 "".join(room_spec_data)
+			)
+
 	print("- Added scene to spec!")
 
 def addSceneTable(scene_name: str) -> None:
 	with open(scene_table_path, 'a') as file:
-		file.write(f"\nDEFINE_SCENE({scene_name}_scene, none, SCENE_{scene_name.upper()}, SDC_DEFAULT, 0, 0)")
+		file.write(f"\n/* WAKO */ DEFINE_SCENE({scene_name}_scene, none, SCENE_{scene_name.upper()}, SDC_DEFAULT, 0, 0)")
 	print("- Added scene to scene table!")
 
 def addSceneSelection(scene_name: str) -> None:
