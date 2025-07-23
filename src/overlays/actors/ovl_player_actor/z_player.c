@@ -16478,7 +16478,7 @@ void Player_ToggleGliding(PlayState* play, Player* this, u8 new_gliding) {
             this->actor.world.rot.y, this->actor.world.rot.z, 0x0000
         );
 
-        // Player_AnimPlayLoop(play, this, &gLinkAdultSkelGlidingAnim);
+        Player_AnimPlayLoop(play, this, &gLinkAdultSkelGlidingAnim);
     } else {
         // remove glider
         if (this->actor.child != NULL && this->actor.child->id == ACTOR_OBJ_GLIDER) {

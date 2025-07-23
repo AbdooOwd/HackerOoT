@@ -2360,6 +2360,11 @@ LinkAnimationHeader gPlayerAnim_Link_ue_wait = {
 #include "assets/objects/gameplay_keep/gPlayerAnim_Link_ue_wait.inc.c"
 };
 
+/* custom animations */
+LinkAnimationHeader gLinkAdultSkelGlidingAnim = {
+    #include "assets/objects/object_link_boy/gLinkAdultSkelGlidingAnimData.inc.c"
+};
+
 u8 gameplay_keep_zeros_0034F8[8] = { 0 };
 
 Vtx gDebugPyramidVtx[] = {
