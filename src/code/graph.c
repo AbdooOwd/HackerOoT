@@ -25,9 +25,9 @@
 #include "versions.h"
 #include "vi_mode.h"
 #include "z_game_dlftbls.h"
-#include "z64audio.h"
-#include "z64save.h"
-#include "z64play.h"
+#include "audio.h"
+#include "save.h"
+#include "play_state.h"
 #include "debug_opening_state.h"
 #include "f3dex3.h"
 
@@ -53,7 +53,7 @@ OSTime sGraphPrevTaskTimeStart;
 #define GRAPH_UCODE_GLOBAL_SYMBOL gspF3DZEX2_NoN_PosLight_fifoTextStart
 #endif
 
-#if ENABLE_MOTION_BLUR
+#if IS_MOTION_BLUR_ENABLED
 u16 (*gWorkBuf)[SCREEN_WIDTH * SCREEN_HEIGHT]; // pointer-to-array, array itself is allocated (see below)
 #endif
 
@@ -146,13 +146,17 @@ void Graph_InitTHGA(GraphicsContext* gfxCtx) {
     THGA_Init(&gfxCtx->polyXlu, pool->polyXluBuffer, sizeof(pool->polyXluBuffer));
     THGA_Init(&gfxCtx->overlay, pool->overlayBuffer, sizeof(pool->overlayBuffer));
     THGA_Init(&gfxCtx->work, pool->workBuffer, sizeof(pool->workBuffer));
+#if DEBUG_FEATURES
     THGA_Init(&gfxCtx->debug, pool->debugBuffer, sizeof(pool->debugBuffer));
+#endif
 
     gfxCtx->polyOpaBuffer = pool->polyOpaBuffer;
     gfxCtx->polyXluBuffer = pool->polyXluBuffer;
     gfxCtx->overlayBuffer = pool->overlayBuffer;
     gfxCtx->workBuffer = pool->workBuffer;
+#if DEBUG_FEATURES
     gfxCtx->debugBuffer = pool->debugBuffer;
+#endif
 
     gfxCtx->curFrameBuffer = SysCfb_GetFbPtr(gfxCtx->fbIdx % 2);
     gfxCtx->unk_014 = 0;
@@ -325,11 +329,11 @@ void Graph_Update(GraphicsContext* gfxCtx, GameState* gameState) {
 #if DEBUG_FEATURES
     OPEN_DISPS(gfxCtx, "../graph.c", 966);
 
-    gDPNoOpString(WORK_DISP++, "WORK_DISP 開始", 0);
-    gDPNoOpString(POLY_OPA_DISP++, "POLY_OPA_DISP 開始", 0);
-    gDPNoOpString(POLY_XLU_DISP++, "POLY_XLU_DISP 開始", 0);
-    gDPNoOpString(OVERLAY_DISP++, "OVERLAY_DISP 開始", 0);
-    gDPNoOpString(DEBUG_DISP++, "DEBUG_DISP 開始", 0);
+    gDPNoOpString(WORK_DISP++, T("WORK_DISP 開始", "WORK_DISP start"), 0);
+    gDPNoOpString(POLY_OPA_DISP++, T("POLY_OPA_DISP 開始", "POLY_OPA_DISP start"), 0);
+    gDPNoOpString(POLY_XLU_DISP++, T("POLY_XLU_DISP 開始", "POLY_XLU_DISP start"), 0);
+    gDPNoOpString(OVERLAY_DISP++, T("OVERLAY_DISP 開始", "OVERLAY_DISP start"), 0);
+    gDPNoOpString(DEBUG_DISP++, "DEBUG_DISP start", 0);
 
     CLOSE_DISPS(gfxCtx, "../graph.c", 975);
 #endif
@@ -340,11 +344,11 @@ void Graph_Update(GraphicsContext* gfxCtx, GameState* gameState) {
 #if DEBUG_FEATURES
     OPEN_DISPS(gfxCtx, "../graph.c", 987);
 
-    gDPNoOpString(WORK_DISP++, "WORK_DISP 終了", 0);
-    gDPNoOpString(POLY_OPA_DISP++, "POLY_OPA_DISP 終了", 0);
-    gDPNoOpString(POLY_XLU_DISP++, "POLY_XLU_DISP 終了", 0);
-    gDPNoOpString(OVERLAY_DISP++, "OVERLAY_DISP 終了", 0);
-    gDPNoOpString(DEBUG_DISP++, "DEBUG_DISP 終了", 0);
+    gDPNoOpString(WORK_DISP++, T("WORK_DISP 終了", "WORK_DISP end"), 0);
+    gDPNoOpString(POLY_OPA_DISP++, T("POLY_OPA_DISP 終了", "POLY_OPA_DISP end"), 0);
+    gDPNoOpString(POLY_XLU_DISP++, T("POLY_XLU_DISP 終了", "POLY_XLU_DISP end"), 0);
+    gDPNoOpString(OVERLAY_DISP++, T("OVERLAY_DISP 終了", "OVERLAY_DISP end"), 0);
+    gDPNoOpString(DEBUG_DISP++, "DEBUG_DISP end", 0);
 
     CLOSE_DISPS(gfxCtx, "../graph.c", 996);
 #endif
@@ -477,7 +481,7 @@ void Graph_ThreadEntry(void* arg0) {
     GameStateOverlay* nextOvl = &gGameStateOverlayTable[GAMESTATE_SETUP];
     GameStateOverlay* ovl;
 
-#if ENABLE_MOTION_BLUR
+#if IS_MOTION_BLUR_ENABLED
     gWorkBuf = SYSTEM_ARENA_MALLOC(sizeof(*gWorkBuf) + 64 - 1, __FILE__, __LINE__);
     gWorkBuf = (void*)ALIGN64((u32)gWorkBuf);
 #endif

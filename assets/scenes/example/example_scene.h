@@ -3,13 +3,13 @@
 
 #include "ultra64.h"
 #include "config.h"
-#include "z64scene.h"
-#include "z64cutscene.h"
-#include "z64room.h"
-#include "z64player.h"
-#include "z64camera.h"
-#include "z64object.h"
-#include "z64ocarina.h"
+#include "scene.h"
+#include "cutscene.h"
+#include "room.h"
+#include "player.h"
+#include "camera.h"
+#include "object.h"
+#include "ocarina.h"
 #include "sfx.h"
 #include "sequence.h"
 #include "animated_materials.h"
@@ -32,7 +32,7 @@ extern F3DEnvColor debug1_scene_header00_AnimatedMaterialColorEnvColor_02[];
 extern u16 debug1_scene_header00_AnimatedMaterialColorKeyFrames_02[];
 extern AnimatedMatColorParams debug1_scene_header00_AnimatedMaterialColorParams_02;
 extern AnimatedMaterial debug1_scene_header00_AnimatedMaterial[];
-#endif 
+#endif
 #if ENABLE_CUTSCENE_IMPROVEMENTS
 extern Vec3s debug1_scene_header00_ActorCutsceneCameraData[];
 extern ActorCsCamInfo debug1_scene_header00_ActorCutsceneCameraInfo[];
