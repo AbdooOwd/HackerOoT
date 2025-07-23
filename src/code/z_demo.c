@@ -1262,7 +1262,7 @@ void CutsceneCmd_Destination(PlayState* play, CutsceneContext* csCtx, CsCmdDesti
                     gSaveContext.save.cutsceneIndex = CS_INDEX_1;
                     play->transitionType = TRANS_TYPE_FADE_WHITE_FAST;
                 } else {
-                    SET_EVENTCHKINF(EVENTCHKINF_C8);
+                    SET_EVENTCHKINF(EVENTCHKINF_CHSAGES_COLOSSUS);
                     play->nextEntranceIndex = ENTR_DESERT_COLOSSUS_8;
                     play->transitionTrigger = TRANS_TRIGGER_START;
                     play->transitionType = TRANS_TYPE_FADE_WHITE;
@@ -1437,7 +1437,7 @@ void CutsceneCmd_Destination(PlayState* play, CutsceneContext* csCtx, CsCmdDesti
                 break;
 
             case CS_DEST_FROM_RAURU_FINAL_MESSAGE_CONDITIONAL:
-                if (GET_EVENTCHKINF(EVENTCHKINF_C8)) {
+                if (GET_EVENTCHKINF(EVENTCHKINF_CHSAGES_COLOSSUS)) {
                     play->nextEntranceIndex = ENTR_GRAVEYARD_8;
                     play->transitionTrigger = TRANS_TRIGGER_START;
                     play->transitionType = TRANS_TYPE_FADE_WHITE;

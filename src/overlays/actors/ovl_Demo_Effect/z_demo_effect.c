@@ -702,7 +702,7 @@ void DemoEffect_InitTimeWarp(DemoEffect* this, PlayState* play) {
             Actor_SetScale(&this->actor, 84 * 0.001f);
         }
     } else if (gSaveContext.sceneLayer == 5 || gSaveContext.sceneLayer == 4 ||
-               (gSaveContext.save.entranceIndex == ENTR_TEMPLE_OF_TIME_4 && !GET_EVENTCHKINF(EVENTCHKINF_C9))) {
+               (gSaveContext.save.entranceIndex == ENTR_TEMPLE_OF_TIME_4 && !GET_EVENTCHKINF(EVENTCHKINF_CHSAGES_TTIME))) {
         SkelCurve_SetAnim(&this->skelCurve, &gTimeWarpAnim, 1.0f, 59.0f, 59.0f, 0.0f);
         SkelCurve_Update(play, &this->skelCurve);
         this->updateFunc = DemoEffect_UpdateTimeWarpReturnFromChamberOfSages;
@@ -766,7 +766,7 @@ void DemoEffect_UpdateTimeWarpReturnFromChamberOfSages(DemoEffect* this, PlaySta
 
     if (this->timeWarp.shrinkTimer > 250) {
         if (gSaveContext.save.entranceIndex == ENTR_TEMPLE_OF_TIME_4) {
-            SET_EVENTCHKINF(EVENTCHKINF_C9);
+            SET_EVENTCHKINF(EVENTCHKINF_CHSAGES_TTIME);
         }
 
         Actor_Kill(&this->actor);

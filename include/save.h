@@ -710,8 +710,8 @@ typedef enum LinkAge {
 #define EVENTCHKINF_C5 0xC5
 #define EVENTCHKINF_C6 0xC6
 #define EVENTCHKINF_C7 0xC7
-#define EVENTCHKINF_C8 0xC8
-#define EVENTCHKINF_C9 0xC9
+#define EVENTCHKINF_CHSAGES_COLOSSUS 0xC8   // Returned to Desert Colossus from ChmberSages
+#define EVENTCHKINF_CHSAGES_TTIME 0xC9      // Returned to Temple of Time from Chamber of Sages
 
 // EVENTCHKINF 0xD0-0xD6
 #define EVENTCHKINF_INDEX_SONGS_FOR_FROGS EVENTCHKINF_INDEX(EVENTCHKINF_SONGS_FOR_FROGS_CHOIR)
