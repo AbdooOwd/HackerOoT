@@ -25,6 +25,8 @@
 -   Maybe I should mark Link as "carrying an actor", where this actor
     is the glider?
 
+-   Remove Link's face
+    - Removed his eyes [X]
 
 ## Hmm?
 -   I really gotta see why F3DEX3 is so cool...

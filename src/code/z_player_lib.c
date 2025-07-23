@@ -1012,7 +1012,7 @@ PlayerFaceIndices sPlayerFaces[PLAYER_FACE_MAX] = {
  * from adult Link's object are used here.
  */
 #ifndef AVOID_UB
-void* sEyeTextures[PLAYER_EYES_MAX] = {
+/*void* sEyeTextures[PLAYER_EYES_MAX] = {
     gLinkAdultEyesOpenTex,    // PLAYER_EYES_OPEN
     gLinkAdultEyesHalfTex,    // PLAYER_EYES_HALF
     gLinkAdultEyesClosedfTex, // PLAYER_EYES_CLOSED
@@ -1021,7 +1021,7 @@ void* sEyeTextures[PLAYER_EYES_MAX] = {
     gLinkAdultEyesWideTex,    // PLAYER_EYES_WIDE
     gLinkAdultEyesDownTex,    // PLAYER_EYES_DOWN
     gLinkAdultEyesWincingTex, // PLAYER_EYES_WINCING
-};
+};*/
 
 void* sMouthTextures[PLAYER_MOUTH_MAX] = {
     gLinkAdultMouthClosedTex, // PLAYER_MOUTH_CLOSED
@@ -1031,34 +1031,36 @@ void* sMouthTextures[PLAYER_MOUTH_MAX] = {
 };
 #else
 // Defining `AVOID_UB` will use a 2D array instead and properly use the child link pointers to allow for shifting.
-void* sEyeTextures[][PLAYER_EYES_MAX] = {
-    {
-        gLinkAdultEyesOpenTex,    // PLAYER_EYES_OPEN
-        gLinkAdultEyesHalfTex,    // PLAYER_EYES_HALF
-        gLinkAdultEyesClosedfTex, // PLAYER_EYES_CLOSED
-        gLinkAdultEyesRightTex,   // PLAYER_EYES_RIGHT
-        gLinkAdultEyesLeftTex,    // PLAYER_EYES_LEFT
-        gLinkAdultEyesWideTex,    // PLAYER_EYES_WIDE
-        gLinkAdultEyesDownTex,    // PLAYER_EYES_DOWN
-        gLinkAdultEyesWincingTex, // PLAYER_EYES_WINCING
-    },
-    {
-        gLinkChildEyesOpenTex,    // PLAYER_EYES_OPEN
-        gLinkChildEyesHalfTex,    // PLAYER_EYES_HALF
-        gLinkChildEyesClosedfTex, // PLAYER_EYES_CLOSED
-        /*
-        Note `PLAYER_EYES_RIGHT` corresponds to the "left" eyes texture, and vice-versa with the "right" eyes textures.
-        This is because on the textures Link appears to look left/right as if facing outwards the screen,
-        but the image is mirrored by the child Link model's UVs, reversing the direction actually looked in,
-        which results in-game in the correct eyes direction.
-        */
-        gLinkChildEyesLeftTex,    // PLAYER_EYES_RIGHT
-        gLinkChildEyesRightTex,   // PLAYER_EYES_LEFT
-        gLinkChildEyesWideTex,    // PLAYER_EYES_WIDE
-        gLinkChildEyesDownTex,    // PLAYER_EYES_DOWN
-        gLinkChildEyesWincingTex, // PLAYER_EYES_WINCING
-    },
-};
+
+// your services are no longer needed... dear eyes...
+// void* sEyeTextures[][PLAYER_EYES_MAX] = {
+//     {
+//         gLinkAdultEyesOpenTex,    // PLAYER_EYES_OPEN
+//         gLinkAdultEyesHalfTex,    // PLAYER_EYES_HALF
+//         gLinkAdultEyesClosedfTex, // PLAYER_EYES_CLOSED
+//         gLinkAdultEyesRightTex,   // PLAYER_EYES_RIGHT
+//         gLinkAdultEyesLeftTex,    // PLAYER_EYES_LEFT
+//         gLinkAdultEyesWideTex,    // PLAYER_EYES_WIDE
+//         gLinkAdultEyesDownTex,    // PLAYER_EYES_DOWN
+//         gLinkAdultEyesWincingTex, // PLAYER_EYES_WINCING
+//     },
+//     {
+//         gLinkChildEyesOpenTex,    // PLAYER_EYES_OPEN
+//         gLinkChildEyesHalfTex,    // PLAYER_EYES_HALF
+//         gLinkChildEyesClosedfTex, // PLAYER_EYES_CLOSED
+//         /*
+//         Note `PLAYER_EYES_RIGHT` corresponds to the "left" eyes texture, and vice-versa with the "right" eyes textures.
+//         This is because on the textures Link appears to look left/right as if facing outwards the screen,
+//         but the image is mirrored by the child Link model's UVs, reversing the direction actually looked in,
+//         which results in-game in the correct eyes direction.
+//         */
+//         gLinkChildEyesLeftTex,    // PLAYER_EYES_RIGHT
+//         gLinkChildEyesRightTex,   // PLAYER_EYES_LEFT
+//         gLinkChildEyesWideTex,    // PLAYER_EYES_WIDE
+//         gLinkChildEyesDownTex,    // PLAYER_EYES_DOWN
+//         gLinkChildEyesWincingTex, // PLAYER_EYES_WINCING
+//     },
+// };
 
 void* sMouthTextures[][PLAYER_MOUTH_MAX] = {
     {
@@ -1106,15 +1108,12 @@ void Player_DrawImpl(PlayState* play, void** skeleton, Vec3s* jointTable, s32 dL
 
     OPEN_DISPS(play->state.gfxCtx, "../z_player_lib.c", 1721);
 
-    // If the eyes index provided by the animation is negative, use the value provided by the `face` argument instead
-    if (eyesIndex < 0) {
-        eyesIndex = sPlayerFaces[face].eyeIndex;
-    }
-
 #ifndef AVOID_UB
-    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyeTextures[eyesIndex]));
+    // gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyeTextures[eyesIndex]));
+    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(gLinkAdultEyesEmptyTex));
 #else
-    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyeTextures[gSaveContext.save.linkAge][eyesIndex]));
+    // gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyeTextures[gSaveContext.save.linkAge][eyesIndex]));
+    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(gLinkAdultEyesEmptyTex));
 #endif
 
     // If the mouth index provided by the animation is negative, use the value provided by the `face` argument instead
@@ -1968,6 +1967,7 @@ s32 Player_OverrideLimbDrawPause(PlayState* play, s32 limbIndex, Gfx** dList, Ve
     return false;
 }
 
+/* draws link in the pause menu */
 void Player_DrawPauseImpl(PlayState* play, void* gameplayKeep, void* linkObject, SkelAnime* skelAnime, Vec3f* pos,
                           Vec3s* rot, f32 scale, s32 sword, s32 tunic, s32 shield, s32 boots, s32 width, s32 height,
                           Vec3f* eye, Vec3f* at, f32 fovy, void* colorFrameBuffer, void* depthFrameBuffer) {

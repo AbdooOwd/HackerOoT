@@ -524,14 +524,15 @@
         <Texture Name="gLinkAdultSwordGuardTex" Format="ci8" Width="32" Height="32" Offset="0xE438" TlutOffset="0xCB40"/>
 
         <!-- Eyes -->
-        <Texture Name="gLinkAdultEyesOpenTex" Format="ci8" Width="64" Height="32" Offset="0x0000" TlutOffset="0x5C00"/>
+        <Texture Name="gLinkAdultEyesEmptyTex" Format="ci8" Width="64" Height="32" Offset="0x0000" TlutOffset="0x5C00"/>
+        <!--<Texture Name="gLinkAdultEyesOpenTex" Format="ci8" Width="64" Height="32" Offset="0x0000" TlutOffset="0x5C00"/>
         <Texture Name="gLinkAdultEyesHalfTex" Format="ci8" Width="64" Height="32" Offset="0x0800" TlutOffset="0x5C00"/>
         <Texture Name="gLinkAdultEyesClosedfTex" Format="ci8" Width="64" Height="32" Offset="0x1000" TlutOffset="0x5C00"/>
         <Texture Name="gLinkAdultEyesRightTex" Format="ci8" Width="64" Height="32" Offset="0x1800" TlutOffset="0x5C00"/>
         <Texture Name="gLinkAdultEyesLeftTex" Format="ci8" Width="64" Height="32" Offset="0x2000" TlutOffset="0x5C00"/>
         <Texture Name="gLinkAdultEyesWideTex" Format="ci8" Width="64" Height="32" Offset="0x2800" TlutOffset="0x5C00"/>
         <Texture Name="gLinkAdultEyesDownTex" Format="ci8" Width="64" Height="32" Offset="0x3000" TlutOffset="0x5C00"/>
-        <Texture Name="gLinkAdultEyesWincingTex" Format="ci8" Width="64" Height="32" Offset="0x3800" TlutOffset="0x5C00"/>
+        <Texture Name="gLinkAdultEyesWincingTex" Format="ci8" Width="64" Height="32" Offset="0x3800" TlutOffset="0x5C00"/>-->
 
         <!--Mouth-->
         <Texture Name="gLinkAdultMouthClosedTex" Format="ci8" Width="32" Height="32" Offset="0x4000" TlutOffset="0x5C00"/>

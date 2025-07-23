@@ -17,6 +17,17 @@
         gameplay_keep's spec. But I don't know how to do that.
 -   When changing build versions (ntsc-1.0, pal-1.0, ...), I must run `make setup`.
 
+-   When `Player_DrawImpl` is used, the game sets Link's face based on the `s32 face`
+    argument. It uses the `PlayerFace` enum. In `z_player.c`, it sets Link's face
+    based on `player->actor.shape.face` (which uses the enum). If we change that on 
+    in `z_player` and set it to any value of the `PlayerFace` enum, Link's face stays static
+    with the one we set.
+
+-   I can't replace Link's textures by colors. I tried replacing Link's eyes
+    with his skin color (to remove them completely), but it didn't work.
+    Instead, I had to make a new empty 64x32 texture.
+    So if I wanna do something similar, that's what I gotta do.
+
 
 ## Blender
 
@@ -73,14 +84,10 @@ Renamed to `Player_HandleLanding`.
 
 -   You mean I've been trying to implement Gliding, just to remember
     that the cucco works the **EXACT SAME** way? ... Welp.
-<<<<<<< HEAD
-
 
 # Thoughts / Ideas
 
 -   Why not release two ROMs? One that uses `F3DEX3` for... whatever is better it provides,
     and another that doesn't use it (thus inteded for all emulators).
-=======
 -   [23/07/2025] The HackerOoT repo has merged the decomp into its main branch.
     Now, I'm trying to fix conflicts and all to have the latest repo.
->>>>>>> merge-upstream
