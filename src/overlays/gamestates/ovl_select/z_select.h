@@ -71,6 +71,7 @@ static MapSelectEntry sScenes[] = {
     { "Boot Menu", (void*)MapSelect_LoadDebugOpening, 0 },
 #endif
     { "Title Screen", (void*)MapSelect_LoadTitle, 0 },
+	{ "Lowden", MapSelect_LoadGame, ENTR_LOWDEN_0_0 },
 	{ "Testworld0", MapSelect_LoadGame, ENTR_TESTWORLD0_0_0 },
 	{ "Playground0", MapSelect_LoadGame, ENTR_PLAYGROUND0_0_0 },
 #if CAN_INCLUDE_EXAMPLE_SCENE

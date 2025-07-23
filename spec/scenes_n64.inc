@@ -3909,3 +3909,55 @@ beginseg
     include "$(BUILD_DIR)/assets/scenes/dungeons/ganontikasonogo/ganontikasonogo_room_1.o"
     number 3
 endseg
+
+/* custom scenes */
+
+beginseg
+    name "playground0_scene"
+    compress
+    romalign 0x1000
+    include "$(BUILD_DIR)/assets/scenes/testworld/playground0/playground0_scene.o"
+    number 2
+endseg
+
+beginseg
+    name "playground0_room_0"
+    compress
+    romalign 0x1000
+    include "$(BUILD_DIR)/assets/scenes/testworld/playground0/playground0_room_0.o"
+    number 3
+endseg
+
+
+beginseg
+    name "testWorld0_scene"
+    compress
+    romalign 0x1000
+    include "$(BUILD_DIR)/assets/scenes/testworld/testWorld0/testWorld0_scene.o"
+    number 2
+endseg
+
+beginseg
+    name "testWorld0_room_0"
+    compress
+    romalign 0x1000
+    include "$(BUILD_DIR)/assets/scenes/testworld/testWorld0/testWorld0_room_0.o"
+    number 3
+endseg
+
+
+beginseg
+	name "lowden_scene"
+	compress
+	romalign 0x1000
+	include "$(BUILD_DIR)/assets/scenes/overworld/lowden/lowden_scene.o"
+	number 2
+endseg
+
+beginseg
+	name "lowden_room_0"
+	compress
+	romalign 0x1000
+	include "$(BUILD_DIR)/assets/scenes/overworld/lowden/lowden_room_0.o"
+	number 3
+endseg
