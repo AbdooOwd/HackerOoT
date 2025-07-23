@@ -9,7 +9,12 @@
     -   Nevermind. It's just I didn't use it correctly.
 -   Apparently, `mod_assets/` is now outdated in HackerOoT. I must use
     `assets/` instead. Dumb me confused the content of `extracted/` with `assets/`.
-
+-   To add an assets (eg. object) to a gameplay_keep, I must make a copy
+    of that gameplay_keep (only its .C and .H file) into my `assets/` directory.
+    Then I include my object's .c file in gameplay_keep's .c file, and
+    include my objects .h file into gameplay_keep's .h file.
+    -   I have also been told that I can just include my object in
+        gameplay_keep's spec. But I don't know how to do that.
 
 
 ## Blender
@@ -56,8 +61,20 @@ Renamed to `Player_isShootingHookshot`
 -   It appears to return `true` when using the hookshot (when pressing
     its action button) a.k.a shooting the hookshot.
 
+### `func_80843E64`
+
+Renamed to `Player_HandleLanding`.
+
+-   It deals fall damage (or not) based on the falling-distance/height.
+-   It plays sfx based on the landing.
 
 # Idiotics
 
 -   You mean I've been trying to implement Gliding, just to remember
     that the cucco works the **EXACT SAME** way? ... Welp.
+
+
+# Thoughts / Ideas
+
+-   Why not release two ROMs? One that uses `F3DEX3` for... whatever is better it provides,
+    and another that doesn't use it (thus inteded for all emulators).
