@@ -72,9 +72,14 @@ Renamed to `Player_HandleLanding`.
 
 -   You mean I've been trying to implement Gliding, just to remember
     that the cucco works the **EXACT SAME** way? ... Welp.
+<<<<<<< HEAD
 
 
 # Thoughts / Ideas
 
 -   Why not release two ROMs? One that uses `F3DEX3` for... whatever is better it provides,
     and another that doesn't use it (thus inteded for all emulators).
+=======
+-   [23/07/2025] The HackerOoT repo has merged the decomp into its main branch.
+    Now, I'm trying to fix conflicts and all to have the latest repo.
+>>>>>>> merge-upstream

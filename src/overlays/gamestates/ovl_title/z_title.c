@@ -26,22 +26,22 @@
 #include "sys_freeze.h"
 #include "title_setup_state.h"
 #include "versions.h"
-#include "z64actor.h"
-#include "z64environment.h"
-#include "z64save.h"
 #include "widescreen.h"
 #include "debug_opening_state.h"
 #include "letterbox.h"
+#include "actor.h"
+#include "environment.h"
+#include "save.h"
 
 #include "assets/textures/nintendo_rogo_static/nintendo_rogo_static.h"
 
 void ConsoleLogo_Calc(ConsoleLogoState* this) {
 #if !PLATFORM_GC
     if ((this->coverAlpha == 0) && (this->visibleDuration != 0)) {
-        this->unk_1D4--;
+        this->timer--;
         this->visibleDuration--;
-        if (this->unk_1D4 == 0) {
-            this->unk_1D4 = 400;
+        if (this->timer == 0) {
+            this->timer = 400;
         }
     } else {
         if (this->coverAlpha == 0 && this->visibleDuration != 0) {

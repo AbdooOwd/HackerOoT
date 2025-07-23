@@ -4,18 +4,18 @@
  * Manages all cutscenes except for manual
  */
 
-#include "z64cutscene.h"
+#include "cutscene.h"
 
 #include "string.h"
 #include "attributes.h"
 
-#include "z64olib.h"
+#include "olib.h"
 #include "letterbox.h"
 #include "config.h"
-#include "z64camera.h"
-#include "z64save.h"
-#include "z64play.h"
-#include "z64player.h"
+#include "camera.h"
+#include "save.h"
+#include "play_state.h"
+#include "player.h"
 #include "sfx.h"
 #include "z_lib.h"
 #include "array_count.h"
@@ -186,7 +186,7 @@ s16 CutsceneManager_MarkNextCutscenes(void) {
     s32 j;
     s32 count = 0;
     s16 csIdMax = CS_ID_NONE;
-    s16 priorityMax = SHT_MAX; // lower number means higher priority
+    s16 priorityMax = SDC_MAX; // lower number means higher priority
     s16 csId;
     s16 priority;
 

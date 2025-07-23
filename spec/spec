@@ -892,82 +892,82 @@ endseg
 beginseg
     name "F3DEX3_BrW_Text"
     compress
-    include "$(BUILD_DIR)/F3DEX3/F3DEX3_BrW.code.o"
+    include "$(BUILD_DIR)/$(F3DEX3_DIR)/F3DEX3_BrW.code.o"
 endseg
 beginseg
     name "F3DEX3_BrW_Data"
     compress
-    include "$(BUILD_DIR)/F3DEX3/F3DEX3_BrW.data.o"
+    include "$(BUILD_DIR)/$(F3DEX3_DIR)/F3DEX3_BrW.data.o"
 endseg
 beginseg
     name "F3DEX3_BrW_PA_Text"
     compress
-    include "$(BUILD_DIR)/F3DEX3/F3DEX3_BrW_PA.code.o"
+    include "$(BUILD_DIR)/$(F3DEX3_DIR)/F3DEX3_BrW_PA.code.o"
 endseg
 beginseg
     name "F3DEX3_BrW_PA_Data"
     compress
-    include "$(BUILD_DIR)/F3DEX3/F3DEX3_BrW_PA.data.o"
+    include "$(BUILD_DIR)/$(F3DEX3_DIR)/F3DEX3_BrW_PA.data.o"
 endseg
 beginseg
     name "F3DEX3_BrW_PB_Text"
     compress
-    include "$(BUILD_DIR)/F3DEX3/F3DEX3_BrW_PB.code.o"
+    include "$(BUILD_DIR)/$(F3DEX3_DIR)/F3DEX3_BrW_PB.code.o"
 endseg
 beginseg
     name "F3DEX3_BrW_PB_Data"
     compress
-    include "$(BUILD_DIR)/F3DEX3/F3DEX3_BrW_PB.data.o"
+    include "$(BUILD_DIR)/$(F3DEX3_DIR)/F3DEX3_BrW_PB.data.o"
 endseg
 beginseg
     name "F3DEX3_BrW_PC_Text"
     compress
-    include "$(BUILD_DIR)/F3DEX3/F3DEX3_BrW_PC.code.o"
+    include "$(BUILD_DIR)/$(F3DEX3_DIR)/F3DEX3_BrW_PC.code.o"
 endseg
 beginseg
     name "F3DEX3_BrW_PC_Data"
     compress
-    include "$(BUILD_DIR)/F3DEX3/F3DEX3_BrW_PC.data.o"
+    include "$(BUILD_DIR)/$(F3DEX3_DIR)/F3DEX3_BrW_PC.data.o"
 endseg
 beginseg
     name "F3DEX3_BrW_NOC_Text"
     compress
-    include "$(BUILD_DIR)/F3DEX3/F3DEX3_BrW_NOC.code.o"
+    include "$(BUILD_DIR)/$(F3DEX3_DIR)/F3DEX3_BrW_NOC.code.o"
 endseg
 beginseg
     name "F3DEX3_BrW_NOC_Data"
     compress
-    include "$(BUILD_DIR)/F3DEX3/F3DEX3_BrW_NOC.data.o"
+    include "$(BUILD_DIR)/$(F3DEX3_DIR)/F3DEX3_BrW_NOC.data.o"
 endseg
 beginseg
     name "F3DEX3_BrW_NOC_PA_Text"
     compress
-    include "$(BUILD_DIR)/F3DEX3/F3DEX3_BrW_NOC_PA.code.o"
+    include "$(BUILD_DIR)/$(F3DEX3_DIR)/F3DEX3_BrW_NOC_PA.code.o"
 endseg
 beginseg
     name "F3DEX3_BrW_NOC_PA_Data"
     compress
-    include "$(BUILD_DIR)/F3DEX3/F3DEX3_BrW_NOC_PA.data.o"
+    include "$(BUILD_DIR)/$(F3DEX3_DIR)/F3DEX3_BrW_NOC_PA.data.o"
 endseg
 beginseg
     name "F3DEX3_BrW_NOC_PB_Text"
     compress
-    include "$(BUILD_DIR)/F3DEX3/F3DEX3_BrW_NOC_PB.code.o"
+    include "$(BUILD_DIR)/$(F3DEX3_DIR)/F3DEX3_BrW_NOC_PB.code.o"
 endseg
 beginseg
     name "F3DEX3_BrW_NOC_PB_Data"
     compress
-    include "$(BUILD_DIR)/F3DEX3/F3DEX3_BrW_NOC_PB.data.o"
+    include "$(BUILD_DIR)/$(F3DEX3_DIR)/F3DEX3_BrW_NOC_PB.data.o"
 endseg
 beginseg
     name "F3DEX3_BrW_NOC_PC_Text"
     compress
-    include "$(BUILD_DIR)/F3DEX3/F3DEX3_BrW_NOC_PC.code.o"
+    include "$(BUILD_DIR)/$(F3DEX3_DIR)/F3DEX3_BrW_NOC_PC.code.o"
 endseg
 beginseg
     name "F3DEX3_BrW_NOC_PC_Data"
     compress
-    include "$(BUILD_DIR)/F3DEX3/F3DEX3_BrW_NOC_PC.data.o"
+    include "$(BUILD_DIR)/$(F3DEX3_DIR)/F3DEX3_BrW_NOC_PC.data.o"
 endseg
 #endif
 
@@ -1847,7 +1847,8 @@ beginseg
     name "object_yukabyun"
     compress
     romalign 0x1000
-    include "$(BUILD_DIR)/assets/objects/object_yukabyun/object_yukabyun.o"
+    include "$(BUILD_DIR)/assets/objects/object_yukabyun/gFloorTileEnemyDL.o"
+    include "$(BUILD_DIR)/assets/objects/object_yukabyun/gFloorTileEnemyFragmentDL.o"
     number 6
 endseg
 
@@ -2063,7 +2064,7 @@ beginseg
     name "object_vase"
     compress
     romalign 0x1000
-    include "$(BUILD_DIR)/assets/objects/object_vase/object_vase.o"
+    include "$(BUILD_DIR)/assets/objects/object_vase/gUnusedVaseDL.o"
     number 6
 endseg
 
@@ -2999,7 +3000,15 @@ beginseg
     name "object_zo"
     compress
     romalign 0x1000
-    include "$(BUILD_DIR)/assets/objects/object_zo/object_zo.o"
+    include "$(BUILD_DIR)/assets/objects/object_zo/gZoraHandsOnHipsTappingFootAnim.o"
+    include "$(BUILD_DIR)/assets/objects/object_zo/gZoraOpenArmsAnim.o"
+    include "$(BUILD_DIR)/assets/objects/object_zo/gZoraThrowRupeesAnim.o"
+    include "$(BUILD_DIR)/assets/objects/object_zo/effect_bubbles.o"
+    include "$(BUILD_DIR)/assets/objects/object_zo/effect_splashes.o"
+    include "$(BUILD_DIR)/assets/objects/object_zo/gZoraSurfaceAnim.o"
+    include "$(BUILD_DIR)/assets/objects/object_zo/gZoraIdleAnim.o"
+    include "$(BUILD_DIR)/assets/objects/object_zo/gZoraSkel.o"
+    include "$(BUILD_DIR)/assets/objects/object_zo/effect_ripples.o"
     number 6
 endseg
 
@@ -3015,7 +3024,8 @@ beginseg
     name "object_umajump"
     compress
     romalign 0x1000
-    include "$(BUILD_DIR)/assets/objects/object_umajump/object_umajump.o"
+    include "$(BUILD_DIR)/assets/objects/object_umajump/gJumpableHorseFenceDL.o"
+    include "$(BUILD_DIR)/assets/objects/object_umajump/gJumpableHorseFenceCol.o"
     number 6
 endseg
 
@@ -3687,7 +3697,8 @@ beginseg
     name "object_zg"
     compress
     romalign 0x1000
-    include "$(BUILD_DIR)/assets/objects/object_zg/object_zg.o"
+    include "$(BUILD_DIR)/assets/objects/object_zg/gTowerCollapseBarsDL.o"
+    include "$(BUILD_DIR)/assets/objects/object_zg/gTowerCollapseBarsCol.o"
     number 6
 endseg
 
@@ -4015,7 +4026,15 @@ beginseg
     name "object_ganon_anime3"
     compress
     romalign 0x1000
-    include "$(BUILD_DIR)/assets/objects/object_ganon_anime3/object_ganon_anime3.o"
+    include "$(BUILD_DIR)/assets/objects/object_ganon_anime3/gGanondorfShowTriforceStartAnim.o"
+    include "$(BUILD_DIR)/assets/objects/object_ganon_anime3/gGanondorfBurstOutAnim.o"
+    include "$(BUILD_DIR)/assets/objects/object_ganon_anime3/gGanondorfTransformEndAnim.o"
+    include "$(BUILD_DIR)/assets/objects/object_ganon_anime3/gGanondorfFloatingHeavyBreathingAnim.o"
+    include "$(BUILD_DIR)/assets/objects/object_ganon_anime3/gGanondorfTransformStartAnim.o"
+    include "$(BUILD_DIR)/assets/objects/object_ganon_anime3/gGanondorfTransformLoopAnim.o"
+    include "$(BUILD_DIR)/assets/objects/object_ganon_anime3/gGanondorfShowTriforceLoopAnim.o"
+    include "$(BUILD_DIR)/assets/objects/object_ganon_anime3/gGanonUncurlAndFlailAnim.o"
+    include "$(BUILD_DIR)/assets/objects/object_ganon_anime3/gGanonRoarAnim.o"
     number 6
 endseg
 
