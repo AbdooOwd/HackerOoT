@@ -13,14 +13,11 @@ SHELL = /usr/bin/env bash
 
 -include .make_options.mk
 
-# HackerOoT options
--include .make_hackeroot.mk
-
-
 # Include my environment variables
 ifneq (,$(wildcard .env))
   include .env
 endif
+
 
 COMPILER ?= gcc
 
@@ -40,7 +37,7 @@ COMPILER ?= gcc
 #   gc-eu-mq       GameCube Europe/PAL Master Quest
 #   gc-jp-ce       GameCube Japan (Collector's Edition disc)
 #   ique-cn        iQue Player (Simplified Chinese)
-VERSION ?= ntsc-1.2
+VERSION ?= ntsc-1.0
 # Number of threads to extract and compress with.
 N_THREADS ?= $(shell nproc)
 # If DEBUG_OBJECTS is 1, produce additional debugging files such as objdump output or raw binaries for assets
@@ -50,7 +47,6 @@ DEBUG_OBJECTS ?= 0
 MIPS_BINUTILS_PREFIX ?= mips-linux-gnu-
 # Emulator w/ flags for 'make run'.
 # N64_EMULATOR ?= "it's in my .env!!!"
-
 # Set to override game region in the ROM header (options: JP, US, EU). This can be used to build a fake US version
 # of the debug ROM for better emulator compatibility, or to build US versions of NTSC N64 ROMs.
 REGION ?= US

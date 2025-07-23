@@ -2,7 +2,7 @@
 #define Z_OBJ_GLIDER_H
 
 #include "ultra64.h"
-#include "z64play.h"
+#include "play_state.h"
 
 
 struct Obj_Glider;

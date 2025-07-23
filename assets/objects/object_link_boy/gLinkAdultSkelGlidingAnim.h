@@ -3,7 +3,7 @@
 
 #include "ultra64.h"
 #include "array_count.h"
-#include "z64animation.h"
+#include "animation.h"
 
 extern LinkAnimationHeader gLinkAdultSkelGlidingAnim;
 

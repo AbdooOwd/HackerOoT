@@ -1,11 +1,11 @@
 #ifndef GAMEPLAY_KEEP_H
 #define GAMEPLAY_KEEP_H
 
+#include "animation.h"
+#include "bgcheck.h"
 #include "tex_len.h"
 #include "ultra64.h"
-#include "z64animation.h"
-#include "z64bgcheck.h"
-#include "z64math.h"
+#include "z_math.h"
 
 #define gHilite1Tex_WIDTH 16
 #define gHilite1Tex_HEIGHT 16
@@ -615,7 +615,7 @@ extern LinkAnimationHeader gPlayerAnim_Link_miageru;
 extern LinkAnimationHeader gPlayerAnim_Link_muku;
 extern LinkAnimationHeader gPlayerAnim_Link_otituku_w;
 extern LinkAnimationHeader gPlayerAnim_Link_ue_wait;
-extern Vtx gDebugPyramidDL_04003500_Vtx[];
+extern Vtx gDebugPyramidVtx[];
 extern Gfx gDebugPyramidDL[6];
 #define gDebugCircleTex_WIDTH 16
 #define gDebugCircleTex_HEIGHT 16
@@ -630,14 +630,15 @@ extern u64 gDebugCursorTex[TEX_LEN(u64, gDebugCursorTex_WIDTH, gDebugCursorTex_H
 #define gDebugCrossTex_HEIGHT 16
 extern u64 gDebugCrossTex[TEX_LEN(u64, gDebugCrossTex_WIDTH, gDebugCrossTex_HEIGHT, 8)];
 extern Gfx gDebugArrowDL[12];
-extern Vtx gDebugArrowDL_04003A50_Vtx_fused_[];
+extern Vtx gDebugArrowVtx[];
 extern Gfx gDebugCameraDL[15];
-extern Vtx gDebugCameraDL_04003D08_Vtx_fused_[];
+extern Vtx gDebugCameraVtx[];
+extern Vtx gDebugCheckeredFloorVtx[];
 extern Gfx gDebugCheckeredFloorDL[18];
 #define gDebugCheckeredFloorTex_WIDTH 32
 #define gDebugCheckeredFloorTex_HEIGHT 32
 extern u64 gDebugCheckeredFloorTex[TEX_LEN(u64, gDebugCheckeredFloorTex_WIDTH, gDebugCheckeredFloorTex_HEIGHT, 4)];
-extern Vtx gDebugSpriteDL_04004258_Vtx[];
+extern Vtx gDebugSpriteVtx[];
 extern Gfx gDebugSpriteDL[3];
 extern s16 gArrow1FrameData[];
 extern JointIndex gArrow1JointIndices[];
@@ -651,15 +652,15 @@ extern u64 gArrowShaftTex[TEX_LEN(u64, gArrowShaftTex_WIDTH, gArrowShaftTex_HEIG
 #define gArrowFletchingTex_WIDTH 32
 #define gArrowFletchingTex_HEIGHT 16
 extern u64 gArrowFletchingTex[TEX_LEN(u64, gArrowFletchingTex_WIDTH, gArrowFletchingTex_HEIGHT, 16)];
-extern Vtx gArrowNearDL_04005780_Vtx_fused_[];
+extern Vtx gArrowNearVtx[];
 extern Gfx gArrowNearDL[60];
-extern Vtx gArrowFarDL_04005C80_Vtx_fused_[];
+extern Vtx gArrowFarVtx[];
 extern Gfx gArrowFarDL[52];
-extern LodLimb gArrowSkel_04006000_Limbs_04005FC0_LodLimb;
-extern LodLimb gArrowSkel_04006000_Limbs_04005FD0_LodLimb;
-extern LodLimb gArrowSkel_04006000_Limbs_04005FE0_LodLimb;
-extern LodLimb gArrowSkel_04006000_Limbs_04005FF0_LodLimb;
-extern void* gArrowSkel_04006000_Limbs[];
+extern LodLimb gameplay_keep_005FC0_Limb;
+extern LodLimb gameplay_keep_005FD0_Limb;
+extern LodLimb gameplay_keep_005FE0_Limb;
+extern LodLimb gameplay_keep_005FF0_Limb;
+extern void* gArrowLimbs[];
 typedef enum gArrowSkelLimb {
     /*  0 */ LIMB_GAMEPLAY_KEEP_006010_NONE,
     /*  1 */ LIMB_GAMEPLAY_KEEP_005FC0,
@@ -675,17 +676,17 @@ extern u64 gUnknownEffBlureTex[TEX_LEN(u64, gUnknownEffBlureTex_WIDTH, gUnknownE
 #define gBombBodyTex_WIDTH 64
 #define gBombBodyTex_HEIGHT 64
 extern u64 gBombBodyTex[TEX_LEN(u64, gBombBodyTex_WIDTH, gBombBodyTex_HEIGHT, 8)];
-extern Vtx gBombBodyDL_04007820_Vtx[];
+extern Vtx gBombBodyVtx[];
 extern Gfx gBombBodyDL[17];
 #define gBombCapTex_WIDTH 8
 #define gBombCapTex_HEIGHT 8
 extern u64 gBombCapTex[TEX_LEN(u64, gBombCapTex_WIDTH, gBombCapTex_HEIGHT, 16)];
-extern Vtx gBombCapDL_04007970_Vtx_fused_[];
+extern Vtx gBombCapVtx[];
 extern Gfx gBombCapDL[24];
 #define gBombchuBodyTex_WIDTH 8
 #define gBombchuBodyTex_HEIGHT 8
 extern u64 gBombchuBodyTex[TEX_LEN(u64, gBombchuBodyTex_WIDTH, gBombchuBodyTex_HEIGHT, 16)];
-extern Vtx gBombchuDL_04007B90_Vtx_fused_[];
+extern Vtx gBombchuVtx[];
 extern Gfx gBombchuDL[45];
 #define gEffBombExplosion1Tex_WIDTH 32
 #define gEffBombExplosion1Tex_HEIGHT 32
@@ -714,25 +715,30 @@ extern u64 gEffBombExplosion8Tex[TEX_LEN(u64, gEffBombExplosion8Tex_WIDTH, gEffB
 extern Gfx gEffBombExplosion1DL[13];
 extern Gfx gEffBombExplosion2DL[11];
 extern Gfx gEffBombExplosion3DL[3];
-extern Vtx gEffBombExplosion1DL_0400C058_Vtx_fused_[];
-extern Vtx gEffFragments1DL_0400C0A0_Vtx[];
+extern Vtx gEffBombExplosionVtx[];
+extern Vtx gEffFragments1Vtx[];
 extern Gfx gEffFragments1DL[18];
 #define gWitheredLeafTex_WIDTH 16
 #define gWitheredLeafTex_HEIGHT 16
 extern u64 gWitheredLeafTex[TEX_LEN(u64, gWitheredLeafTex_WIDTH, gWitheredLeafTex_HEIGHT, 16)];
-extern Vtx gBoomerangDL_0400C360_Vtx_fused_[];
+extern Vtx gBoomerangVtx[];
 extern Gfx gUnknownBlankDL[1];
 extern Gfx gBoomerangDL[46];
 extern Gfx gBoomerangRefDL[2];
 extern Gfx gCompassArrowDL[5];
-extern Vtx gCompassArrowDL_0400C848_Vtx[];
-extern Vtx gLockOnArrowDL_0400C880_Vtx_fused_[];
+extern Vtx gCompassArrowVtx[];
+extern Vtx gameplay_keep_Vtx_00C880[];
+extern Gfx gGameplayKeepDL_C8B0[14];
+extern Vtx gLockOnArrowVtx[];
 extern Gfx gLockOnArrowDL[34];
 #define gHilite3Tex_WIDTH 8
 #define gHilite3Tex_HEIGHT 8
 extern u64 gHilite3Tex[TEX_LEN(u64, gHilite3Tex_WIDTH, gHilite3Tex_HEIGHT, 8)];
-extern Vtx gEffFragments2DL_0400CCC0_Vtx[];
+extern Vtx gEffFragments2Vtx[];
 extern Gfx gEffFragments2DL[7];
+#define gGameplayKeepTex_CE60_WIDTH 32
+#define gGameplayKeepTex_CE60_HEIGHT 32
+extern u64 gGameplayKeepTex_CE60[TEX_LEN(u64, gGameplayKeepTex_CE60_WIDTH, gGameplayKeepTex_CE60_HEIGHT, 8)];
 #define gSelectionCursorTex_WIDTH 16
 #define gSelectionCursorTex_HEIGHT 16
 extern u64 gSelectionCursorTex[TEX_LEN(u64, gSelectionCursorTex_WIDTH, gSelectionCursorTex_HEIGHT, 4)];
@@ -742,10 +748,10 @@ extern u64 gControlStickTex[TEX_LEN(u64, gControlStickTex_WIDTH, gControlStickTe
 #define gArrowCursorTex_WIDTH 16
 #define gArrowCursorTex_HEIGHT 24
 extern u64 gArrowCursorTex[TEX_LEN(u64, gArrowCursorTex_WIDTH, gArrowCursorTex_HEIGHT, 8)];
-extern Vtx gUnusedRockFragmentDL_0400D0C0_Vtx_fused_[];
+extern Vtx gUnusedRockFragmentVtx[];
 extern Gfx gUnusedRockFragmentDL[32];
 extern Gfx gBoulderFragmentsDL[27];
-extern Vtx gBoulderFragmentsDL_0400D418_Vtx[];
+extern Vtx gBoulderFragmentsVtx[];
 #define gRockFragment1Tex_WIDTH 32
 #define gRockFragment1Tex_HEIGHT 32
 extern u64 gRockFragment1Tex[TEX_LEN(u64, gRockFragment1Tex_WIDTH, gRockFragment1Tex_HEIGHT, 16)];
@@ -761,33 +767,35 @@ extern AnimationHeader gDoorChildOpeningRightAnim;
 extern s16 gDoorAdultOpeningLeftFrameData[];
 extern JointIndex gDoorAdultOpeningLeftJointIndices[];
 extern AnimationHeader gDoorAdultOpeningLeftAnim;
-extern Vtx gDoorLeftDL_0400E770_Vtx_fused_[];
+extern Vtx gDoorLeftVtx[];
+extern Vtx gDoorRightVtx[];
+extern Vtx gDoorFrameVtx[];
 extern Gfx gDoorFrameDL[17];
 extern Gfx gDoorLeftDL[41];
 extern Gfx gDoorRightDL[39];
 #define gWoodenDoorTex_WIDTH 32
 #define gWoodenDoorTex_HEIGHT 64
 extern u64 gWoodenDoorTex[TEX_LEN(u64, gWoodenDoorTex_WIDTH, gWoodenDoorTex_HEIGHT, 16)];
-extern StandardLimb gDoorSkel_0400FF68_Limbs_0400FF38_StandardLimb;
-extern StandardLimb gDoorSkel_0400FF68_Limbs_0400FF44_StandardLimb;
-extern StandardLimb gDoorSkel_0400FF68_Limbs_0400FF50_StandardLimb;
-extern StandardLimb gDoorSkel_0400FF68_Limbs_0400FF5C_StandardLimb;
-extern void* gDoorSkel_0400FF68_Limbs[];
+extern StandardLimb gameplay_keep_0103D8_Limb;
+extern StandardLimb gameplay_keep_0103E4_Limb;
+extern StandardLimb gameplay_keep_0103F0_Limb;
+extern StandardLimb gameplay_keep_0103FC_Limb;
+extern void* gDoorLimbs[];
 typedef enum gDoorSkelLimb {
-    /*  0 */ LIMB_GAMEPLAY_KEEP_00FF78_NONE,
-    /*  1 */ LIMB_GAMEPLAY_KEEP_00FF38,
-    /*  2 */ LIMB_GAMEPLAY_KEEP_00FF44,
-    /*  3 */ LIMB_GAMEPLAY_KEEP_00FF50,
-    /*  4 */ LIMB_GAMEPLAY_KEEP_00FF5C,
-    /*  5 */ LIMB_GAMEPLAY_KEEP_00FF78_MAX
+    /*  0 */ LIMB_GAMEPLAY_KEEP_010418_NONE,
+    /*  1 */ LIMB_GAMEPLAY_KEEP_0103D8,
+    /*  2 */ LIMB_GAMEPLAY_KEEP_0103E4,
+    /*  3 */ LIMB_GAMEPLAY_KEEP_0103F0,
+    /*  4 */ LIMB_GAMEPLAY_KEEP_0103FC,
+    /*  5 */ LIMB_GAMEPLAY_KEEP_010418_MAX
 } gDoorSkelLimb;
 extern SkeletonHeader gDoorSkel;
 extern s16 gDoorAdultOpeningRightFrameData[];
 extern JointIndex gDoorAdultOpeningRightJointIndices[];
 extern AnimationHeader gDoorAdultOpeningRightAnim;
 extern Gfx gEffDustDL[11];
-extern Vtx gEffDustDL_040100A8_Vtx[];
-extern Vtx gEffFlash1DL_040100F0_Vtx_fused_[];
+extern Vtx gEffDustVtx[];
+extern Vtx gEffFlashVtx[];
 extern Gfx gEffFlash1DL[15];
 extern Gfx gEffFlash2DL[16];
 #define gFlashTex_WIDTH 64
@@ -799,10 +807,12 @@ extern u64 gTorchFlameTex[TEX_LEN(u64, gTorchFlameTex_WIDTH, gTorchFlameTex_HEIG
 #define gEffUnknown1Tex_WIDTH 64
 #define gEffUnknown1Tex_HEIGHT 32
 extern u64 gEffUnknown1Tex[TEX_LEN(u64, gEffUnknown1Tex_WIDTH, gEffUnknown1Tex_HEIGHT, 8)];
-extern Vtx gSpinAttack1DL_04012230_Vtx_fused_[];
+extern Vtx gSpinAttack1Vtx[];
+extern Vtx gSpinAttack2Vtx[];
 extern Gfx gSpinAttack1DL[36];
 extern Gfx gSpinAttack2DL[36];
-extern Vtx gSpinAttack3DL_040127B0_Vtx_fused_[];
+extern Vtx gSpinAttack3Vtx[];
+extern Vtx gSpinAttack4Vtx[];
 extern Gfx gSpinAttack3DL[36];
 extern Gfx gSpinAttack4DL[36];
 #define gFlameWall1Tex_WIDTH 32
@@ -811,7 +821,7 @@ extern u64 gFlameWall1Tex[TEX_LEN(u64, gFlameWall1Tex_WIDTH, gFlameWall1Tex_HEIG
 #define gFlameWall2Tex_WIDTH 32
 #define gFlameWall2Tex_HEIGHT 32
 extern u64 gFlameWall2Tex[TEX_LEN(u64, gFlameWall2Tex_WIDTH, gFlameWall2Tex_HEIGHT, 8)];
-extern Vtx gSpinAttackChargingDL_04013530_Vtx[];
+extern Vtx gSpinAttackChargingVtx[];
 extern Gfx gSpinAttackChargingDL[29];
 #define gEffUnknown2Tex_WIDTH 32
 #define gEffUnknown2Tex_HEIGHT 64
@@ -819,7 +829,7 @@ extern u64 gEffUnknown2Tex[TEX_LEN(u64, gEffUnknown2Tex_WIDTH, gEffUnknown2Tex_H
 #define gEffUnknown3Tex_WIDTH 32
 #define gEffUnknown3Tex_HEIGHT 64
 extern u64 gEffUnknown3Tex[TEX_LEN(u64, gEffUnknown3Tex_WIDTH, gEffUnknown3Tex_HEIGHT, 8)];
-extern Vtx gUnusedBeamBladeDL_04014700_Vtx_fused_[];
+extern Vtx gUnusedBeamBladeVtx[];
 extern Gfx gUnusedBeamBladeDL[37];
 extern s16 gFairyFrameData[];
 extern JointIndex gFairyJointIndices[];
@@ -827,54 +837,54 @@ extern AnimationHeader gFairyAnim;
 #define gFairyWingTex_WIDTH 32
 #define gFairyWingTex_HEIGHT 64
 extern u64 gFairyWingTex[TEX_LEN(u64, gFairyWingTex_WIDTH, gFairyWingTex_HEIGHT, 8)];
-extern Vtx gFairyWing1DL_040153C0_Vtx[];
+extern Vtx gFairyWing1Vtx[];
 extern Gfx gFairyWing1DL[17];
-extern Vtx gFairyWing2DL_04015488_Vtx[];
+extern Vtx gFairyWing2Vtx[];
 extern Gfx gFairyWing2DL[17];
-extern Vtx gFairyWing3DL_04015550_Vtx[];
+extern Vtx gFairyWing3Vtx[];
 extern Gfx gFairyWing3DL[17];
-extern Vtx gFairyWing4DL_04015618_Vtx[];
+extern Vtx gFairyWing4Vtx[];
 extern Gfx gFairyWing4DL[17];
-extern Vtx gGlowCircleDL_040156E0_Vtx[];
+extern Vtx gGlowCircleVtx[];
 extern Gfx gGlowCircleTextureLoadDL[8];
 extern Gfx gGlowCircleDL[4];
 extern Gfx gGlowCircleSmallDL[45];
-extern Vtx gGlowCircleSmallDL_040158E8_Vtx_fused_[];
+extern Vtx gGlowCircleSmallVtx[];
 #define gUnusedFairyWingTex_WIDTH 32
 #define gUnusedFairyWingTex_HEIGHT 64
 extern u64 gUnusedFairyWingTex[TEX_LEN(u64, gUnusedFairyWingTex_WIDTH, gUnusedFairyWingTex_HEIGHT, 16)];
-extern StandardLimb gFairySkel_04016A10_Limbs_04016968_StandardLimb;
-extern StandardLimb gFairySkel_04016A10_Limbs_04016974_StandardLimb;
-extern StandardLimb gFairySkel_04016A10_Limbs_04016980_StandardLimb;
-extern StandardLimb gFairySkel_04016A10_Limbs_0401698C_StandardLimb;
-extern StandardLimb gFairySkel_04016A10_Limbs_04016998_StandardLimb;
-extern StandardLimb gFairySkel_04016A10_Limbs_040169A4_StandardLimb;
-extern StandardLimb gFairySkel_04016A10_Limbs_040169B0_StandardLimb;
-extern StandardLimb gFairySkel_04016A10_Limbs_040169BC_StandardLimb;
-extern StandardLimb gFairySkel_04016A10_Limbs_040169C8_StandardLimb;
-extern StandardLimb gFairySkel_04016A10_Limbs_040169D4_StandardLimb;
-extern StandardLimb gFairySkel_04016A10_Limbs_040169E0_StandardLimb;
-extern StandardLimb gFairySkel_04016A10_Limbs_040169EC_StandardLimb;
-extern StandardLimb gFairySkel_04016A10_Limbs_040169F8_StandardLimb;
-extern StandardLimb gFairySkel_04016A10_Limbs_04016A04_StandardLimb;
-extern void* gFairySkel_04016A10_Limbs[];
+extern StandardLimb gameplay_keep_016E08_Limb;
+extern StandardLimb gameplay_keep_016E14_Limb;
+extern StandardLimb gameplay_keep_016E20_Limb;
+extern StandardLimb gameplay_keep_016E2C_Limb;
+extern StandardLimb gameplay_keep_016E38_Limb;
+extern StandardLimb gameplay_keep_016E44_Limb;
+extern StandardLimb gameplay_keep_016E50_Limb;
+extern StandardLimb gameplay_keep_016E5C_Limb;
+extern StandardLimb gameplay_keep_016E68_Limb;
+extern StandardLimb gameplay_keep_016E74_Limb;
+extern StandardLimb gameplay_keep_016E80_Limb;
+extern StandardLimb gameplay_keep_016E8C_Limb;
+extern StandardLimb gameplay_keep_016E98_Limb;
+extern StandardLimb gameplay_keep_016EA4_Limb;
+extern void* gFairyLimbs[];
 typedef enum gFairySkelLimb {
-    /*  0 */ LIMB_GAMEPLAY_KEEP_016A48_NONE,
-    /*  1 */ LIMB_GAMEPLAY_KEEP_016968,
-    /*  2 */ LIMB_GAMEPLAY_KEEP_016974,
-    /*  3 */ LIMB_GAMEPLAY_KEEP_016980,
-    /*  4 */ LIMB_GAMEPLAY_KEEP_01698C,
-    /*  5 */ LIMB_GAMEPLAY_KEEP_016998,
-    /*  6 */ LIMB_GAMEPLAY_KEEP_0169A4,
-    /*  7 */ LIMB_GAMEPLAY_KEEP_0169B0,
-    /*  8 */ LIMB_GAMEPLAY_KEEP_0169BC,
-    /*  9 */ LIMB_GAMEPLAY_KEEP_0169C8,
-    /* 10 */ LIMB_GAMEPLAY_KEEP_0169D4,
-    /* 11 */ LIMB_GAMEPLAY_KEEP_0169E0,
-    /* 12 */ LIMB_GAMEPLAY_KEEP_0169EC,
-    /* 13 */ LIMB_GAMEPLAY_KEEP_0169F8,
-    /* 14 */ LIMB_GAMEPLAY_KEEP_016A04,
-    /* 15 */ LIMB_GAMEPLAY_KEEP_016A48_MAX
+    /*  0 */ LIMB_GAMEPLAY_KEEP_016EE8_NONE,
+    /*  1 */ LIMB_GAMEPLAY_KEEP_016E08,
+    /*  2 */ LIMB_GAMEPLAY_KEEP_016E14,
+    /*  3 */ LIMB_GAMEPLAY_KEEP_016E20,
+    /*  4 */ LIMB_GAMEPLAY_KEEP_016E2C,
+    /*  5 */ LIMB_GAMEPLAY_KEEP_016E38,
+    /*  6 */ LIMB_GAMEPLAY_KEEP_016E44,
+    /*  7 */ LIMB_GAMEPLAY_KEEP_016E50,
+    /*  8 */ LIMB_GAMEPLAY_KEEP_016E5C,
+    /*  9 */ LIMB_GAMEPLAY_KEEP_016E68,
+    /* 10 */ LIMB_GAMEPLAY_KEEP_016E74,
+    /* 11 */ LIMB_GAMEPLAY_KEEP_016E80,
+    /* 12 */ LIMB_GAMEPLAY_KEEP_016E8C,
+    /* 13 */ LIMB_GAMEPLAY_KEEP_016E98,
+    /* 14 */ LIMB_GAMEPLAY_KEEP_016EA4,
+    /* 15 */ LIMB_GAMEPLAY_KEEP_016EE8_MAX
 } gFairySkelLimb;
 extern SkeletonHeader gFairySkel;
 #define gUnknownCircle3Tex_WIDTH 16
@@ -892,37 +902,39 @@ extern u64 gEffUnknown4Tex[TEX_LEN(u64, gEffUnknown4Tex_WIDTH, gEffUnknown4Tex_H
 #define gEffUnknown5Tex_WIDTH 32
 #define gEffUnknown5Tex_HEIGHT 64
 extern u64 gEffUnknown5Tex[TEX_LEN(u64, gEffUnknown5Tex_WIDTH, gEffUnknown5Tex_HEIGHT, 8)];
-extern Vtx gEffFireCircleDL_040183D0_Vtx[];
+extern Vtx gEffFireCircleVtx[];
 extern Gfx gEffFireCircleDL[30];
 extern s16 gFishOutOfWaterFrameData[];
 extern JointIndex gFishOutOfWaterJointIndices[];
 extern AnimationHeader gFishOutOfWaterAnim;
-extern Vtx gFishSkel_04018FC8_Limbs_04018FBC_StandardLimb_040188B0_DL_04018610_Vtx_fused_[];
-extern Gfx gFishSkel_04018FC8_Limbs_04018FBC_StandardLimb_040188B0_DL[20];
-extern Gfx gFishSkel_04018FC8_Limbs_04018FB0_StandardLimb_04018950_DL[35];
-extern Gfx gFishSkel_04018FC8_Limbs_04018F98_StandardLimb_04018A68_DL[35];
+extern Vtx gameplay_keep_Vtx_018AB0[];
+extern Vtx gameplay_keep_Vtx_018AF0[];
+extern Vtx gameplay_keep_Vtx_018BF0[];
+extern Gfx gameplay_keep_018D50_DL[20];
+extern Gfx gameplay_keep_018DF0_DL[35];
+extern Gfx gameplay_keep_018F08_DL[35];
 #define gFishTailTex_WIDTH 16
 #define gFishTailTex_HEIGHT 16
 extern u64 gFishTailTex[TEX_LEN(u64, gFishTailTex_WIDTH, gFishTailTex_HEIGHT, 16)];
 #define gFishBodyTex_WIDTH 32
 #define gFishBodyTex_HEIGHT 8
 extern u64 gFishBodyTex[TEX_LEN(u64, gFishBodyTex_WIDTH, gFishBodyTex_HEIGHT, 16)];
-extern StandardLimb gFishSkel_04018FC8_Limbs_04018F80_StandardLimb;
-extern StandardLimb gFishSkel_04018FC8_Limbs_04018F8C_StandardLimb;
-extern StandardLimb gFishSkel_04018FC8_Limbs_04018F98_StandardLimb;
-extern StandardLimb gFishSkel_04018FC8_Limbs_04018FA4_StandardLimb;
-extern StandardLimb gFishSkel_04018FC8_Limbs_04018FB0_StandardLimb;
-extern StandardLimb gFishSkel_04018FC8_Limbs_04018FBC_StandardLimb;
-extern void* gFishSkel_04018FC8_Limbs[];
+extern StandardLimb gameplay_keep_019420_Limb;
+extern StandardLimb gameplay_keep_01942C_Limb;
+extern StandardLimb gameplay_keep_019438_Limb;
+extern StandardLimb gameplay_keep_019444_Limb;
+extern StandardLimb gameplay_keep_019450_Limb;
+extern StandardLimb gameplay_keep_01945C_Limb;
+extern void* gFishLimbs[];
 typedef enum gFishSkelLimb {
-    /*  0 */ LIMB_GAMEPLAY_KEEP_018FE0_NONE,
-    /*  1 */ LIMB_GAMEPLAY_KEEP_018F80,
-    /*  2 */ LIMB_GAMEPLAY_KEEP_018F8C,
-    /*  3 */ LIMB_GAMEPLAY_KEEP_018F98,
-    /*  4 */ LIMB_GAMEPLAY_KEEP_018FA4,
-    /*  5 */ LIMB_GAMEPLAY_KEEP_018FB0,
-    /*  6 */ LIMB_GAMEPLAY_KEEP_018FBC,
-    /*  7 */ LIMB_GAMEPLAY_KEEP_018FE0_MAX
+    /*  0 */ LIMB_GAMEPLAY_KEEP_019480_NONE,
+    /*  1 */ LIMB_GAMEPLAY_KEEP_019420,
+    /*  2 */ LIMB_GAMEPLAY_KEEP_01942C,
+    /*  3 */ LIMB_GAMEPLAY_KEEP_019438,
+    /*  4 */ LIMB_GAMEPLAY_KEEP_019444,
+    /*  5 */ LIMB_GAMEPLAY_KEEP_019450,
+    /*  6 */ LIMB_GAMEPLAY_KEEP_01945C,
+    /*  7 */ LIMB_GAMEPLAY_KEEP_019480_MAX
 } gFishSkelLimb;
 extern FlexSkeletonHeader gFishSkel;
 extern s16 gFishInWaterFrameData[];
@@ -934,7 +946,7 @@ extern u64 gEffShockwaveTex[TEX_LEN(u64, gEffShockwaveTex_WIDTH, gEffShockwaveTe
 extern Gfx gEffShockwaveDL[14];
 extern Vtx gGameplayKeepVtx_01A120[];
 extern Gfx gEffBubbleDL[15];
-extern Vtx gEffBubbleDL_0401A1D8_Vtx[];
+extern Vtx gEffBubbleVtx[];
 #define gEffFireFootprint1Tex_WIDTH 32
 #define gEffFireFootprint1Tex_HEIGHT 32
 extern u64 gEffFireFootprint1Tex[TEX_LEN(u64, gEffFireFootprint1Tex_WIDTH, gEffFireFootprint1Tex_HEIGHT, 8)];
@@ -960,7 +972,7 @@ extern u64 gEffFireFootprint7Tex[TEX_LEN(u64, gEffFireFootprint7Tex_WIDTH, gEffF
 #define gEffFireFootprint8Tex_HEIGHT 32
 extern u64 gEffFireFootprint8Tex[TEX_LEN(u64, gEffFireFootprint8Tex_WIDTH, gEffFireFootprint8Tex_HEIGHT, 8)];
 extern Gfx gEffFireFootprintDL[12];
-extern Vtx gEffFireFootprintDL_0401C280_Vtx[];
+extern Vtx gEffFireFootprintVtx[];
 #define gEffUnusedBubbles1Tex_WIDTH 32
 #define gEffUnusedBubbles1Tex_HEIGHT 32
 extern u64 gEffUnusedBubbles1Tex[TEX_LEN(u64, gEffUnusedBubbles1Tex_WIDTH, gEffUnusedBubbles1Tex_HEIGHT, 8)];
@@ -986,7 +998,7 @@ extern u64 gEffUnusedBubbles7Tex[TEX_LEN(u64, gEffUnusedBubbles7Tex_WIDTH, gEffU
 #define gEffUnusedBubbles8Tex_HEIGHT 32
 extern u64 gEffUnusedBubbles8Tex[TEX_LEN(u64, gEffUnusedBubbles8Tex_WIDTH, gEffUnusedBubbles8Tex_HEIGHT, 8)];
 extern Gfx gEffUnusedBubblesDL[14];
-extern Vtx gEffUnusedBubblesDL_0401E330_Vtx[];
+extern Vtx gEffUnusedBubblesVtx[];
 #define gLensOfTruthMaskTex_WIDTH 64
 #define gLensOfTruthMaskTex_HEIGHT 64
 extern u64 gLensOfTruthMaskTex[TEX_LEN(u64, gLensOfTruthMaskTex_WIDTH, gLensOfTruthMaskTex_HEIGHT, 8)];
@@ -1063,7 +1075,7 @@ extern u64 gEffHitMark23Tex[TEX_LEN(u64, gEffHitMark23Tex_WIDTH, gEffHitMark23Te
 #define gEffHitMark24Tex_HEIGHT 24
 extern u64 gEffHitMark24Tex[TEX_LEN(u64, gEffHitMark24Tex_WIDTH, gEffHitMark24Tex_HEIGHT, 4)];
 extern Gfx gEffHitMarkDL[11];
-extern Vtx gEffHitMarkDL_040217C8_Vtx[];
+extern Vtx gEffHitMarkVtx[];
 #define gEffUnknown6Tex_WIDTH 32
 #define gEffUnknown6Tex_HEIGHT 64
 extern u64 gEffUnknown6Tex[TEX_LEN(u64, gEffUnknown6Tex_WIDTH, gEffUnknown6Tex_HEIGHT, 8)];
@@ -1098,14 +1110,14 @@ extern u64 gEffMagmaBubble7Tex[TEX_LEN(u64, gEffMagmaBubble7Tex_WIDTH, gEffMagma
 #define gEffMagmaBubble8Tex_HEIGHT 24
 extern u64 gEffMagmaBubble8Tex[TEX_LEN(u64, gEffMagmaBubble8Tex_WIDTH, gEffMagmaBubble8Tex_HEIGHT, 8)];
 extern Gfx gEffMagmaBubbleDL[12];
-extern Vtx gEffMagmaBubbleDL_04024470_Vtx[];
+extern Vtx gEffMagmaBubbleVtx[];
 #define gEffWaterRippleTex_WIDTH 64
 #define gEffWaterRippleTex_HEIGHT 64
 extern u64 gEffWaterRippleTex[TEX_LEN(u64, gEffWaterRippleTex_WIDTH, gEffWaterRippleTex_HEIGHT, 8)];
 extern Gfx gEffWaterRippleDL[12];
-extern Vtx gEffWaterRippleDL_04025510_Vtx[];
+extern Vtx gEffWaterRippleVtx[];
 extern Gfx gEffSparkDL[12];
-extern Vtx gEffSparkDL_040255B0_Vtx[];
+extern Vtx gEffSparkVtx[];
 #define gEffWaterSplash1Tex_WIDTH 32
 #define gEffWaterSplash1Tex_HEIGHT 40
 extern u64 gEffWaterSplash1Tex[TEX_LEN(u64, gEffWaterSplash1Tex_WIDTH, gEffWaterSplash1Tex_HEIGHT, 8)];
@@ -1131,7 +1143,7 @@ extern u64 gEffWaterSplash7Tex[TEX_LEN(u64, gEffWaterSplash7Tex_WIDTH, gEffWater
 #define gEffWaterSplash8Tex_HEIGHT 40
 extern u64 gEffWaterSplash8Tex[TEX_LEN(u64, gEffWaterSplash8Tex_WIDTH, gEffWaterSplash8Tex_HEIGHT, 8)];
 extern Gfx gEffWaterSplashDL[12];
-extern Vtx gEffWaterSplashDL_04027E50_Vtx[];
+extern Vtx gEffWaterSplashVtx[];
 #define gUnknownEffStone1Tex_WIDTH 32
 #define gUnknownEffStone1Tex_HEIGHT 32
 extern u64 gUnknownEffStone1Tex[TEX_LEN(u64, gUnknownEffStone1Tex_WIDTH, gUnknownEffStone1Tex_HEIGHT, 8)];
@@ -1157,7 +1169,7 @@ extern u64 gUnknownEffStone7Tex[TEX_LEN(u64, gUnknownEffStone7Tex_WIDTH, gUnknow
 #define gUnknownEffStone8Tex_HEIGHT 32
 extern u64 gUnknownEffStone8Tex[TEX_LEN(u64, gUnknownEffStone8Tex_WIDTH, gUnknownEffStone8Tex_HEIGHT, 8)];
 extern Gfx gUnknownEffStoneDL[12];
-extern Vtx gUnknownEffStoneDL_04029EF0_Vtx[];
+extern Vtx gUnknownEffStoneVtx[];
 #define gEffLightning1Tex_WIDTH 16
 #define gEffLightning1Tex_HEIGHT 96
 extern u64 gEffLightning1Tex[TEX_LEN(u64, gEffLightning1Tex_WIDTH, gEffLightning1Tex_HEIGHT, 8)];
@@ -1183,7 +1195,7 @@ extern u64 gEffLightning7Tex[TEX_LEN(u64, gEffLightning7Tex_WIDTH, gEffLightning
 #define gEffLightning8Tex_HEIGHT 96
 extern u64 gEffLightning8Tex[TEX_LEN(u64, gEffLightning8Tex_WIDTH, gEffLightning8Tex_HEIGHT, 8)];
 extern Gfx gEffLightningDL[13];
-extern Vtx gEffLightningDL_0402CF98_Vtx[];
+extern Vtx gEffLightningVtx[];
 #define gEffEnemyDeathFlame1Tex_WIDTH 32
 #define gEffEnemyDeathFlame1Tex_HEIGHT 64
 extern u64 gEffEnemyDeathFlame1Tex[TEX_LEN(u64, gEffEnemyDeathFlame1Tex_WIDTH, gEffEnemyDeathFlame1Tex_HEIGHT, 8)];
@@ -1215,7 +1227,7 @@ extern u64 gEffEnemyDeathFlame9Tex[TEX_LEN(u64, gEffEnemyDeathFlame9Tex_WIDTH, g
 #define gEffEnemyDeathFlame10Tex_HEIGHT 64
 extern u64 gEffEnemyDeathFlame10Tex[TEX_LEN(u64, gEffEnemyDeathFlame10Tex_WIDTH, gEffEnemyDeathFlame10Tex_HEIGHT, 8)];
 extern Gfx gEffEnemyDeathFlameDL[13];
-extern Vtx gEffEnemyDeathFlameDL_04032048_Vtx[];
+extern Vtx gEffEnemyDeathFlameVtx[];
 #define gEffUnknown9Tex_WIDTH 32
 #define gEffUnknown9Tex_HEIGHT 32
 extern u64 gEffUnknown9Tex[TEX_LEN(u64, gEffUnknown9Tex_WIDTH, gEffUnknown9Tex_HEIGHT, 8)];
@@ -1231,10 +1243,10 @@ extern u64 gEffUnknown12Tex[TEX_LEN(u64, gEffUnknown12Tex_WIDTH, gEffUnknown12Te
 #define gUnknownWoodBoardTex_WIDTH 32
 #define gUnknownWoodBoardTex_HEIGHT 32
 extern u64 gUnknownWoodBoardTex[TEX_LEN(u64, gUnknownWoodBoardTex_WIDTH, gUnknownWoodBoardTex_HEIGHT, 8)];
-extern Vtx gEffIceFragment1DL_04033490_Vtx_fused_[];
+extern Vtx gEffIceFragmentVtx[];
 extern Gfx gEffIceFragment1DL[31];
 extern Gfx gEffIceFragment2DL[30];
-extern Vtx gEffIceFragment3DL_04033910_Vtx_fused_[];
+extern Vtx gEffIceFragment3Vtx[];
 extern Gfx gEffIceFragment3DL[46];
 extern s16 gBugCrawlFrameData[];
 extern JointIndex gBugCrawlJointIndices[];
@@ -1242,100 +1254,100 @@ extern AnimationHeader gBugCrawlAnim;
 extern Gfx gBugLimb1DL[20];
 extern Gfx gBugLimb1WrapperDL[2];
 extern Gfx gBugLimb1WrapperWrapperDL[2];
-extern Vtx gBugLimb1DL_040342D0_Vtx[];
+extern Vtx gBugLimb1Vtx[];
 extern Gfx gBugLimb2DL[20];
 extern Gfx gBugLimb2WrapperDL[2];
 extern Gfx gBugLimb2WrapperWrapperDL[2];
-extern Vtx gBugLimb2DL_040343C0_Vtx[];
+extern Vtx gBugLimb2Vtx[];
 extern Gfx gBugLimb3DL[20];
 extern Gfx gBugLimb3WrapperDL[2];
 extern Gfx gBugLimb3WrapperWrapperDL[2];
-extern Vtx gBugLimb3DL_040344B0_Vtx[];
+extern Vtx gBugLimb3Vtx[];
 extern Gfx gBugLimb4DL[20];
 extern Gfx gBugLimb4WrapperDL[2];
 extern Gfx gBugLimb4WrapperWrapperDL[2];
-extern Vtx gBugLimb4DL_040345A0_Vtx[];
+extern Vtx gBugLimb4Vtx[];
 extern Gfx gBugLimb5DL[20];
 extern Gfx gBugLimb5WrapperDL[2];
 extern Gfx gBugLimb5WrapperWrapperDL[2];
-extern Vtx gBugLimb5DL_04034690_Vtx[];
+extern Vtx gBugLimb5Vtx[];
 extern Gfx gBugLimb6DL[20];
 extern Gfx gBugLimb6WrapperDL[2];
 extern Gfx gBugLimb6WrapperWrapperDL[2];
-extern Vtx gBugLimb6DL_04034780_Vtx[];
+extern Vtx gBugLimb6Vtx[];
 extern Gfx gBugLimb7DL[20];
 extern Gfx gBugLimb7WrapperDL[2];
 extern Gfx gBugLimb7WrapperWrapperDL[2];
-extern Vtx gBugLimb7DL_04034870_Vtx[];
+extern Vtx gBugLimb7Vtx[];
 extern Gfx gBugLimb8DL[20];
 extern Gfx gBugLimb8WrapperDL[2];
 extern Gfx gBugLimb8WrapperWrapperDL[2];
-extern Vtx gBugLimb8DL_04034960_Vtx[];
+extern Vtx gBugLimb8Vtx[];
 extern Gfx gBugLimb9DL[22];
 extern Gfx gBugLimb9WrapperDL[2];
 extern Gfx gBugLimb9WrapperWrapperDL[2];
-extern Vtx gBugLimb9DL_04034A60_Vtx[];
+extern Vtx gBugLimb9Vtx[];
 #define gBugBodyTex_WIDTH 16
 #define gBugBodyTex_HEIGHT 64
 extern u64 gBugBodyTex[TEX_LEN(u64, gBugBodyTex_WIDTH, gBugBodyTex_HEIGHT, 16)];
 #define gBugLegTex_WIDTH 8
 #define gBugLegTex_HEIGHT 16
 extern u64 gBugLegTex[TEX_LEN(u64, gBugLegTex_WIDTH, gBugLegTex_HEIGHT, 16)];
-extern StandardLimb gBugSkel_04035534_Limbs_04035420_StandardLimb;
-extern StandardLimb gBugSkel_04035534_Limbs_0403542C_StandardLimb;
-extern StandardLimb gBugSkel_04035534_Limbs_04035438_StandardLimb;
-extern StandardLimb gBugSkel_04035534_Limbs_04035444_StandardLimb;
-extern StandardLimb gBugSkel_04035534_Limbs_04035450_StandardLimb;
-extern StandardLimb gBugSkel_04035534_Limbs_0403545C_StandardLimb;
-extern StandardLimb gBugSkel_04035534_Limbs_04035468_StandardLimb;
-extern StandardLimb gBugSkel_04035534_Limbs_04035474_StandardLimb;
-extern StandardLimb gBugSkel_04035534_Limbs_04035480_StandardLimb;
-extern StandardLimb gBugSkel_04035534_Limbs_0403548C_StandardLimb;
-extern StandardLimb gBugSkel_04035534_Limbs_04035498_StandardLimb;
-extern StandardLimb gBugSkel_04035534_Limbs_040354A4_StandardLimb;
-extern StandardLimb gBugSkel_04035534_Limbs_040354B0_StandardLimb;
-extern StandardLimb gBugSkel_04035534_Limbs_040354BC_StandardLimb;
-extern StandardLimb gBugSkel_04035534_Limbs_040354C8_StandardLimb;
-extern StandardLimb gBugSkel_04035534_Limbs_040354D4_StandardLimb;
-extern StandardLimb gBugSkel_04035534_Limbs_040354E0_StandardLimb;
-extern StandardLimb gBugSkel_04035534_Limbs_040354EC_StandardLimb;
-extern StandardLimb gBugSkel_04035534_Limbs_040354F8_StandardLimb;
-extern StandardLimb gBugSkel_04035534_Limbs_04035504_StandardLimb;
-extern StandardLimb gBugSkel_04035534_Limbs_04035510_StandardLimb;
-extern StandardLimb gBugSkel_04035534_Limbs_0403551C_StandardLimb;
-extern StandardLimb gBugSkel_04035534_Limbs_04035528_StandardLimb;
-extern void* gBugSkel_04035534_Limbs[];
+extern StandardLimb gameplay_keep_0358C0_Limb;
+extern StandardLimb gameplay_keep_0358CC_Limb;
+extern StandardLimb gameplay_keep_0358D8_Limb;
+extern StandardLimb gameplay_keep_0358E4_Limb;
+extern StandardLimb gameplay_keep_0358F0_Limb;
+extern StandardLimb gameplay_keep_0358FC_Limb;
+extern StandardLimb gameplay_keep_035908_Limb;
+extern StandardLimb gameplay_keep_035914_Limb;
+extern StandardLimb gameplay_keep_035920_Limb;
+extern StandardLimb gameplay_keep_03592C_Limb;
+extern StandardLimb gameplay_keep_035938_Limb;
+extern StandardLimb gameplay_keep_035944_Limb;
+extern StandardLimb gameplay_keep_035950_Limb;
+extern StandardLimb gameplay_keep_03595C_Limb;
+extern StandardLimb gameplay_keep_035968_Limb;
+extern StandardLimb gameplay_keep_035974_Limb;
+extern StandardLimb gameplay_keep_035980_Limb;
+extern StandardLimb gameplay_keep_03598C_Limb;
+extern StandardLimb gameplay_keep_035998_Limb;
+extern StandardLimb gameplay_keep_0359A4_Limb;
+extern StandardLimb gameplay_keep_0359B0_Limb;
+extern StandardLimb gameplay_keep_0359BC_Limb;
+extern StandardLimb gameplay_keep_0359C8_Limb;
+extern void* gBugLimbs[];
 typedef enum gBugSkelLimb {
-    /*  0 */ LIMB_GAMEPLAY_KEEP_035590_NONE,
-    /*  1 */ LIMB_GAMEPLAY_KEEP_035420,
-    /*  2 */ LIMB_GAMEPLAY_KEEP_03542C,
-    /*  3 */ LIMB_GAMEPLAY_KEEP_035438,
-    /*  4 */ LIMB_GAMEPLAY_KEEP_035444,
-    /*  5 */ LIMB_GAMEPLAY_KEEP_035450,
-    /*  6 */ LIMB_GAMEPLAY_KEEP_03545C,
-    /*  7 */ LIMB_GAMEPLAY_KEEP_035468,
-    /*  8 */ LIMB_GAMEPLAY_KEEP_035474,
-    /*  9 */ LIMB_GAMEPLAY_KEEP_035480,
-    /* 10 */ LIMB_GAMEPLAY_KEEP_03548C,
-    /* 11 */ LIMB_GAMEPLAY_KEEP_035498,
-    /* 12 */ LIMB_GAMEPLAY_KEEP_0354A4,
-    /* 13 */ LIMB_GAMEPLAY_KEEP_0354B0,
-    /* 14 */ LIMB_GAMEPLAY_KEEP_0354BC,
-    /* 15 */ LIMB_GAMEPLAY_KEEP_0354C8,
-    /* 16 */ LIMB_GAMEPLAY_KEEP_0354D4,
-    /* 17 */ LIMB_GAMEPLAY_KEEP_0354E0,
-    /* 18 */ LIMB_GAMEPLAY_KEEP_0354EC,
-    /* 19 */ LIMB_GAMEPLAY_KEEP_0354F8,
-    /* 20 */ LIMB_GAMEPLAY_KEEP_035504,
-    /* 21 */ LIMB_GAMEPLAY_KEEP_035510,
-    /* 22 */ LIMB_GAMEPLAY_KEEP_03551C,
-    /* 23 */ LIMB_GAMEPLAY_KEEP_035528,
-    /* 24 */ LIMB_GAMEPLAY_KEEP_035590_MAX
+    /*  0 */ LIMB_GAMEPLAY_KEEP_035A30_NONE,
+    /*  1 */ LIMB_GAMEPLAY_KEEP_0358C0,
+    /*  2 */ LIMB_GAMEPLAY_KEEP_0358CC,
+    /*  3 */ LIMB_GAMEPLAY_KEEP_0358D8,
+    /*  4 */ LIMB_GAMEPLAY_KEEP_0358E4,
+    /*  5 */ LIMB_GAMEPLAY_KEEP_0358F0,
+    /*  6 */ LIMB_GAMEPLAY_KEEP_0358FC,
+    /*  7 */ LIMB_GAMEPLAY_KEEP_035908,
+    /*  8 */ LIMB_GAMEPLAY_KEEP_035914,
+    /*  9 */ LIMB_GAMEPLAY_KEEP_035920,
+    /* 10 */ LIMB_GAMEPLAY_KEEP_03592C,
+    /* 11 */ LIMB_GAMEPLAY_KEEP_035938,
+    /* 12 */ LIMB_GAMEPLAY_KEEP_035944,
+    /* 13 */ LIMB_GAMEPLAY_KEEP_035950,
+    /* 14 */ LIMB_GAMEPLAY_KEEP_03595C,
+    /* 15 */ LIMB_GAMEPLAY_KEEP_035968,
+    /* 16 */ LIMB_GAMEPLAY_KEEP_035974,
+    /* 17 */ LIMB_GAMEPLAY_KEEP_035980,
+    /* 18 */ LIMB_GAMEPLAY_KEEP_03598C,
+    /* 19 */ LIMB_GAMEPLAY_KEEP_035998,
+    /* 20 */ LIMB_GAMEPLAY_KEEP_0359A4,
+    /* 21 */ LIMB_GAMEPLAY_KEEP_0359B0,
+    /* 22 */ LIMB_GAMEPLAY_KEEP_0359BC,
+    /* 23 */ LIMB_GAMEPLAY_KEEP_0359C8,
+    /* 24 */ LIMB_GAMEPLAY_KEEP_035A30_MAX
 } gBugSkelLimb;
 extern SkeletonHeader gBugSkel;
-extern Vtx gCuttableShrubStalkDL_040355A0_Vtx[];
+extern Vtx gCuttableShrubStalkVtx[];
 extern Gfx gCuttableShrubStalkDL[18];
-extern Vtx gCuttableShrubTipDL_04035670_Vtx[];
+extern Vtx gCuttableShrubTipVtx[];
 extern Gfx gCuttableShrubTipDL[18];
 #define gCuttableShrubLeafTFragmentTex_WIDTH 32
 #define gCuttableShrubLeafTFragmentTex_HEIGHT 32
@@ -1351,7 +1363,8 @@ extern u64 gLensFlareCircleTex[TEX_LEN(u64, gLensFlareCircleTex_WIDTH, gLensFlar
 extern u64 gLensFlareRingTex[TEX_LEN(u64, gLensFlareRingTex_WIDTH, gLensFlareRingTex_HEIGHT, 4)];
 extern Gfx gLensFlareCircleDL[13];
 extern Gfx gLensFlareRingDL[13];
-extern Vtx gLensFlareCircleDL_04037800_Vtx_fused_[];
+extern Vtx gLensFlareVtx[];
+extern Vtx gEffSparklesVtx[];
 extern Gfx gEffSparklesDL[12];
 #define gEffSparklesTex_WIDTH 16
 #define gEffSparklesTex_HEIGHT 16
@@ -1362,73 +1375,88 @@ extern u64 gEffUnknown13Tex[TEX_LEN(u64, gEffUnknown13Tex_WIDTH, gEffUnknown13Te
 #define gEffUnknown14Tex_WIDTH 16
 #define gEffUnknown14Tex_HEIGHT 32
 extern u64 gEffUnknown14Tex[TEX_LEN(u64, gEffUnknown14Tex_WIDTH, gEffUnknown14Tex_HEIGHT, 8)];
-extern Vtx gHoverBootsCircleDL_04037D60_Vtx[];
+extern Vtx gHoverBootsCircleVtx[];
 extern Gfx gHoverBootsCircleDL[26];
 #define gMoonTex_WIDTH 64
 #define gMoonTex_HEIGHT 64
 extern u64 gMoonTex[TEX_LEN(u64, gMoonTex_WIDTH, gMoonTex_HEIGHT, 8)];
 extern Gfx gMoonDL[14];
-extern Vtx gMoonDL_04038F70_Vtx[];
+extern Vtx gMoonVtx[];
 #define gUnknownCircle6Tex_WIDTH 32
 #define gUnknownCircle6Tex_HEIGHT 32
 extern u64 gUnknownCircle6Tex[TEX_LEN(u64, gUnknownCircle6Tex_WIDTH, gUnknownCircle6Tex_HEIGHT, 8)];
+extern Vtx gameplay_keep_Vtx_039850[];
+extern Gfx gGameplayKeepDL_39890[27];
+extern Vtx gameplay_keep_Vtx_039970[];
+extern Gfx gGameplayKeepDL_399B0[17];
+extern Vtx gameplay_keep_Vtx_039A40[];
+extern Gfx gGameplayKeepDL_39A80[17];
+extern Vtx gameplay_keep_Vtx_039B10[];
+extern Gfx gGameplayKeepDL_39B50[17];
 extern BgCamInfo gLargerCubeBgCamList[];
 extern SurfaceType gLargerCubeSurfaceTypes[];
 extern CollisionPoly gLargerCubePolyList[];
 extern Vec3s gLargerCubeVtxList[];
 extern CollisionHeader gLargerCubeCol;
-extern Vtx gLiftableRockDL_040394E0_Vtx[];
+extern Vtx gLiftableRockVtx[];
 extern Gfx gLiftableRockDL[22];
-extern Vtx gUnusedRockRectangularPrism1DL_04039710_Vtx[];
+extern Vtx gUnusedRockRectangularPrism1Vtx[];
 extern Gfx gUnusedRockRectangularPrism1DL[22];
 extern BgCamInfo gWideTallBlockBgCamList[];
 extern SurfaceType gWideTallBlockSurfaceTypes[];
 extern CollisionPoly gWideTallBlockPolyList[];
 extern Vec3s gWideTallBlockVtxList[];
 extern CollisionHeader gWideTallBlockCol;
-extern Vtx gFlatBlockDL_04039A80_Vtx[];
+extern Vtx gFlatBlockVtx[];
 extern Gfx gFlatBlockDL[23];
 extern BgCamInfo gTallBlockBgCamList[];
 extern SurfaceType gTallBlockSurfaceTypes[];
 extern CollisionPoly gTallBlockPolyList[];
 extern Vec3s gTallBlockVtxList[];
 extern CollisionHeader gTallBlockCol;
-extern Vtx gUnusedRockRectangularPrism3DL_04039DF0_Vtx[];
+extern Vtx gUnusedRockRectangularPrism3Vtx[];
 extern Gfx gUnusedRockRectangularPrism3DL[22];
 extern BgCamInfo gSmallerFlatBlockBgCamList[];
 extern SurfaceType gSmallerFlatBlockSurfaceTypes[];
 extern CollisionPoly gSmallerFlatBlockPolyList[];
 extern Vec3s gSmallerFlatBlockVtxList[];
 extern CollisionHeader gSmallerFlatBlockCol;
-extern Vtx gFlatRotBlockDL_0403A150_Vtx[];
+extern Vtx gFlatRotBlockVtx[];
 extern Gfx gFlatRotBlockDL[22];
 extern BgCamInfo gLargerFlatBlockBgCamList[];
 extern SurfaceType gLargerFlatBlockSurfaceTypes[];
 extern CollisionPoly gLargerFlatBlockPolyList[];
 extern Vec3s gLargerFlatBlockVtxList[];
 extern CollisionHeader gLargerFlatBlockCol;
-extern Vtx gSmallCubeDL_0403A4B0_Vtx[];
+extern Vtx gSmallCubeVtx[];
 extern Gfx gSmallCubeDL[23];
 extern BgCamInfo gSmallerCubeBgCamList[];
 extern SurfaceType gSmallerCubeSurfaceTypes[];
 extern CollisionPoly gSmallerCubePolyList[];
 extern Vec3s gSmallerCubeVtxList[];
 extern CollisionHeader gSmallerCubeCol;
-extern Vtx gTreeStumpDL_0403A820_Vtx_fused_[];
+extern Vtx gTreeStumpVtx[];
 extern Gfx gTreeStumpDL[34];
-extern Vtx gGrassBladesDL_0403AAC0_Vtx_fused_[];
+extern Vtx gGrassBladesVtx[];
 extern Gfx gGrassBladesDL[21];
 #define gHeartShapeTex_WIDTH 16
 #define gHeartShapeTex_HEIGHT 16
 extern u64 gHeartShapeTex[TEX_LEN(u64, gHeartShapeTex_WIDTH, gHeartShapeTex_HEIGHT, 8)];
-extern Vtx gHeartPieceInteriorDL_0403AD30_Vtx_fused_[];
+extern Vtx gHeartPieceInteriorVtx[];
 extern Gfx gHeartPieceInteriorDL[53];
-extern Vtx gHeartPieceExteriorDL_0403B1E0_Vtx_fused_[];
+extern Vtx gHeartPieceExteriorVtx[];
+extern Vtx gHeartContainerInteriorVtx[];
 extern Gfx gHeartPieceExteriorDL[39];
 extern Gfx gHeartContainerInteriorDL[33];
-extern Vtx gSignRectangularDL_0403BDE0_Vtx_fused_[];
+extern Vtx gameplay_keep_Vtx_03C610[];
+extern Vtx gameplay_keep_Vtx_03CB10[];
+extern Gfx gGameplayKeepDL_3CFD0[39];
+extern Gfx gGameplayKeepDL_3D108[34];
+extern Vtx gameplay_keep_Vtx_03D220[];
+extern Gfx gGameplayKeepDL_3D260[17];
+extern Vtx gSignRectangularVtx[];
 extern Gfx gSignRectangularDL[81];
-extern Vtx gSignDirectionalDL_0403C2E0_Vtx_fused_[];
+extern Vtx gSignDirectionalVtx[];
 extern Gfx gSignDirectionalDL[88];
 #define gDropArrows2Tex_WIDTH 32
 #define gDropArrows2Tex_HEIGHT 32
@@ -1442,11 +1470,20 @@ extern u64 gDropArrows3Tex[TEX_LEN(u64, gDropArrows3Tex_WIDTH, gDropArrows3Tex_H
 #define gDropBombTex_WIDTH 32
 #define gDropBombTex_HEIGHT 32
 extern u64 gDropBombTex[TEX_LEN(u64, gDropBombTex_WIDTH, gDropBombTex_HEIGHT, 16)];
+#define gGameplayKeepTex_3FD80_WIDTH 32
+#define gGameplayKeepTex_3FD80_HEIGHT 32
+extern u64 gGameplayKeepTex_3FD80[TEX_LEN(u64, gGameplayKeepTex_3FD80_WIDTH, gGameplayKeepTex_3FD80_HEIGHT, 16)];
+#define gGameplayKeepTex_40580_WIDTH 32
+#define gGameplayKeepTex_40580_HEIGHT 32
+extern u64 gGameplayKeepTex_40580[TEX_LEN(u64, gGameplayKeepTex_40580_WIDTH, gGameplayKeepTex_40580_HEIGHT, 16)];
 #define gDropRecoveryHeartTex_WIDTH 32
 #define gDropRecoveryHeartTex_HEIGHT 32
 extern u64 gDropRecoveryHeartTex[TEX_LEN(u64, gDropRecoveryHeartTex_WIDTH, gDropRecoveryHeartTex_HEIGHT, 16)];
+#define gGameplayKeepTex_41580_WIDTH 32
+#define gGameplayKeepTex_41580_HEIGHT 32
+extern u64 gGameplayKeepTex_41580[TEX_LEN(u64, gGameplayKeepTex_41580_WIDTH, gGameplayKeepTex_41580_HEIGHT, 16)];
 extern Gfx gItemDropDL[17];
-extern Vtx gItemDropDL_0403F0F8_Vtx[];
+extern Vtx gItemDropVtx[];
 #define gDropKeySmallTex_WIDTH 32
 #define gDropKeySmallTex_HEIGHT 32
 extern u64 gDropKeySmallTex[TEX_LEN(u64, gDropKeySmallTex_WIDTH, gDropKeySmallTex_HEIGHT, 16)];
@@ -1483,11 +1520,29 @@ extern u64 gRupeePinkTex[TEX_LEN(u64, gRupeePinkTex_WIDTH, gRupeePinkTex_HEIGHT,
 #define gRupeeSilverTex_WIDTH 4
 #define gRupeeSilverTex_HEIGHT 4
 extern u64 gRupeeSilverTex[TEX_LEN(u64, gRupeeSilverTex_WIDTH, gRupeeSilverTex_HEIGHT, 16)];
-extern Vtx gRupeeDL_04042200_Vtx_fused_[];
+extern Vtx gRupeeVtx[];
 extern Gfx gRupeeDL[26];
+#define gGameplayKeepTex_45220_WIDTH 32
+#define gGameplayKeepTex_45220_HEIGHT 32
+extern u64 gGameplayKeepTex_45220[TEX_LEN(u64, gGameplayKeepTex_45220_WIDTH, gGameplayKeepTex_45220_HEIGHT, 16)];
+#define gGameplayKeepTex_45A20_WIDTH 32
+#define gGameplayKeepTex_45A20_HEIGHT 32
+extern u64 gGameplayKeepTex_45A20[TEX_LEN(u64, gGameplayKeepTex_45A20_WIDTH, gGameplayKeepTex_45A20_HEIGHT, 16)];
+#define gGameplayKeepTex_46220_WIDTH 32
+#define gGameplayKeepTex_46220_HEIGHT 32
+extern u64 gGameplayKeepTex_46220[TEX_LEN(u64, gGameplayKeepTex_46220_WIDTH, gGameplayKeepTex_46220_HEIGHT, 16)];
 #define gRupeeLightRedTex_WIDTH 4
 #define gRupeeLightRedTex_HEIGHT 4
 extern u64 gRupeeLightRedTex[TEX_LEN(u64, gRupeeLightRedTex_WIDTH, gRupeeLightRedTex_HEIGHT, 16)];
+#define gGameplayKeepTex_46A40_WIDTH 4
+#define gGameplayKeepTex_46A40_HEIGHT 4
+extern u64 gGameplayKeepTex_46A40[TEX_LEN(u64, gGameplayKeepTex_46A40_WIDTH, gGameplayKeepTex_46A40_HEIGHT, 16)];
+#define gGameplayKeepTex_46A60_WIDTH 32
+#define gGameplayKeepTex_46A60_HEIGHT 32
+extern u64 gGameplayKeepTex_46A60[TEX_LEN(u64, gGameplayKeepTex_46A60_WIDTH, gGameplayKeepTex_46A60_HEIGHT, 16)];
+#define gGameplayKeepTex_47260_WIDTH 32
+#define gGameplayKeepTex_47260_HEIGHT 32
+extern u64 gGameplayKeepTex_47260[TEX_LEN(u64, gGameplayKeepTex_47260_WIDTH, gGameplayKeepTex_47260_HEIGHT, 16)];
 #define gUnknownStone1Tex_WIDTH 32
 #define gUnknownStone1Tex_HEIGHT 32
 extern u64 gUnknownStone1Tex[TEX_LEN(u64, gUnknownStone1Tex_WIDTH, gUnknownStone1Tex_HEIGHT, 16)];
@@ -1521,29 +1576,29 @@ extern u64 gSignPostWoodTex[TEX_LEN(u64, gSignPostWoodTex_WIDTH, gSignPostWoodTe
 #define gSignLetteringTex_WIDTH 64
 #define gSignLetteringTex_HEIGHT 32
 extern u64 gSignLetteringTex[TEX_LEN(u64, gSignLetteringTex_WIDTH, gSignLetteringTex_HEIGHT, 16)];
-extern Vtx gRaindropDL_04048130_Vtx[];
+extern Vtx gRaindropVtx[];
 extern Gfx gRaindropDL[4];
 extern Gfx gFootShadowDL[12];
-extern Vtx gFootShadowDL_040481E0_Vtx[];
+extern Vtx gFootShadowVtx[];
 #define gFootShadowTex_WIDTH 32
 #define gFootShadowTex_HEIGHT 64
 extern u64 gFootShadowTex[TEX_LEN(u64, gFootShadowTex_WIDTH, gFootShadowTex_HEIGHT, 16)];
 extern Gfx gCircleShadowDL[10];
-extern Vtx gCircleShadowDL_04049260_Vtx[];
+extern Vtx gCircleShadowVtx[];
 #define gCircleShadowTex_WIDTH 32
 #define gCircleShadowTex_HEIGHT 32
 extern u64 gCircleShadowTex[TEX_LEN(u64, gCircleShadowTex_WIDTH, gCircleShadowTex_HEIGHT, 16)];
-extern Vtx gHorseShadowDL_04049A90_Vtx[];
+extern Vtx gHorseShadowVtx[];
 extern Gfx gHorseShadowDL[10];
 #define gHorseShadowTex_WIDTH 16
 #define gHorseShadowTex_HEIGHT 64
 extern u64 gHorseShadowTex[TEX_LEN(u64, gHorseShadowTex_WIDTH, gHorseShadowTex_HEIGHT, 8)];
-extern Vtx gDungeonDoorDL_04049F20_Vtx_fused_[];
+extern Vtx gDungeonDoorVtx[];
 extern Gfx gDungeonDoorDL[21];
 #define gDoorMetalBarsTex_WIDTH 32
 #define gDoorMetalBarsTex_HEIGHT 128
 extern u64 gDoorMetalBarsTex[TEX_LEN(u64, gDoorMetalBarsTex_WIDTH, gDoorMetalBarsTex_HEIGHT, 8)];
-extern Vtx gDoorMetalBarsDL_0404B090_Vtx[];
+extern Vtx gDoorMetalBarsVtx[];
 extern Gfx gDoorMetalBarsDL[18];
 #define gGenericDungeonDoorTex_WIDTH 32
 #define gGenericDungeonDoorTex_HEIGHT 64
@@ -1569,10 +1624,11 @@ extern u64 gSunEvening3Tex[TEX_LEN(u64, gSunEvening3Tex_WIDTH, gSunEvening3Tex_H
 extern Gfx gKokiriDustMoteMaterialDL[9];
 extern Gfx gKokiriDustMoteModelDL[3];
 extern Gfx gSunDL[49];
-extern Vtx gSunDL_0404D348_Vtx_fused_[];
+extern Vtx gSunVtx[];
+extern Vtx gKokiriDustMoteModelVtx[];
 extern Gfx gLockOnReticleTriangleDL[3];
-extern Vtx gLockOnReticleTriangleDL_0404D468_Vtx[];
-extern Vtx gEffFire1DL_0404D4A0_Vtx_fused_[];
+extern Vtx gLockOnReticleTriangleVtx[];
+extern Vtx gEffFireVtx[];
 extern Gfx gEffFire1DL[24];
 extern Gfx gEffFire2DL[24];
 #define gDecorativeFlameMaskTex_WIDTH 32
@@ -1581,13 +1637,13 @@ extern u64 gDecorativeFlameMaskTex[TEX_LEN(u64, gDecorativeFlameMaskTex_WIDTH, g
 #define gDecorativeFlameTex_WIDTH 32
 #define gDecorativeFlameTex_HEIGHT 64
 extern u64 gDecorativeFlameTex[TEX_LEN(u64, gDecorativeFlameTex_WIDTH, gDecorativeFlameTex_HEIGHT, 8)];
-extern Vtx gUnusedUnknownShape1DL_0404E660_Vtx_fused_[];
+extern Vtx gUnusedUnknownShape1Vtx[];
 extern Gfx gUnusedUnknownShape1DL[112];
 extern Gfx gUnusedUnknownShape1RefDL[2];
-extern Vtx gUnusedUnknownShape2DL_0404F640_Vtx_fused_[];
+extern Vtx gUnusedUnknownShape2Vtx[];
 extern Gfx gUnusedUnknownShape2DL[100];
 extern Gfx gUnusedUnknownShape2RefDL[2];
-extern Vtx gUnusedUnknownShape3DL_04050610_Vtx_fused_[];
+extern Vtx gUnusedUnknownShape3Vtx[];
 extern Gfx gUnusedUnknownShape3DL[99];
 extern Gfx gUnusedUnknownShape3RefDL[2];
 #define gUnusedUpsideDownZeldaTex_WIDTH 64

@@ -2,7 +2,7 @@
 #define {actorFileNameCaps}_H
 
 #include "ultra64.h"
-#include "z64play.h"
+#include "play_state.h"
 {includeObject}
 
 struct {actorSpec};

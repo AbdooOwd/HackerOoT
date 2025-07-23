@@ -1,12 +1,12 @@
 #include "gameplay_keep.h"
-#include "extracted/hackeroot-mq/assets/misc/link_animetion/link_animetion.h"
+#include "extracted/ntsc-1.0/assets/misc/link_animetion/link_animetion.h"
 
 #include "array_count.h"
+#include "camera.h"
 #include "gfx.h"
 #include "stdbool.h"
 #include "sys_matrix.h"
 #include "ultra64.h"
-#include "z64camera.h"
 
 u64 gHilite1Tex[TEX_LEN(u64, gHilite1Tex_WIDTH, gHilite1Tex_HEIGHT, 16)] = {
 #include "assets/objects/gameplay_keep/gHilite1Tex.rgba16.inc.c"
@@ -2362,8 +2362,8 @@ LinkAnimationHeader gPlayerAnim_Link_ue_wait = {
 
 u8 gameplay_keep_zeros_0034F8[8] = { 0 };
 
-Vtx gDebugPyramidDL_04003500_Vtx[] = {
-#include "assets/objects/gameplay_keep/gDebugPyramidDL_04003500_Vtx.inc.c"
+Vtx gDebugPyramidVtx[] = {
+#include "assets/objects/gameplay_keep/gDebugPyramidVtx.inc.c"
 };
 
 Gfx gDebugPyramidDL[6] = {
@@ -2390,16 +2390,20 @@ Gfx gDebugArrowDL[12] = {
 #include "assets/objects/gameplay_keep/gDebugArrowDL.inc.c"
 };
 
-Vtx gDebugArrowDL_04003A50_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gDebugArrowDL_04003A50_Vtx_fused_.inc.c"
+Vtx gDebugArrowVtx[] = {
+#include "assets/objects/gameplay_keep/gDebugArrowVtx.inc.c"
 };
 
 Gfx gDebugCameraDL[15] = {
 #include "assets/objects/gameplay_keep/gDebugCameraDL.inc.c"
 };
 
-Vtx gDebugCameraDL_04003D08_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gDebugCameraDL_04003D08_Vtx_fused_.inc.c"
+Vtx gDebugCameraVtx[] = {
+#include "assets/objects/gameplay_keep/gDebugCameraVtx.inc.c"
+};
+
+Vtx gDebugCheckeredFloorVtx[] = {
+#include "assets/objects/gameplay_keep/gDebugCheckeredFloorVtx.inc.c"
 };
 
 Gfx gDebugCheckeredFloorDL[18] = {
@@ -2410,8 +2414,8 @@ u64 gDebugCheckeredFloorTex[TEX_LEN(u64, gDebugCheckeredFloorTex_WIDTH, gDebugCh
 #include "assets/objects/gameplay_keep/gDebugCheckeredFloorTex.ia4.inc.c"
 };
 
-Vtx gDebugSpriteDL_04004258_Vtx[] = {
-#include "assets/objects/gameplay_keep/gDebugSpriteDL_04004258_Vtx.inc.c"
+Vtx gDebugSpriteVtx[] = {
+#include "assets/objects/gameplay_keep/gDebugSpriteVtx.inc.c"
 };
 
 Gfx gDebugSpriteDL[3] = {
@@ -2452,40 +2456,40 @@ u64 gArrowFletchingTex[TEX_LEN(u64, gArrowFletchingTex_WIDTH, gArrowFletchingTex
 #include "assets/objects/gameplay_keep/gArrowFletchingTex.rgba16.inc.c"
 };
 
-Vtx gArrowNearDL_04005780_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gArrowNearDL_04005780_Vtx_fused_.inc.c"
+Vtx gArrowNearVtx[] = {
+#include "assets/objects/gameplay_keep/gArrowNearVtx.inc.c"
 };
 
 Gfx gArrowNearDL[60] = {
 #include "assets/objects/gameplay_keep/gArrowNearDL.inc.c"
 };
 
-Vtx gArrowFarDL_04005C80_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gArrowFarDL_04005C80_Vtx_fused_.inc.c"
+Vtx gArrowFarVtx[] = {
+#include "assets/objects/gameplay_keep/gArrowFarVtx.inc.c"
 };
 
 Gfx gArrowFarDL[52] = {
 #include "assets/objects/gameplay_keep/gArrowFarDL.inc.c"
 };
 
-LodLimb gArrowSkel_04006000_Limbs_04005FC0_LodLimb = {
-#include "assets/objects/gameplay_keep/gArrowSkel_04006000_Limbs_04005FC0_LodLimb.inc.c"
+LodLimb gameplay_keep_005FC0_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_005FC0_Limb.inc.c"
 };
 
-LodLimb gArrowSkel_04006000_Limbs_04005FD0_LodLimb = {
-#include "assets/objects/gameplay_keep/gArrowSkel_04006000_Limbs_04005FD0_LodLimb.inc.c"
+LodLimb gameplay_keep_005FD0_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_005FD0_Limb.inc.c"
 };
 
-LodLimb gArrowSkel_04006000_Limbs_04005FE0_LodLimb = {
-#include "assets/objects/gameplay_keep/gArrowSkel_04006000_Limbs_04005FE0_LodLimb.inc.c"
+LodLimb gameplay_keep_005FE0_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_005FE0_Limb.inc.c"
 };
 
-LodLimb gArrowSkel_04006000_Limbs_04005FF0_LodLimb = {
-#include "assets/objects/gameplay_keep/gArrowSkel_04006000_Limbs_04005FF0_LodLimb.inc.c"
+LodLimb gameplay_keep_005FF0_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_005FF0_Limb.inc.c"
 };
 
-void* gArrowSkel_04006000_Limbs[] = {
-#include "assets/objects/gameplay_keep/gArrowSkel_04006000_Limbs.inc.c"
+void* gArrowLimbs[] = {
+#include "assets/objects/gameplay_keep/gArrowLimbs.inc.c"
 };
 
 SkeletonHeader gArrowSkel = {
@@ -2502,8 +2506,8 @@ u64 gBombBodyTex[TEX_LEN(u64, gBombBodyTex_WIDTH, gBombBodyTex_HEIGHT, 8)] = {
 #include "assets/objects/gameplay_keep/gBombBodyTex.ia8.inc.c"
 };
 
-Vtx gBombBodyDL_04007820_Vtx[] = {
-#include "assets/objects/gameplay_keep/gBombBodyDL_04007820_Vtx.inc.c"
+Vtx gBombBodyVtx[] = {
+#include "assets/objects/gameplay_keep/gBombBodyVtx.inc.c"
 };
 
 Gfx gBombBodyDL[17] = {
@@ -2516,8 +2520,8 @@ u64 gBombCapTex[TEX_LEN(u64, gBombCapTex_WIDTH, gBombCapTex_HEIGHT, 16)] = {
 #include "assets/objects/gameplay_keep/gBombCapTex.rgba16.inc.c"
 };
 
-Vtx gBombCapDL_04007970_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gBombCapDL_04007970_Vtx_fused_.inc.c"
+Vtx gBombCapVtx[] = {
+#include "assets/objects/gameplay_keep/gBombCapVtx.inc.c"
 };
 
 Gfx gBombCapDL[24] = {
@@ -2528,8 +2532,8 @@ u64 gBombchuBodyTex[TEX_LEN(u64, gBombchuBodyTex_WIDTH, gBombchuBodyTex_HEIGHT, 
 #include "assets/objects/gameplay_keep/gBombchuBodyTex.rgba16.inc.c"
 };
 
-Vtx gBombchuDL_04007B90_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gBombchuDL_04007B90_Vtx_fused_.inc.c"
+Vtx gBombchuVtx[] = {
+#include "assets/objects/gameplay_keep/gBombchuVtx.inc.c"
 };
 
 Gfx gBombchuDL[45] = {
@@ -2582,14 +2586,14 @@ Gfx gEffBombExplosion3DL[3] = {
 #include "assets/objects/gameplay_keep/gEffBombExplosion3DL.inc.c"
 };
 
-Vtx gEffBombExplosion1DL_0400C058_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gEffBombExplosion1DL_0400C058_Vtx_fused_.inc.c"
+Vtx gEffBombExplosionVtx[] = {
+#include "assets/objects/gameplay_keep/gEffBombExplosionVtx.inc.c"
 };
 
 u8 gameplay_keep_zeros_00C098[8] = { 0 };
 
-Vtx gEffFragments1DL_0400C0A0_Vtx[] = {
-#include "assets/objects/gameplay_keep/gEffFragments1DL_0400C0A0_Vtx.inc.c"
+Vtx gEffFragments1Vtx[] = {
+#include "assets/objects/gameplay_keep/gEffFragments1Vtx.inc.c"
 };
 
 Gfx gEffFragments1DL[18] = {
@@ -2600,8 +2604,8 @@ u64 gWitheredLeafTex[TEX_LEN(u64, gWitheredLeafTex_WIDTH, gWitheredLeafTex_HEIGH
 #include "assets/objects/gameplay_keep/gWitheredLeafTex.rgba16.inc.c"
 };
 
-Vtx gBoomerangDL_0400C360_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gBoomerangDL_0400C360_Vtx_fused_.inc.c"
+Vtx gBoomerangVtx[] = {
+#include "assets/objects/gameplay_keep/gBoomerangVtx.inc.c"
 };
 
 Gfx gUnknownBlankDL[1] = {
@@ -2622,14 +2626,22 @@ Gfx gCompassArrowDL[5] = {
 #include "assets/objects/gameplay_keep/gCompassArrowDL.inc.c"
 };
 
-Vtx gCompassArrowDL_0400C848_Vtx[] = {
-#include "assets/objects/gameplay_keep/gCompassArrowDL_0400C848_Vtx.inc.c"
+Vtx gCompassArrowVtx[] = {
+#include "assets/objects/gameplay_keep/gCompassArrowVtx.inc.c"
 };
 
 u8 gameplay_keep_zeros_00C878[8] = { 0 };
 
-Vtx gLockOnArrowDL_0400C880_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gLockOnArrowDL_0400C880_Vtx_fused_.inc.c"
+Vtx gameplay_keep_Vtx_00C880[] = {
+#include "assets/objects/gameplay_keep/gameplay_keep_Vtx_00C880.inc.c"
+};
+
+Gfx gGameplayKeepDL_C8B0[14] = {
+#include "assets/objects/gameplay_keep/gGameplayKeepDL_C8B0.inc.c"
+};
+
+Vtx gLockOnArrowVtx[] = {
+#include "assets/objects/gameplay_keep/gLockOnArrowVtx.inc.c"
 };
 
 Gfx gLockOnArrowDL[34] = {
@@ -2640,15 +2652,19 @@ u64 gHilite3Tex[TEX_LEN(u64, gHilite3Tex_WIDTH, gHilite3Tex_HEIGHT, 8)] = {
 #include "assets/objects/gameplay_keep/gHilite3Tex.i8.inc.c"
 };
 
-Vtx gEffFragments2DL_0400CCC0_Vtx[] = {
-#include "assets/objects/gameplay_keep/gEffFragments2DL_0400CCC0_Vtx.inc.c"
+Vtx gEffFragments2Vtx[] = {
+#include "assets/objects/gameplay_keep/gEffFragments2Vtx.inc.c"
 };
 
 Gfx gEffFragments2DL[7] = {
 #include "assets/objects/gameplay_keep/gEffFragments2DL.inc.c"
 };
 
-u8 gameplay_keep_zeros_00CDB8[8] = { 0 };
+u8 gameplay_keep_zeros_00CE58[8] = { 0 };
+
+u64 gGameplayKeepTex_CE60[TEX_LEN(u64, gGameplayKeepTex_CE60_WIDTH, gGameplayKeepTex_CE60_HEIGHT, 8)] = {
+#include "assets/objects/gameplay_keep/gGameplayKeepTex_CE60.ia8.inc.c"
+};
 
 u64 gSelectionCursorTex[TEX_LEN(u64, gSelectionCursorTex_WIDTH, gSelectionCursorTex_HEIGHT, 4)] = {
 #include "assets/objects/gameplay_keep/gSelectionCursorTex.ia4.inc.c"
@@ -2662,8 +2678,8 @@ u64 gArrowCursorTex[TEX_LEN(u64, gArrowCursorTex_WIDTH, gArrowCursorTex_HEIGHT, 
 #include "assets/objects/gameplay_keep/gArrowCursorTex.ia8.inc.c"
 };
 
-Vtx gUnusedRockFragmentDL_0400D0C0_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gUnusedRockFragmentDL_0400D0C0_Vtx_fused_.inc.c"
+Vtx gUnusedRockFragmentVtx[] = {
+#include "assets/objects/gameplay_keep/gUnusedRockFragmentVtx.inc.c"
 };
 
 Gfx gUnusedRockFragmentDL[32] = {
@@ -2674,11 +2690,11 @@ Gfx gBoulderFragmentsDL[27] = {
 #include "assets/objects/gameplay_keep/gBoulderFragmentsDL.inc.c"
 };
 
-Vtx gBoulderFragmentsDL_0400D418_Vtx[] = {
-#include "assets/objects/gameplay_keep/gBoulderFragmentsDL_0400D418_Vtx.inc.c"
+Vtx gBoulderFragmentsVtx[] = {
+#include "assets/objects/gameplay_keep/gBoulderFragmentsVtx.inc.c"
 };
 
-u8 gameplay_keep_zeros_00D4D8[8] = { 0 };
+u8 gameplay_keep_zeros_00D978[8] = { 0 };
 
 u64 gRockFragment1Tex[TEX_LEN(u64, gRockFragment1Tex_WIDTH, gRockFragment1Tex_HEIGHT, 16)] = {
 #include "assets/objects/gameplay_keep/gRockFragment1Tex.rgba16.inc.c"
@@ -2700,7 +2716,7 @@ AnimationHeader gDoorChildOpeningLeftAnim = {
 #include "assets/objects/gameplay_keep/gDoorChildOpeningLeftAnim.inc.c"
 };
 
-u8 gameplay_keep_zeros_00E5C4[12] = { 0 };
+u8 gameplay_keep_zeros_00EA64[12] = { 0 };
 
 s16 gDoorChildOpeningRightFrameData[] = {
 #include "assets/objects/gameplay_keep/gDoorChildOpeningRightFrameData.inc.c"
@@ -2726,10 +2742,18 @@ AnimationHeader gDoorAdultOpeningLeftAnim = {
 #include "assets/objects/gameplay_keep/gDoorAdultOpeningLeftAnim.inc.c"
 };
 
-u8 gameplay_keep_zeros_00E768[8] = { 0 };
+u8 gameplay_keep_zeros_00EC08[8] = { 0 };
 
-Vtx gDoorLeftDL_0400E770_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gDoorLeftDL_0400E770_Vtx_fused_.inc.c"
+Vtx gDoorLeftVtx[] = {
+#include "assets/objects/gameplay_keep/gDoorLeftVtx.inc.c"
+};
+
+Vtx gDoorRightVtx[] = {
+#include "assets/objects/gameplay_keep/gDoorRightVtx.inc.c"
+};
+
+Vtx gDoorFrameVtx[] = {
+#include "assets/objects/gameplay_keep/gDoorFrameVtx.inc.c"
 };
 
 Gfx gDoorFrameDL[17] = {
@@ -2748,24 +2772,24 @@ u64 gWoodenDoorTex[TEX_LEN(u64, gWoodenDoorTex_WIDTH, gWoodenDoorTex_HEIGHT, 16)
 #include "assets/objects/gameplay_keep/gWoodenDoorTex.rgba16.inc.c"
 };
 
-StandardLimb gDoorSkel_0400FF68_Limbs_0400FF38_StandardLimb = {
-#include "assets/objects/gameplay_keep/gDoorSkel_0400FF68_Limbs_0400FF38_StandardLimb.inc.c"
+StandardLimb gameplay_keep_0103D8_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_0103D8_Limb.inc.c"
 };
 
-StandardLimb gDoorSkel_0400FF68_Limbs_0400FF44_StandardLimb = {
-#include "assets/objects/gameplay_keep/gDoorSkel_0400FF68_Limbs_0400FF44_StandardLimb.inc.c"
+StandardLimb gameplay_keep_0103E4_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_0103E4_Limb.inc.c"
 };
 
-StandardLimb gDoorSkel_0400FF68_Limbs_0400FF50_StandardLimb = {
-#include "assets/objects/gameplay_keep/gDoorSkel_0400FF68_Limbs_0400FF50_StandardLimb.inc.c"
+StandardLimb gameplay_keep_0103F0_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_0103F0_Limb.inc.c"
 };
 
-StandardLimb gDoorSkel_0400FF68_Limbs_0400FF5C_StandardLimb = {
-#include "assets/objects/gameplay_keep/gDoorSkel_0400FF68_Limbs_0400FF5C_StandardLimb.inc.c"
+StandardLimb gameplay_keep_0103FC_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_0103FC_Limb.inc.c"
 };
 
-void* gDoorSkel_0400FF68_Limbs[] = {
-#include "assets/objects/gameplay_keep/gDoorSkel_0400FF68_Limbs.inc.c"
+void* gDoorLimbs[] = {
+#include "assets/objects/gameplay_keep/gDoorLimbs.inc.c"
 };
 
 SkeletonHeader gDoorSkel = {
@@ -2784,20 +2808,20 @@ AnimationHeader gDoorAdultOpeningRightAnim = {
 #include "assets/objects/gameplay_keep/gDoorAdultOpeningRightAnim.inc.c"
 };
 
-u8 gameplay_keep_zeros_010048[8] = { 0 };
+u8 gameplay_keep_zeros_0104E8[8] = { 0 };
 
 Gfx gEffDustDL[11] = {
 #include "assets/objects/gameplay_keep/gEffDustDL.inc.c"
 };
 
-Vtx gEffDustDL_040100A8_Vtx[] = {
-#include "assets/objects/gameplay_keep/gEffDustDL_040100A8_Vtx.inc.c"
+Vtx gEffDustVtx[] = {
+#include "assets/objects/gameplay_keep/gEffDustVtx.inc.c"
 };
 
-u8 gameplay_keep_zeros_0100E8[8] = { 0 };
+u8 gameplay_keep_zeros_010588[8] = { 0 };
 
-Vtx gEffFlash1DL_040100F0_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gEffFlash1DL_040100F0_Vtx_fused_.inc.c"
+Vtx gEffFlashVtx[] = {
+#include "assets/objects/gameplay_keep/gEffFlashVtx.inc.c"
 };
 
 Gfx gEffFlash1DL[15] = {
@@ -2812,7 +2836,7 @@ u64 gFlashTex[TEX_LEN(u64, gFlashTex_WIDTH, gFlashTex_HEIGHT, 8)] = {
 #include "assets/objects/gameplay_keep/gFlashTex.i8.inc.c"
 };
 
-u8 gameplay_keep_zeros_011228[8] = { 0 };
+u8 gameplay_keep_zeros_0116C8[8] = { 0 };
 
 u64 gTorchFlameTex[TEX_LEN(u64, gTorchFlameTex_WIDTH, gTorchFlameTex_HEIGHT, 8)] = {
 #include "assets/objects/gameplay_keep/gTorchFlameTex.i8.inc.c"
@@ -2822,8 +2846,12 @@ u64 gEffUnknown1Tex[TEX_LEN(u64, gEffUnknown1Tex_WIDTH, gEffUnknown1Tex_HEIGHT, 
 #include "assets/objects/gameplay_keep/gEffUnknown1Tex.i8.inc.c"
 };
 
-Vtx gSpinAttack1DL_04012230_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gSpinAttack1DL_04012230_Vtx_fused_.inc.c"
+Vtx gSpinAttack1Vtx[] = {
+#include "assets/objects/gameplay_keep/gSpinAttack1Vtx.inc.c"
+};
+
+Vtx gSpinAttack2Vtx[] = {
+#include "assets/objects/gameplay_keep/gSpinAttack2Vtx.inc.c"
 };
 
 Gfx gSpinAttack1DL[36] = {
@@ -2834,8 +2862,12 @@ Gfx gSpinAttack2DL[36] = {
 #include "assets/objects/gameplay_keep/gSpinAttack2DL.inc.c"
 };
 
-Vtx gSpinAttack3DL_040127B0_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gSpinAttack3DL_040127B0_Vtx_fused_.inc.c"
+Vtx gSpinAttack3Vtx[] = {
+#include "assets/objects/gameplay_keep/gSpinAttack3Vtx.inc.c"
+};
+
+Vtx gSpinAttack4Vtx[] = {
+#include "assets/objects/gameplay_keep/gSpinAttack4Vtx.inc.c"
 };
 
 Gfx gSpinAttack3DL[36] = {
@@ -2854,15 +2886,15 @@ u64 gFlameWall2Tex[TEX_LEN(u64, gFlameWall2Tex_WIDTH, gFlameWall2Tex_HEIGHT, 8)]
 #include "assets/objects/gameplay_keep/gFlameWall2Tex.i8.inc.c"
 };
 
-Vtx gSpinAttackChargingDL_04013530_Vtx[] = {
-#include "assets/objects/gameplay_keep/gSpinAttackChargingDL_04013530_Vtx.inc.c"
+Vtx gSpinAttackChargingVtx[] = {
+#include "assets/objects/gameplay_keep/gSpinAttackChargingVtx.inc.c"
 };
 
 Gfx gSpinAttackChargingDL[29] = {
 #include "assets/objects/gameplay_keep/gSpinAttackChargingDL.inc.c"
 };
 
-u8 gameplay_keep_zeros_0136F8[8] = { 0 };
+u8 gameplay_keep_zeros_013B98[8] = { 0 };
 
 u64 gEffUnknown2Tex[TEX_LEN(u64, gEffUnknown2Tex_WIDTH, gEffUnknown2Tex_HEIGHT, 8)] = {
 #include "assets/objects/gameplay_keep/gEffUnknown2Tex.i8.inc.c"
@@ -2872,15 +2904,15 @@ u64 gEffUnknown3Tex[TEX_LEN(u64, gEffUnknown3Tex_WIDTH, gEffUnknown3Tex_HEIGHT, 
 #include "assets/objects/gameplay_keep/gEffUnknown3Tex.i8.inc.c"
 };
 
-Vtx gUnusedBeamBladeDL_04014700_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gUnusedBeamBladeDL_04014700_Vtx_fused_.inc.c"
+Vtx gUnusedBeamBladeVtx[] = {
+#include "assets/objects/gameplay_keep/gUnusedBeamBladeVtx.inc.c"
 };
 
 Gfx gUnusedBeamBladeDL[37] = {
 #include "assets/objects/gameplay_keep/gUnusedBeamBladeDL.inc.c"
 };
 
-u8 gameplay_keep_zeros_014AE8[8] = { 0 };
+u8 gameplay_keep_zeros_014F88[8] = { 0 };
 
 s16 gFairyFrameData[] = {
 #include "assets/objects/gameplay_keep/gFairyFrameData.inc.c"
@@ -2894,46 +2926,46 @@ AnimationHeader gFairyAnim = {
 #include "assets/objects/gameplay_keep/gFairyAnim.inc.c"
 };
 
-u8 gameplay_keep_zeros_014BB4[12] = { 0 };
+u8 gameplay_keep_zeros_015054[12] = { 0 };
 
 u64 gFairyWingTex[TEX_LEN(u64, gFairyWingTex_WIDTH, gFairyWingTex_HEIGHT, 8)] = {
 #include "assets/objects/gameplay_keep/gFairyWingTex.i8.inc.c"
 };
 
-Vtx gFairyWing1DL_040153C0_Vtx[] = {
-#include "assets/objects/gameplay_keep/gFairyWing1DL_040153C0_Vtx.inc.c"
+Vtx gFairyWing1Vtx[] = {
+#include "assets/objects/gameplay_keep/gFairyWing1Vtx.inc.c"
 };
 
 Gfx gFairyWing1DL[17] = {
 #include "assets/objects/gameplay_keep/gFairyWing1DL.inc.c"
 };
 
-Vtx gFairyWing2DL_04015488_Vtx[] = {
-#include "assets/objects/gameplay_keep/gFairyWing2DL_04015488_Vtx.inc.c"
+Vtx gFairyWing2Vtx[] = {
+#include "assets/objects/gameplay_keep/gFairyWing2Vtx.inc.c"
 };
 
 Gfx gFairyWing2DL[17] = {
 #include "assets/objects/gameplay_keep/gFairyWing2DL.inc.c"
 };
 
-Vtx gFairyWing3DL_04015550_Vtx[] = {
-#include "assets/objects/gameplay_keep/gFairyWing3DL_04015550_Vtx.inc.c"
+Vtx gFairyWing3Vtx[] = {
+#include "assets/objects/gameplay_keep/gFairyWing3Vtx.inc.c"
 };
 
 Gfx gFairyWing3DL[17] = {
 #include "assets/objects/gameplay_keep/gFairyWing3DL.inc.c"
 };
 
-Vtx gFairyWing4DL_04015618_Vtx[] = {
-#include "assets/objects/gameplay_keep/gFairyWing4DL_04015618_Vtx.inc.c"
+Vtx gFairyWing4Vtx[] = {
+#include "assets/objects/gameplay_keep/gFairyWing4Vtx.inc.c"
 };
 
 Gfx gFairyWing4DL[17] = {
 #include "assets/objects/gameplay_keep/gFairyWing4DL.inc.c"
 };
 
-Vtx gGlowCircleDL_040156E0_Vtx[] = {
-#include "assets/objects/gameplay_keep/gGlowCircleDL_040156E0_Vtx.inc.c"
+Vtx gGlowCircleVtx[] = {
+#include "assets/objects/gameplay_keep/gGlowCircleVtx.inc.c"
 };
 
 Gfx gGlowCircleTextureLoadDL[8] = {
@@ -2948,72 +2980,72 @@ Gfx gGlowCircleSmallDL[45] = {
 #include "assets/objects/gameplay_keep/gGlowCircleSmallDL.inc.c"
 };
 
-Vtx gGlowCircleSmallDL_040158E8_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gGlowCircleSmallDL_040158E8_Vtx_fused_.inc.c"
+Vtx gGlowCircleSmallVtx[] = {
+#include "assets/objects/gameplay_keep/gGlowCircleSmallVtx.inc.c"
 };
 
 u64 gUnusedFairyWingTex[TEX_LEN(u64, gUnusedFairyWingTex_WIDTH, gUnusedFairyWingTex_HEIGHT, 16)] = {
 #include "assets/objects/gameplay_keep/gUnusedFairyWingTex.rgba16.inc.c"
 };
 
-StandardLimb gFairySkel_04016A10_Limbs_04016968_StandardLimb = {
-#include "assets/objects/gameplay_keep/gFairySkel_04016A10_Limbs_04016968_StandardLimb.inc.c"
+StandardLimb gameplay_keep_016E08_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_016E08_Limb.inc.c"
 };
 
-StandardLimb gFairySkel_04016A10_Limbs_04016974_StandardLimb = {
-#include "assets/objects/gameplay_keep/gFairySkel_04016A10_Limbs_04016974_StandardLimb.inc.c"
+StandardLimb gameplay_keep_016E14_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_016E14_Limb.inc.c"
 };
 
-StandardLimb gFairySkel_04016A10_Limbs_04016980_StandardLimb = {
-#include "assets/objects/gameplay_keep/gFairySkel_04016A10_Limbs_04016980_StandardLimb.inc.c"
+StandardLimb gameplay_keep_016E20_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_016E20_Limb.inc.c"
 };
 
-StandardLimb gFairySkel_04016A10_Limbs_0401698C_StandardLimb = {
-#include "assets/objects/gameplay_keep/gFairySkel_04016A10_Limbs_0401698C_StandardLimb.inc.c"
+StandardLimb gameplay_keep_016E2C_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_016E2C_Limb.inc.c"
 };
 
-StandardLimb gFairySkel_04016A10_Limbs_04016998_StandardLimb = {
-#include "assets/objects/gameplay_keep/gFairySkel_04016A10_Limbs_04016998_StandardLimb.inc.c"
+StandardLimb gameplay_keep_016E38_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_016E38_Limb.inc.c"
 };
 
-StandardLimb gFairySkel_04016A10_Limbs_040169A4_StandardLimb = {
-#include "assets/objects/gameplay_keep/gFairySkel_04016A10_Limbs_040169A4_StandardLimb.inc.c"
+StandardLimb gameplay_keep_016E44_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_016E44_Limb.inc.c"
 };
 
-StandardLimb gFairySkel_04016A10_Limbs_040169B0_StandardLimb = {
-#include "assets/objects/gameplay_keep/gFairySkel_04016A10_Limbs_040169B0_StandardLimb.inc.c"
+StandardLimb gameplay_keep_016E50_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_016E50_Limb.inc.c"
 };
 
-StandardLimb gFairySkel_04016A10_Limbs_040169BC_StandardLimb = {
-#include "assets/objects/gameplay_keep/gFairySkel_04016A10_Limbs_040169BC_StandardLimb.inc.c"
+StandardLimb gameplay_keep_016E5C_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_016E5C_Limb.inc.c"
 };
 
-StandardLimb gFairySkel_04016A10_Limbs_040169C8_StandardLimb = {
-#include "assets/objects/gameplay_keep/gFairySkel_04016A10_Limbs_040169C8_StandardLimb.inc.c"
+StandardLimb gameplay_keep_016E68_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_016E68_Limb.inc.c"
 };
 
-StandardLimb gFairySkel_04016A10_Limbs_040169D4_StandardLimb = {
-#include "assets/objects/gameplay_keep/gFairySkel_04016A10_Limbs_040169D4_StandardLimb.inc.c"
+StandardLimb gameplay_keep_016E74_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_016E74_Limb.inc.c"
 };
 
-StandardLimb gFairySkel_04016A10_Limbs_040169E0_StandardLimb = {
-#include "assets/objects/gameplay_keep/gFairySkel_04016A10_Limbs_040169E0_StandardLimb.inc.c"
+StandardLimb gameplay_keep_016E80_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_016E80_Limb.inc.c"
 };
 
-StandardLimb gFairySkel_04016A10_Limbs_040169EC_StandardLimb = {
-#include "assets/objects/gameplay_keep/gFairySkel_04016A10_Limbs_040169EC_StandardLimb.inc.c"
+StandardLimb gameplay_keep_016E8C_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_016E8C_Limb.inc.c"
 };
 
-StandardLimb gFairySkel_04016A10_Limbs_040169F8_StandardLimb = {
-#include "assets/objects/gameplay_keep/gFairySkel_04016A10_Limbs_040169F8_StandardLimb.inc.c"
+StandardLimb gameplay_keep_016E98_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_016E98_Limb.inc.c"
 };
 
-StandardLimb gFairySkel_04016A10_Limbs_04016A04_StandardLimb = {
-#include "assets/objects/gameplay_keep/gFairySkel_04016A10_Limbs_04016A04_StandardLimb.inc.c"
+StandardLimb gameplay_keep_016EA4_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_016EA4_Limb.inc.c"
 };
 
-void* gFairySkel_04016A10_Limbs[] = {
-#include "assets/objects/gameplay_keep/gFairySkel_04016A10_Limbs.inc.c"
+void* gFairyLimbs[] = {
+#include "assets/objects/gameplay_keep/gFairyLimbs.inc.c"
 };
 
 SkeletonHeader gFairySkel = {
@@ -3040,8 +3072,8 @@ u64 gEffUnknown5Tex[TEX_LEN(u64, gEffUnknown5Tex_WIDTH, gEffUnknown5Tex_HEIGHT, 
 #include "assets/objects/gameplay_keep/gEffUnknown5Tex.i8.inc.c"
 };
 
-Vtx gEffFireCircleDL_040183D0_Vtx[] = {
-#include "assets/objects/gameplay_keep/gEffFireCircleDL_040183D0_Vtx.inc.c"
+Vtx gEffFireCircleVtx[] = {
+#include "assets/objects/gameplay_keep/gEffFireCircleVtx.inc.c"
 };
 
 Gfx gEffFireCircleDL[30] = {
@@ -3060,22 +3092,30 @@ AnimationHeader gFishOutOfWaterAnim = {
 #include "assets/objects/gameplay_keep/gFishOutOfWaterAnim.inc.c"
 };
 
-u8 gameplay_keep_zeros_01860C[4] = { 0 };
+u8 gameplay_keep_zeros_018AAC[4] = { 0 };
 
-Vtx gFishSkel_04018FC8_Limbs_04018FBC_StandardLimb_040188B0_DL_04018610_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gFishSkel_04018FC8_Limbs_04018FBC_StandardLimb_040188B0_DL_04018610_Vtx_fused_.inc.c"
+Vtx gameplay_keep_Vtx_018AB0[] = {
+#include "assets/objects/gameplay_keep/gameplay_keep_Vtx_018AB0.inc.c"
 };
 
-Gfx gFishSkel_04018FC8_Limbs_04018FBC_StandardLimb_040188B0_DL[20] = {
-#include "assets/objects/gameplay_keep/gFishSkel_04018FC8_Limbs_04018FBC_StandardLimb_040188B0_DL.inc.c"
+Vtx gameplay_keep_Vtx_018AF0[] = {
+#include "assets/objects/gameplay_keep/gameplay_keep_Vtx_018AF0.inc.c"
 };
 
-Gfx gFishSkel_04018FC8_Limbs_04018FB0_StandardLimb_04018950_DL[35] = {
-#include "assets/objects/gameplay_keep/gFishSkel_04018FC8_Limbs_04018FB0_StandardLimb_04018950_DL.inc.c"
+Vtx gameplay_keep_Vtx_018BF0[] = {
+#include "assets/objects/gameplay_keep/gameplay_keep_Vtx_018BF0.inc.c"
 };
 
-Gfx gFishSkel_04018FC8_Limbs_04018F98_StandardLimb_04018A68_DL[35] = {
-#include "assets/objects/gameplay_keep/gFishSkel_04018FC8_Limbs_04018F98_StandardLimb_04018A68_DL.inc.c"
+Gfx gameplay_keep_018D50_DL[20] = {
+#include "assets/objects/gameplay_keep/gameplay_keep_018D50_DL.inc.c"
+};
+
+Gfx gameplay_keep_018DF0_DL[35] = {
+#include "assets/objects/gameplay_keep/gameplay_keep_018DF0_DL.inc.c"
+};
+
+Gfx gameplay_keep_018F08_DL[35] = {
+#include "assets/objects/gameplay_keep/gameplay_keep_018F08_DL.inc.c"
 };
 
 u64 gFishTailTex[TEX_LEN(u64, gFishTailTex_WIDTH, gFishTailTex_HEIGHT, 16)] = {
@@ -3086,39 +3126,39 @@ u64 gFishBodyTex[TEX_LEN(u64, gFishBodyTex_WIDTH, gFishBodyTex_HEIGHT, 16)] = {
 #include "assets/objects/gameplay_keep/gFishBodyTex.rgba16.inc.c"
 };
 
-StandardLimb gFishSkel_04018FC8_Limbs_04018F80_StandardLimb = {
-#include "assets/objects/gameplay_keep/gFishSkel_04018FC8_Limbs_04018F80_StandardLimb.inc.c"
+StandardLimb gameplay_keep_019420_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_019420_Limb.inc.c"
 };
 
-StandardLimb gFishSkel_04018FC8_Limbs_04018F8C_StandardLimb = {
-#include "assets/objects/gameplay_keep/gFishSkel_04018FC8_Limbs_04018F8C_StandardLimb.inc.c"
+StandardLimb gameplay_keep_01942C_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_01942C_Limb.inc.c"
 };
 
-StandardLimb gFishSkel_04018FC8_Limbs_04018F98_StandardLimb = {
-#include "assets/objects/gameplay_keep/gFishSkel_04018FC8_Limbs_04018F98_StandardLimb.inc.c"
+StandardLimb gameplay_keep_019438_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_019438_Limb.inc.c"
 };
 
-StandardLimb gFishSkel_04018FC8_Limbs_04018FA4_StandardLimb = {
-#include "assets/objects/gameplay_keep/gFishSkel_04018FC8_Limbs_04018FA4_StandardLimb.inc.c"
+StandardLimb gameplay_keep_019444_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_019444_Limb.inc.c"
 };
 
-StandardLimb gFishSkel_04018FC8_Limbs_04018FB0_StandardLimb = {
-#include "assets/objects/gameplay_keep/gFishSkel_04018FC8_Limbs_04018FB0_StandardLimb.inc.c"
+StandardLimb gameplay_keep_019450_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_019450_Limb.inc.c"
 };
 
-StandardLimb gFishSkel_04018FC8_Limbs_04018FBC_StandardLimb = {
-#include "assets/objects/gameplay_keep/gFishSkel_04018FC8_Limbs_04018FBC_StandardLimb.inc.c"
+StandardLimb gameplay_keep_01945C_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_01945C_Limb.inc.c"
 };
 
-void* gFishSkel_04018FC8_Limbs[] = {
-#include "assets/objects/gameplay_keep/gFishSkel_04018FC8_Limbs.inc.c"
+void* gFishLimbs[] = {
+#include "assets/objects/gameplay_keep/gFishLimbs.inc.c"
 };
 
 FlexSkeletonHeader gFishSkel = {
 #include "assets/objects/gameplay_keep/gFishSkel.inc.c"
 };
 
-u8 gameplay_keep_zeros_018FEC[4] = { 0 };
+u8 gameplay_keep_zeros_01948C[4] = { 0 };
 
 s16 gFishInWaterFrameData[] = {
 #include "assets/objects/gameplay_keep/gFishInWaterFrameData.inc.c"
@@ -3132,7 +3172,7 @@ AnimationHeader gFishInWaterAnim = {
 #include "assets/objects/gameplay_keep/gFishInWaterAnim.inc.c"
 };
 
-u8 gameplay_keep_zeros_0190AC[4] = { 0 };
+u8 gameplay_keep_zeros_01954C[4] = { 0 };
 
 u64 gEffShockwaveTex[TEX_LEN(u64, gEffShockwaveTex_WIDTH, gEffShockwaveTex_HEIGHT, 8)] = {
 #include "assets/objects/gameplay_keep/gEffShockwaveTex.i8.inc.c"
@@ -3150,11 +3190,11 @@ Gfx gEffBubbleDL[15] = {
 #include "assets/objects/gameplay_keep/gEffBubbleDL.inc.c"
 };
 
-Vtx gEffBubbleDL_0401A1D8_Vtx[] = {
-#include "assets/objects/gameplay_keep/gEffBubbleDL_0401A1D8_Vtx.inc.c"
+Vtx gEffBubbleVtx[] = {
+#include "assets/objects/gameplay_keep/gEffBubbleVtx.inc.c"
 };
 
-u8 gameplay_keep_zeros_01A218[8] = { 0 };
+u8 gameplay_keep_zeros_01A6B8[8] = { 0 };
 
 u64 gEffFireFootprint1Tex[TEX_LEN(u64, gEffFireFootprint1Tex_WIDTH, gEffFireFootprint1Tex_HEIGHT, 8)] = {
 #include "assets/objects/gameplay_keep/gEffFireFootprint1Tex.ia8.inc.c"
@@ -3192,8 +3232,8 @@ Gfx gEffFireFootprintDL[12] = {
 #include "assets/objects/gameplay_keep/gEffFireFootprintDL.inc.c"
 };
 
-Vtx gEffFireFootprintDL_0401C280_Vtx[] = {
-#include "assets/objects/gameplay_keep/gEffFireFootprintDL_0401C280_Vtx.inc.c"
+Vtx gEffFireFootprintVtx[] = {
+#include "assets/objects/gameplay_keep/gEffFireFootprintVtx.inc.c"
 };
 
 u64 gEffUnusedBubbles1Tex[TEX_LEN(u64, gEffUnusedBubbles1Tex_WIDTH, gEffUnusedBubbles1Tex_HEIGHT, 8)] = {
@@ -3232,8 +3272,8 @@ Gfx gEffUnusedBubblesDL[14] = {
 #include "assets/objects/gameplay_keep/gEffUnusedBubblesDL.inc.c"
 };
 
-Vtx gEffUnusedBubblesDL_0401E330_Vtx[] = {
-#include "assets/objects/gameplay_keep/gEffUnusedBubblesDL_0401E330_Vtx.inc.c"
+Vtx gEffUnusedBubblesVtx[] = {
+#include "assets/objects/gameplay_keep/gEffUnusedBubblesVtx.inc.c"
 };
 
 u64 gLensOfTruthMaskTex[TEX_LEN(u64, gLensOfTruthMaskTex_WIDTH, gLensOfTruthMaskTex_HEIGHT, 8)] = {
@@ -3340,11 +3380,11 @@ Gfx gEffHitMarkDL[11] = {
 #include "assets/objects/gameplay_keep/gEffHitMarkDL.inc.c"
 };
 
-Vtx gEffHitMarkDL_040217C8_Vtx[] = {
-#include "assets/objects/gameplay_keep/gEffHitMarkDL_040217C8_Vtx.inc.c"
+Vtx gEffHitMarkVtx[] = {
+#include "assets/objects/gameplay_keep/gEffHitMarkVtx.inc.c"
 };
 
-u8 gameplay_keep_zeros_021808[8] = { 0 };
+u8 gameplay_keep_zeros_021CA8[8] = { 0 };
 
 u64 gEffUnknown6Tex[TEX_LEN(u64, gEffUnknown6Tex_WIDTH, gEffUnknown6Tex_HEIGHT, 8)] = {
 #include "assets/objects/gameplay_keep/gEffUnknown6Tex.i8.inc.c"
@@ -3394,8 +3434,8 @@ Gfx gEffMagmaBubbleDL[12] = {
 #include "assets/objects/gameplay_keep/gEffMagmaBubbleDL.inc.c"
 };
 
-Vtx gEffMagmaBubbleDL_04024470_Vtx[] = {
-#include "assets/objects/gameplay_keep/gEffMagmaBubbleDL_04024470_Vtx.inc.c"
+Vtx gEffMagmaBubbleVtx[] = {
+#include "assets/objects/gameplay_keep/gEffMagmaBubbleVtx.inc.c"
 };
 
 u64 gEffWaterRippleTex[TEX_LEN(u64, gEffWaterRippleTex_WIDTH, gEffWaterRippleTex_HEIGHT, 8)] = {
@@ -3406,16 +3446,16 @@ Gfx gEffWaterRippleDL[12] = {
 #include "assets/objects/gameplay_keep/gEffWaterRippleDL.inc.c"
 };
 
-Vtx gEffWaterRippleDL_04025510_Vtx[] = {
-#include "assets/objects/gameplay_keep/gEffWaterRippleDL_04025510_Vtx.inc.c"
+Vtx gEffWaterRippleVtx[] = {
+#include "assets/objects/gameplay_keep/gEffWaterRippleVtx.inc.c"
 };
 
 Gfx gEffSparkDL[12] = {
 #include "assets/objects/gameplay_keep/gEffSparkDL.inc.c"
 };
 
-Vtx gEffSparkDL_040255B0_Vtx[] = {
-#include "assets/objects/gameplay_keep/gEffSparkDL_040255B0_Vtx.inc.c"
+Vtx gEffSparkVtx[] = {
+#include "assets/objects/gameplay_keep/gEffSparkVtx.inc.c"
 };
 
 u64 gEffWaterSplash1Tex[TEX_LEN(u64, gEffWaterSplash1Tex_WIDTH, gEffWaterSplash1Tex_HEIGHT, 8)] = {
@@ -3454,8 +3494,8 @@ Gfx gEffWaterSplashDL[12] = {
 #include "assets/objects/gameplay_keep/gEffWaterSplashDL.inc.c"
 };
 
-Vtx gEffWaterSplashDL_04027E50_Vtx[] = {
-#include "assets/objects/gameplay_keep/gEffWaterSplashDL_04027E50_Vtx.inc.c"
+Vtx gEffWaterSplashVtx[] = {
+#include "assets/objects/gameplay_keep/gEffWaterSplashVtx.inc.c"
 };
 
 u64 gUnknownEffStone1Tex[TEX_LEN(u64, gUnknownEffStone1Tex_WIDTH, gUnknownEffStone1Tex_HEIGHT, 8)] = {
@@ -3494,8 +3534,8 @@ Gfx gUnknownEffStoneDL[12] = {
 #include "assets/objects/gameplay_keep/gUnknownEffStoneDL.inc.c"
 };
 
-Vtx gUnknownEffStoneDL_04029EF0_Vtx[] = {
-#include "assets/objects/gameplay_keep/gUnknownEffStoneDL_04029EF0_Vtx.inc.c"
+Vtx gUnknownEffStoneVtx[] = {
+#include "assets/objects/gameplay_keep/gUnknownEffStoneVtx.inc.c"
 };
 
 u64 gEffLightning1Tex[TEX_LEN(u64, gEffLightning1Tex_WIDTH, gEffLightning1Tex_HEIGHT, 8)] = {
@@ -3534,11 +3574,11 @@ Gfx gEffLightningDL[13] = {
 #include "assets/objects/gameplay_keep/gEffLightningDL.inc.c"
 };
 
-Vtx gEffLightningDL_0402CF98_Vtx[] = {
-#include "assets/objects/gameplay_keep/gEffLightningDL_0402CF98_Vtx.inc.c"
+Vtx gEffLightningVtx[] = {
+#include "assets/objects/gameplay_keep/gEffLightningVtx.inc.c"
 };
 
-u8 gameplay_keep_zeros_02CFD8[8] = { 0 };
+u8 gameplay_keep_zeros_02D478[8] = { 0 };
 
 u64 gEffEnemyDeathFlame1Tex[TEX_LEN(u64, gEffEnemyDeathFlame1Tex_WIDTH, gEffEnemyDeathFlame1Tex_HEIGHT, 8)] = {
 #include "assets/objects/gameplay_keep/gEffEnemyDeathFlame1Tex.i8.inc.c"
@@ -3584,11 +3624,11 @@ Gfx gEffEnemyDeathFlameDL[13] = {
 #include "assets/objects/gameplay_keep/gEffEnemyDeathFlameDL.inc.c"
 };
 
-Vtx gEffEnemyDeathFlameDL_04032048_Vtx[] = {
-#include "assets/objects/gameplay_keep/gEffEnemyDeathFlameDL_04032048_Vtx.inc.c"
+Vtx gEffEnemyDeathFlameVtx[] = {
+#include "assets/objects/gameplay_keep/gEffEnemyDeathFlameVtx.inc.c"
 };
 
-u8 gameplay_keep_zeros_032088[8] = { 0 };
+u8 gameplay_keep_zeros_032528[8] = { 0 };
 
 u64 gEffUnknown9Tex[TEX_LEN(u64, gEffUnknown9Tex_WIDTH, gEffUnknown9Tex_HEIGHT, 8)] = {
 #include "assets/objects/gameplay_keep/gEffUnknown9Tex.i8.inc.c"
@@ -3610,8 +3650,8 @@ u64 gUnknownWoodBoardTex[TEX_LEN(u64, gUnknownWoodBoardTex_WIDTH, gUnknownWoodBo
 #include "assets/objects/gameplay_keep/gUnknownWoodBoardTex.i8.inc.c"
 };
 
-Vtx gEffIceFragment1DL_04033490_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gEffIceFragment1DL_04033490_Vtx_fused_.inc.c"
+Vtx gEffIceFragmentVtx[] = {
+#include "assets/objects/gameplay_keep/gEffIceFragmentVtx.inc.c"
 };
 
 Gfx gEffIceFragment1DL[31] = {
@@ -3622,10 +3662,10 @@ Gfx gEffIceFragment2DL[30] = {
 #include "assets/objects/gameplay_keep/gEffIceFragment2DL.inc.c"
 };
 
-u8 gameplay_keep_zeros_033908[8] = { 0 };
+u8 gameplay_keep_zeros_033DA8[8] = { 0 };
 
-Vtx gEffIceFragment3DL_04033910_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gEffIceFragment3DL_04033910_Vtx_fused_.inc.c"
+Vtx gEffIceFragment3Vtx[] = {
+#include "assets/objects/gameplay_keep/gEffIceFragment3Vtx.inc.c"
 };
 
 Gfx gEffIceFragment3DL[46] = {
@@ -3644,7 +3684,7 @@ AnimationHeader gBugCrawlAnim = {
 #include "assets/objects/gameplay_keep/gBugCrawlAnim.inc.c"
 };
 
-u8 gameplay_keep_zeros_03420C[4] = { 0 };
+u8 gameplay_keep_zeros_0346AC[4] = { 0 };
 
 Gfx gBugLimb1DL[20] = {
 #include "assets/objects/gameplay_keep/gBugLimb1DL.inc.c"
@@ -3658,8 +3698,8 @@ Gfx gBugLimb1WrapperWrapperDL[2] = {
 #include "assets/objects/gameplay_keep/gBugLimb1WrapperWrapperDL.inc.c"
 };
 
-Vtx gBugLimb1DL_040342D0_Vtx[] = {
-#include "assets/objects/gameplay_keep/gBugLimb1DL_040342D0_Vtx.inc.c"
+Vtx gBugLimb1Vtx[] = {
+#include "assets/objects/gameplay_keep/gBugLimb1Vtx.inc.c"
 };
 
 Gfx gBugLimb2DL[20] = {
@@ -3674,8 +3714,8 @@ Gfx gBugLimb2WrapperWrapperDL[2] = {
 #include "assets/objects/gameplay_keep/gBugLimb2WrapperWrapperDL.inc.c"
 };
 
-Vtx gBugLimb2DL_040343C0_Vtx[] = {
-#include "assets/objects/gameplay_keep/gBugLimb2DL_040343C0_Vtx.inc.c"
+Vtx gBugLimb2Vtx[] = {
+#include "assets/objects/gameplay_keep/gBugLimb2Vtx.inc.c"
 };
 
 Gfx gBugLimb3DL[20] = {
@@ -3690,8 +3730,8 @@ Gfx gBugLimb3WrapperWrapperDL[2] = {
 #include "assets/objects/gameplay_keep/gBugLimb3WrapperWrapperDL.inc.c"
 };
 
-Vtx gBugLimb3DL_040344B0_Vtx[] = {
-#include "assets/objects/gameplay_keep/gBugLimb3DL_040344B0_Vtx.inc.c"
+Vtx gBugLimb3Vtx[] = {
+#include "assets/objects/gameplay_keep/gBugLimb3Vtx.inc.c"
 };
 
 Gfx gBugLimb4DL[20] = {
@@ -3706,8 +3746,8 @@ Gfx gBugLimb4WrapperWrapperDL[2] = {
 #include "assets/objects/gameplay_keep/gBugLimb4WrapperWrapperDL.inc.c"
 };
 
-Vtx gBugLimb4DL_040345A0_Vtx[] = {
-#include "assets/objects/gameplay_keep/gBugLimb4DL_040345A0_Vtx.inc.c"
+Vtx gBugLimb4Vtx[] = {
+#include "assets/objects/gameplay_keep/gBugLimb4Vtx.inc.c"
 };
 
 Gfx gBugLimb5DL[20] = {
@@ -3722,8 +3762,8 @@ Gfx gBugLimb5WrapperWrapperDL[2] = {
 #include "assets/objects/gameplay_keep/gBugLimb5WrapperWrapperDL.inc.c"
 };
 
-Vtx gBugLimb5DL_04034690_Vtx[] = {
-#include "assets/objects/gameplay_keep/gBugLimb5DL_04034690_Vtx.inc.c"
+Vtx gBugLimb5Vtx[] = {
+#include "assets/objects/gameplay_keep/gBugLimb5Vtx.inc.c"
 };
 
 Gfx gBugLimb6DL[20] = {
@@ -3738,8 +3778,8 @@ Gfx gBugLimb6WrapperWrapperDL[2] = {
 #include "assets/objects/gameplay_keep/gBugLimb6WrapperWrapperDL.inc.c"
 };
 
-Vtx gBugLimb6DL_04034780_Vtx[] = {
-#include "assets/objects/gameplay_keep/gBugLimb6DL_04034780_Vtx.inc.c"
+Vtx gBugLimb6Vtx[] = {
+#include "assets/objects/gameplay_keep/gBugLimb6Vtx.inc.c"
 };
 
 Gfx gBugLimb7DL[20] = {
@@ -3754,8 +3794,8 @@ Gfx gBugLimb7WrapperWrapperDL[2] = {
 #include "assets/objects/gameplay_keep/gBugLimb7WrapperWrapperDL.inc.c"
 };
 
-Vtx gBugLimb7DL_04034870_Vtx[] = {
-#include "assets/objects/gameplay_keep/gBugLimb7DL_04034870_Vtx.inc.c"
+Vtx gBugLimb7Vtx[] = {
+#include "assets/objects/gameplay_keep/gBugLimb7Vtx.inc.c"
 };
 
 Gfx gBugLimb8DL[20] = {
@@ -3770,8 +3810,8 @@ Gfx gBugLimb8WrapperWrapperDL[2] = {
 #include "assets/objects/gameplay_keep/gBugLimb8WrapperWrapperDL.inc.c"
 };
 
-Vtx gBugLimb8DL_04034960_Vtx[] = {
-#include "assets/objects/gameplay_keep/gBugLimb8DL_04034960_Vtx.inc.c"
+Vtx gBugLimb8Vtx[] = {
+#include "assets/objects/gameplay_keep/gBugLimb8Vtx.inc.c"
 };
 
 Gfx gBugLimb9DL[22] = {
@@ -3786,8 +3826,8 @@ Gfx gBugLimb9WrapperWrapperDL[2] = {
 #include "assets/objects/gameplay_keep/gBugLimb9WrapperWrapperDL.inc.c"
 };
 
-Vtx gBugLimb9DL_04034A60_Vtx[] = {
-#include "assets/objects/gameplay_keep/gBugLimb9DL_04034A60_Vtx.inc.c"
+Vtx gBugLimb9Vtx[] = {
+#include "assets/objects/gameplay_keep/gBugLimb9Vtx.inc.c"
 };
 
 u64 gBugBodyTex[TEX_LEN(u64, gBugBodyTex_WIDTH, gBugBodyTex_HEIGHT, 16)] = {
@@ -3798,118 +3838,118 @@ u64 gBugLegTex[TEX_LEN(u64, gBugLegTex_WIDTH, gBugLegTex_HEIGHT, 16)] = {
 #include "assets/objects/gameplay_keep/gBugLegTex.rgba16.inc.c"
 };
 
-StandardLimb gBugSkel_04035534_Limbs_04035420_StandardLimb = {
-#include "assets/objects/gameplay_keep/gBugSkel_04035534_Limbs_04035420_StandardLimb.inc.c"
+StandardLimb gameplay_keep_0358C0_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_0358C0_Limb.inc.c"
 };
 
-StandardLimb gBugSkel_04035534_Limbs_0403542C_StandardLimb = {
-#include "assets/objects/gameplay_keep/gBugSkel_04035534_Limbs_0403542C_StandardLimb.inc.c"
+StandardLimb gameplay_keep_0358CC_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_0358CC_Limb.inc.c"
 };
 
-StandardLimb gBugSkel_04035534_Limbs_04035438_StandardLimb = {
-#include "assets/objects/gameplay_keep/gBugSkel_04035534_Limbs_04035438_StandardLimb.inc.c"
+StandardLimb gameplay_keep_0358D8_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_0358D8_Limb.inc.c"
 };
 
-StandardLimb gBugSkel_04035534_Limbs_04035444_StandardLimb = {
-#include "assets/objects/gameplay_keep/gBugSkel_04035534_Limbs_04035444_StandardLimb.inc.c"
+StandardLimb gameplay_keep_0358E4_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_0358E4_Limb.inc.c"
 };
 
-StandardLimb gBugSkel_04035534_Limbs_04035450_StandardLimb = {
-#include "assets/objects/gameplay_keep/gBugSkel_04035534_Limbs_04035450_StandardLimb.inc.c"
+StandardLimb gameplay_keep_0358F0_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_0358F0_Limb.inc.c"
 };
 
-StandardLimb gBugSkel_04035534_Limbs_0403545C_StandardLimb = {
-#include "assets/objects/gameplay_keep/gBugSkel_04035534_Limbs_0403545C_StandardLimb.inc.c"
+StandardLimb gameplay_keep_0358FC_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_0358FC_Limb.inc.c"
 };
 
-StandardLimb gBugSkel_04035534_Limbs_04035468_StandardLimb = {
-#include "assets/objects/gameplay_keep/gBugSkel_04035534_Limbs_04035468_StandardLimb.inc.c"
+StandardLimb gameplay_keep_035908_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_035908_Limb.inc.c"
 };
 
-StandardLimb gBugSkel_04035534_Limbs_04035474_StandardLimb = {
-#include "assets/objects/gameplay_keep/gBugSkel_04035534_Limbs_04035474_StandardLimb.inc.c"
+StandardLimb gameplay_keep_035914_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_035914_Limb.inc.c"
 };
 
-StandardLimb gBugSkel_04035534_Limbs_04035480_StandardLimb = {
-#include "assets/objects/gameplay_keep/gBugSkel_04035534_Limbs_04035480_StandardLimb.inc.c"
+StandardLimb gameplay_keep_035920_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_035920_Limb.inc.c"
 };
 
-StandardLimb gBugSkel_04035534_Limbs_0403548C_StandardLimb = {
-#include "assets/objects/gameplay_keep/gBugSkel_04035534_Limbs_0403548C_StandardLimb.inc.c"
+StandardLimb gameplay_keep_03592C_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_03592C_Limb.inc.c"
 };
 
-StandardLimb gBugSkel_04035534_Limbs_04035498_StandardLimb = {
-#include "assets/objects/gameplay_keep/gBugSkel_04035534_Limbs_04035498_StandardLimb.inc.c"
+StandardLimb gameplay_keep_035938_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_035938_Limb.inc.c"
 };
 
-StandardLimb gBugSkel_04035534_Limbs_040354A4_StandardLimb = {
-#include "assets/objects/gameplay_keep/gBugSkel_04035534_Limbs_040354A4_StandardLimb.inc.c"
+StandardLimb gameplay_keep_035944_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_035944_Limb.inc.c"
 };
 
-StandardLimb gBugSkel_04035534_Limbs_040354B0_StandardLimb = {
-#include "assets/objects/gameplay_keep/gBugSkel_04035534_Limbs_040354B0_StandardLimb.inc.c"
+StandardLimb gameplay_keep_035950_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_035950_Limb.inc.c"
 };
 
-StandardLimb gBugSkel_04035534_Limbs_040354BC_StandardLimb = {
-#include "assets/objects/gameplay_keep/gBugSkel_04035534_Limbs_040354BC_StandardLimb.inc.c"
+StandardLimb gameplay_keep_03595C_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_03595C_Limb.inc.c"
 };
 
-StandardLimb gBugSkel_04035534_Limbs_040354C8_StandardLimb = {
-#include "assets/objects/gameplay_keep/gBugSkel_04035534_Limbs_040354C8_StandardLimb.inc.c"
+StandardLimb gameplay_keep_035968_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_035968_Limb.inc.c"
 };
 
-StandardLimb gBugSkel_04035534_Limbs_040354D4_StandardLimb = {
-#include "assets/objects/gameplay_keep/gBugSkel_04035534_Limbs_040354D4_StandardLimb.inc.c"
+StandardLimb gameplay_keep_035974_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_035974_Limb.inc.c"
 };
 
-StandardLimb gBugSkel_04035534_Limbs_040354E0_StandardLimb = {
-#include "assets/objects/gameplay_keep/gBugSkel_04035534_Limbs_040354E0_StandardLimb.inc.c"
+StandardLimb gameplay_keep_035980_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_035980_Limb.inc.c"
 };
 
-StandardLimb gBugSkel_04035534_Limbs_040354EC_StandardLimb = {
-#include "assets/objects/gameplay_keep/gBugSkel_04035534_Limbs_040354EC_StandardLimb.inc.c"
+StandardLimb gameplay_keep_03598C_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_03598C_Limb.inc.c"
 };
 
-StandardLimb gBugSkel_04035534_Limbs_040354F8_StandardLimb = {
-#include "assets/objects/gameplay_keep/gBugSkel_04035534_Limbs_040354F8_StandardLimb.inc.c"
+StandardLimb gameplay_keep_035998_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_035998_Limb.inc.c"
 };
 
-StandardLimb gBugSkel_04035534_Limbs_04035504_StandardLimb = {
-#include "assets/objects/gameplay_keep/gBugSkel_04035534_Limbs_04035504_StandardLimb.inc.c"
+StandardLimb gameplay_keep_0359A4_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_0359A4_Limb.inc.c"
 };
 
-StandardLimb gBugSkel_04035534_Limbs_04035510_StandardLimb = {
-#include "assets/objects/gameplay_keep/gBugSkel_04035534_Limbs_04035510_StandardLimb.inc.c"
+StandardLimb gameplay_keep_0359B0_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_0359B0_Limb.inc.c"
 };
 
-StandardLimb gBugSkel_04035534_Limbs_0403551C_StandardLimb = {
-#include "assets/objects/gameplay_keep/gBugSkel_04035534_Limbs_0403551C_StandardLimb.inc.c"
+StandardLimb gameplay_keep_0359BC_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_0359BC_Limb.inc.c"
 };
 
-StandardLimb gBugSkel_04035534_Limbs_04035528_StandardLimb = {
-#include "assets/objects/gameplay_keep/gBugSkel_04035534_Limbs_04035528_StandardLimb.inc.c"
+StandardLimb gameplay_keep_0359C8_Limb = {
+#include "assets/objects/gameplay_keep/gameplay_keep_0359C8_Limb.inc.c"
 };
 
-void* gBugSkel_04035534_Limbs[] = {
-#include "assets/objects/gameplay_keep/gBugSkel_04035534_Limbs.inc.c"
+void* gBugLimbs[] = {
+#include "assets/objects/gameplay_keep/gBugLimbs.inc.c"
 };
 
 SkeletonHeader gBugSkel = {
 #include "assets/objects/gameplay_keep/gBugSkel.inc.c"
 };
 
-u8 gameplay_keep_zeros_035598[8] = { 0 };
+u8 gameplay_keep_zeros_035A38[8] = { 0 };
 
-Vtx gCuttableShrubStalkDL_040355A0_Vtx[] = {
-#include "assets/objects/gameplay_keep/gCuttableShrubStalkDL_040355A0_Vtx.inc.c"
+Vtx gCuttableShrubStalkVtx[] = {
+#include "assets/objects/gameplay_keep/gCuttableShrubStalkVtx.inc.c"
 };
 
 Gfx gCuttableShrubStalkDL[18] = {
 #include "assets/objects/gameplay_keep/gCuttableShrubStalkDL.inc.c"
 };
 
-Vtx gCuttableShrubTipDL_04035670_Vtx[] = {
-#include "assets/objects/gameplay_keep/gCuttableShrubTipDL_04035670_Vtx.inc.c"
+Vtx gCuttableShrubTipVtx[] = {
+#include "assets/objects/gameplay_keep/gCuttableShrubTipVtx.inc.c"
 };
 
 Gfx gCuttableShrubTipDL[18] = {
@@ -3940,8 +3980,12 @@ Gfx gLensFlareRingDL[13] = {
 #include "assets/objects/gameplay_keep/gLensFlareRingDL.inc.c"
 };
 
-Vtx gLensFlareCircleDL_04037800_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gLensFlareCircleDL_04037800_Vtx_fused_.inc.c"
+Vtx gLensFlareVtx[] = {
+#include "assets/objects/gameplay_keep/gLensFlareVtx.inc.c"
+};
+
+Vtx gEffSparklesVtx[] = {
+#include "assets/objects/gameplay_keep/gEffSparklesVtx.inc.c"
 };
 
 Gfx gEffSparklesDL[12] = {
@@ -3960,8 +4004,8 @@ u64 gEffUnknown14Tex[TEX_LEN(u64, gEffUnknown14Tex_WIDTH, gEffUnknown14Tex_HEIGH
 #include "assets/objects/gameplay_keep/gEffUnknown14Tex.i8.inc.c"
 };
 
-Vtx gHoverBootsCircleDL_04037D60_Vtx[] = {
-#include "assets/objects/gameplay_keep/gHoverBootsCircleDL_04037D60_Vtx.inc.c"
+Vtx gHoverBootsCircleVtx[] = {
+#include "assets/objects/gameplay_keep/gHoverBootsCircleVtx.inc.c"
 };
 
 Gfx gHoverBootsCircleDL[26] = {
@@ -3976,13 +4020,53 @@ Gfx gMoonDL[14] = {
 #include "assets/objects/gameplay_keep/gMoonDL.inc.c"
 };
 
-Vtx gMoonDL_04038F70_Vtx[] = {
-#include "assets/objects/gameplay_keep/gMoonDL_04038F70_Vtx.inc.c"
+Vtx gMoonVtx[] = {
+#include "assets/objects/gameplay_keep/gMoonVtx.inc.c"
 };
 
 u64 gUnknownCircle6Tex[TEX_LEN(u64, gUnknownCircle6Tex_WIDTH, gUnknownCircle6Tex_HEIGHT, 8)] = {
 #include "assets/objects/gameplay_keep/gUnknownCircle6Tex.i8.inc.c"
 };
+
+Vtx gameplay_keep_Vtx_039850[] = {
+#include "assets/objects/gameplay_keep/gameplay_keep_Vtx_039850.inc.c"
+};
+
+Gfx gGameplayKeepDL_39890[27] = {
+#include "assets/objects/gameplay_keep/gGameplayKeepDL_39890.inc.c"
+};
+
+u8 gameplay_keep_zeros_039968[8] = { 0 };
+
+Vtx gameplay_keep_Vtx_039970[] = {
+#include "assets/objects/gameplay_keep/gameplay_keep_Vtx_039970.inc.c"
+};
+
+Gfx gGameplayKeepDL_399B0[17] = {
+#include "assets/objects/gameplay_keep/gGameplayKeepDL_399B0.inc.c"
+};
+
+u8 gameplay_keep_zeros_039A38[8] = { 0 };
+
+Vtx gameplay_keep_Vtx_039A40[] = {
+#include "assets/objects/gameplay_keep/gameplay_keep_Vtx_039A40.inc.c"
+};
+
+Gfx gGameplayKeepDL_39A80[17] = {
+#include "assets/objects/gameplay_keep/gGameplayKeepDL_39A80.inc.c"
+};
+
+u8 gameplay_keep_zeros_039B08[8] = { 0 };
+
+Vtx gameplay_keep_Vtx_039B10[] = {
+#include "assets/objects/gameplay_keep/gameplay_keep_Vtx_039B10.inc.c"
+};
+
+Gfx gGameplayKeepDL_39B50[17] = {
+#include "assets/objects/gameplay_keep/gGameplayKeepDL_39B50.inc.c"
+};
+
+u8 gameplay_keep_zeros_039BD8[8] = { 0 };
 
 BgCamInfo gLargerCubeBgCamList[] = {
 #include "assets/objects/gameplay_keep/gLargerCubeBgCamList.inc.c"
@@ -4004,18 +4088,18 @@ CollisionHeader gLargerCubeCol = {
 #include "assets/objects/gameplay_keep/gLargerCubeCol.inc.c"
 };
 
-u8 gameplay_keep_zeros_0394DC[4] = { 0 };
+u8 gameplay_keep_zeros_039D0C[4] = { 0 };
 
-Vtx gLiftableRockDL_040394E0_Vtx[] = {
-#include "assets/objects/gameplay_keep/gLiftableRockDL_040394E0_Vtx.inc.c"
+Vtx gLiftableRockVtx[] = {
+#include "assets/objects/gameplay_keep/gLiftableRockVtx.inc.c"
 };
 
 Gfx gLiftableRockDL[22] = {
 #include "assets/objects/gameplay_keep/gLiftableRockDL.inc.c"
 };
 
-Vtx gUnusedRockRectangularPrism1DL_04039710_Vtx[] = {
-#include "assets/objects/gameplay_keep/gUnusedRockRectangularPrism1DL_04039710_Vtx.inc.c"
+Vtx gUnusedRockRectangularPrism1Vtx[] = {
+#include "assets/objects/gameplay_keep/gUnusedRockRectangularPrism1Vtx.inc.c"
 };
 
 Gfx gUnusedRockRectangularPrism1DL[22] = {
@@ -4042,17 +4126,17 @@ CollisionHeader gWideTallBlockCol = {
 #include "assets/objects/gameplay_keep/gWideTallBlockCol.inc.c"
 };
 
-u8 gameplay_keep_zeros_039A74[12] = { 0 };
+u8 gameplay_keep_zeros_03A2A4[12] = { 0 };
 
-Vtx gFlatBlockDL_04039A80_Vtx[] = {
-#include "assets/objects/gameplay_keep/gFlatBlockDL_04039A80_Vtx.inc.c"
+Vtx gFlatBlockVtx[] = {
+#include "assets/objects/gameplay_keep/gFlatBlockVtx.inc.c"
 };
 
 Gfx gFlatBlockDL[23] = {
 #include "assets/objects/gameplay_keep/gFlatBlockDL.inc.c"
 };
 
-u8 gameplay_keep_zeros_039CB8[8] = { 0 };
+u8 gameplay_keep_zeros_03A4E8[8] = { 0 };
 
 BgCamInfo gTallBlockBgCamList[] = {
 #include "assets/objects/gameplay_keep/gTallBlockBgCamList.inc.c"
@@ -4074,10 +4158,10 @@ CollisionHeader gTallBlockCol = {
 #include "assets/objects/gameplay_keep/gTallBlockCol.inc.c"
 };
 
-u8 gameplay_keep_zeros_039DEC[4] = { 0 };
+u8 gameplay_keep_zeros_03A61C[4] = { 0 };
 
-Vtx gUnusedRockRectangularPrism3DL_04039DF0_Vtx[] = {
-#include "assets/objects/gameplay_keep/gUnusedRockRectangularPrism3DL_04039DF0_Vtx.inc.c"
+Vtx gUnusedRockRectangularPrism3Vtx[] = {
+#include "assets/objects/gameplay_keep/gUnusedRockRectangularPrism3Vtx.inc.c"
 };
 
 Gfx gUnusedRockRectangularPrism3DL[22] = {
@@ -4104,10 +4188,10 @@ CollisionHeader gSmallerFlatBlockCol = {
 #include "assets/objects/gameplay_keep/gSmallerFlatBlockCol.inc.c"
 };
 
-u8 gameplay_keep_zeros_03A14C[4] = { 0 };
+u8 gameplay_keep_zeros_03A97C[4] = { 0 };
 
-Vtx gFlatRotBlockDL_0403A150_Vtx[] = {
-#include "assets/objects/gameplay_keep/gFlatRotBlockDL_0403A150_Vtx.inc.c"
+Vtx gFlatRotBlockVtx[] = {
+#include "assets/objects/gameplay_keep/gFlatRotBlockVtx.inc.c"
 };
 
 Gfx gFlatRotBlockDL[22] = {
@@ -4134,17 +4218,17 @@ CollisionHeader gLargerFlatBlockCol = {
 #include "assets/objects/gameplay_keep/gLargerFlatBlockCol.inc.c"
 };
 
-u8 gameplay_keep_zeros_03A4AC[4] = { 0 };
+u8 gameplay_keep_zeros_03ACDC[4] = { 0 };
 
-Vtx gSmallCubeDL_0403A4B0_Vtx[] = {
-#include "assets/objects/gameplay_keep/gSmallCubeDL_0403A4B0_Vtx.inc.c"
+Vtx gSmallCubeVtx[] = {
+#include "assets/objects/gameplay_keep/gSmallCubeVtx.inc.c"
 };
 
 Gfx gSmallCubeDL[23] = {
 #include "assets/objects/gameplay_keep/gSmallCubeDL.inc.c"
 };
 
-u8 gameplay_keep_zeros_03A6E8[8] = { 0 };
+u8 gameplay_keep_zeros_03AF18[8] = { 0 };
 
 BgCamInfo gSmallerCubeBgCamList[] = {
 #include "assets/objects/gameplay_keep/gSmallerCubeBgCamList.inc.c"
@@ -4166,42 +4250,46 @@ CollisionHeader gSmallerCubeCol = {
 #include "assets/objects/gameplay_keep/gSmallerCubeCol.inc.c"
 };
 
-u8 gameplay_keep_zeros_03A81C[4] = { 0 };
+u8 gameplay_keep_zeros_03B04C[4] = { 0 };
 
-Vtx gTreeStumpDL_0403A820_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gTreeStumpDL_0403A820_Vtx_fused_.inc.c"
+Vtx gTreeStumpVtx[] = {
+#include "assets/objects/gameplay_keep/gTreeStumpVtx.inc.c"
 };
 
 Gfx gTreeStumpDL[34] = {
 #include "assets/objects/gameplay_keep/gTreeStumpDL.inc.c"
 };
 
-Vtx gGrassBladesDL_0403AAC0_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gGrassBladesDL_0403AAC0_Vtx_fused_.inc.c"
+Vtx gGrassBladesVtx[] = {
+#include "assets/objects/gameplay_keep/gGrassBladesVtx.inc.c"
 };
 
 Gfx gGrassBladesDL[21] = {
 #include "assets/objects/gameplay_keep/gGrassBladesDL.inc.c"
 };
 
-u8 gameplay_keep_zeros_03AC28[8] = { 0 };
+u8 gameplay_keep_zeros_03B458[8] = { 0 };
 
 u64 gHeartShapeTex[TEX_LEN(u64, gHeartShapeTex_WIDTH, gHeartShapeTex_HEIGHT, 8)] = {
 #include "assets/objects/gameplay_keep/gHeartShapeTex.i8.inc.c"
 };
 
-Vtx gHeartPieceInteriorDL_0403AD30_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gHeartPieceInteriorDL_0403AD30_Vtx_fused_.inc.c"
+Vtx gHeartPieceInteriorVtx[] = {
+#include "assets/objects/gameplay_keep/gHeartPieceInteriorVtx.inc.c"
 };
 
 Gfx gHeartPieceInteriorDL[53] = {
 #include "assets/objects/gameplay_keep/gHeartPieceInteriorDL.inc.c"
 };
 
-u8 gameplay_keep_zeros_03B1D8[8] = { 0 };
+u8 gameplay_keep_zeros_03BA08[8] = { 0 };
 
-Vtx gHeartPieceExteriorDL_0403B1E0_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gHeartPieceExteriorDL_0403B1E0_Vtx_fused_.inc.c"
+Vtx gHeartPieceExteriorVtx[] = {
+#include "assets/objects/gameplay_keep/gHeartPieceExteriorVtx.inc.c"
+};
+
+Vtx gHeartContainerInteriorVtx[] = {
+#include "assets/objects/gameplay_keep/gHeartContainerInteriorVtx.inc.c"
 };
 
 Gfx gHeartPieceExteriorDL[39] = {
@@ -4212,18 +4300,46 @@ Gfx gHeartContainerInteriorDL[33] = {
 #include "assets/objects/gameplay_keep/gHeartContainerInteriorDL.inc.c"
 };
 
-Vtx gSignRectangularDL_0403BDE0_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gSignRectangularDL_0403BDE0_Vtx_fused_.inc.c"
+Vtx gameplay_keep_Vtx_03C610[] = {
+#include "assets/objects/gameplay_keep/gameplay_keep_Vtx_03C610.inc.c"
+};
+
+Vtx gameplay_keep_Vtx_03CB10[] = {
+#include "assets/objects/gameplay_keep/gameplay_keep_Vtx_03CB10.inc.c"
+};
+
+Gfx gGameplayKeepDL_3CFD0[39] = {
+#include "assets/objects/gameplay_keep/gGameplayKeepDL_3CFD0.inc.c"
+};
+
+Gfx gGameplayKeepDL_3D108[34] = {
+#include "assets/objects/gameplay_keep/gGameplayKeepDL_3D108.inc.c"
+};
+
+u8 gameplay_keep_zeros_03D218[8] = { 0 };
+
+Vtx gameplay_keep_Vtx_03D220[] = {
+#include "assets/objects/gameplay_keep/gameplay_keep_Vtx_03D220.inc.c"
+};
+
+Gfx gGameplayKeepDL_3D260[17] = {
+#include "assets/objects/gameplay_keep/gGameplayKeepDL_3D260.inc.c"
+};
+
+u8 gameplay_keep_zeros_03D2E8[8] = { 0 };
+
+Vtx gSignRectangularVtx[] = {
+#include "assets/objects/gameplay_keep/gSignRectangularVtx.inc.c"
 };
 
 Gfx gSignRectangularDL[81] = {
 #include "assets/objects/gameplay_keep/gSignRectangularDL.inc.c"
 };
 
-u8 gameplay_keep_zeros_03C2D8[8] = { 0 };
+u8 gameplay_keep_zeros_03D7E8[8] = { 0 };
 
-Vtx gSignDirectionalDL_0403C2E0_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gSignDirectionalDL_0403C2E0_Vtx_fused_.inc.c"
+Vtx gSignDirectionalVtx[] = {
+#include "assets/objects/gameplay_keep/gSignDirectionalVtx.inc.c"
 };
 
 Gfx gSignDirectionalDL[88] = {
@@ -4246,19 +4362,31 @@ u64 gDropBombTex[TEX_LEN(u64, gDropBombTex_WIDTH, gDropBombTex_HEIGHT, 16)] = {
 #include "assets/objects/gameplay_keep/gDropBombTex.rgba16.inc.c"
 };
 
+u64 gGameplayKeepTex_3FD80[TEX_LEN(u64, gGameplayKeepTex_3FD80_WIDTH, gGameplayKeepTex_3FD80_HEIGHT, 16)] = {
+#include "assets/objects/gameplay_keep/gGameplayKeepTex_3FD80.rgba16.inc.c"
+};
+
+u64 gGameplayKeepTex_40580[TEX_LEN(u64, gGameplayKeepTex_40580_WIDTH, gGameplayKeepTex_40580_HEIGHT, 16)] = {
+#include "assets/objects/gameplay_keep/gGameplayKeepTex_40580.rgba16.inc.c"
+};
+
 u64 gDropRecoveryHeartTex[TEX_LEN(u64, gDropRecoveryHeartTex_WIDTH, gDropRecoveryHeartTex_HEIGHT, 16)] = {
 #include "assets/objects/gameplay_keep/gDropRecoveryHeartTex.rgba16.inc.c"
+};
+
+u64 gGameplayKeepTex_41580[TEX_LEN(u64, gGameplayKeepTex_41580_WIDTH, gGameplayKeepTex_41580_HEIGHT, 16)] = {
+#include "assets/objects/gameplay_keep/gGameplayKeepTex_41580.rgba16.inc.c"
 };
 
 Gfx gItemDropDL[17] = {
 #include "assets/objects/gameplay_keep/gItemDropDL.inc.c"
 };
 
-Vtx gItemDropDL_0403F0F8_Vtx[] = {
-#include "assets/objects/gameplay_keep/gItemDropDL_0403F0F8_Vtx.inc.c"
+Vtx gItemDropVtx[] = {
+#include "assets/objects/gameplay_keep/gItemDropVtx.inc.c"
 };
 
-u8 gameplay_keep_zeros_03F138[8] = { 0 };
+u8 gameplay_keep_zeros_041E48[8] = { 0 };
 
 u64 gDropKeySmallTex[TEX_LEN(u64, gDropKeySmallTex_WIDTH, gDropKeySmallTex_HEIGHT, 16)] = {
 #include "assets/objects/gameplay_keep/gDropKeySmallTex.rgba16.inc.c"
@@ -4308,16 +4436,40 @@ u64 gRupeeSilverTex[TEX_LEN(u64, gRupeeSilverTex_WIDTH, gRupeeSilverTex_HEIGHT, 
 #include "assets/objects/gameplay_keep/gRupeeSilverTex.rgba16.inc.c"
 };
 
-Vtx gRupeeDL_04042200_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gRupeeDL_04042200_Vtx_fused_.inc.c"
+Vtx gRupeeVtx[] = {
+#include "assets/objects/gameplay_keep/gRupeeVtx.inc.c"
 };
 
 Gfx gRupeeDL[26] = {
 #include "assets/objects/gameplay_keep/gRupeeDL.inc.c"
 };
 
+u64 gGameplayKeepTex_45220[TEX_LEN(u64, gGameplayKeepTex_45220_WIDTH, gGameplayKeepTex_45220_HEIGHT, 16)] = {
+#include "assets/objects/gameplay_keep/gGameplayKeepTex_45220.rgba16.inc.c"
+};
+
+u64 gGameplayKeepTex_45A20[TEX_LEN(u64, gGameplayKeepTex_45A20_WIDTH, gGameplayKeepTex_45A20_HEIGHT, 16)] = {
+#include "assets/objects/gameplay_keep/gGameplayKeepTex_45A20.rgba16.inc.c"
+};
+
+u64 gGameplayKeepTex_46220[TEX_LEN(u64, gGameplayKeepTex_46220_WIDTH, gGameplayKeepTex_46220_HEIGHT, 16)] = {
+#include "assets/objects/gameplay_keep/gGameplayKeepTex_46220.rgba16.inc.c"
+};
+
 u64 gRupeeLightRedTex[TEX_LEN(u64, gRupeeLightRedTex_WIDTH, gRupeeLightRedTex_HEIGHT, 16)] = {
 #include "assets/objects/gameplay_keep/gRupeeLightRedTex.rgba16.inc.c"
+};
+
+u64 gGameplayKeepTex_46A40[TEX_LEN(u64, gGameplayKeepTex_46A40_WIDTH, gGameplayKeepTex_46A40_HEIGHT, 16)] = {
+#include "assets/objects/gameplay_keep/gGameplayKeepTex_46A40.rgba16.inc.c"
+};
+
+u64 gGameplayKeepTex_46A60[TEX_LEN(u64, gGameplayKeepTex_46A60_WIDTH, gGameplayKeepTex_46A60_HEIGHT, 16)] = {
+#include "assets/objects/gameplay_keep/gGameplayKeepTex_46A60.rgba16.inc.c"
+};
+
+u64 gGameplayKeepTex_47260[TEX_LEN(u64, gGameplayKeepTex_47260_WIDTH, gGameplayKeepTex_47260_HEIGHT, 16)] = {
+#include "assets/objects/gameplay_keep/gGameplayKeepTex_47260.rgba16.inc.c"
 };
 
 u64 gUnknownStone1Tex[TEX_LEN(u64, gUnknownStone1Tex_WIDTH, gUnknownStone1Tex_HEIGHT, 16)] = {
@@ -4364,8 +4516,8 @@ u64 gSignLetteringTex[TEX_LEN(u64, gSignLetteringTex_WIDTH, gSignLetteringTex_HE
 #include "assets/objects/gameplay_keep/gSignLetteringTex.rgba16.inc.c"
 };
 
-Vtx gRaindropDL_04048130_Vtx[] = {
-#include "assets/objects/gameplay_keep/gRaindropDL_04048130_Vtx.inc.c"
+Vtx gRaindropVtx[] = {
+#include "assets/objects/gameplay_keep/gRaindropVtx.inc.c"
 };
 
 Gfx gRaindropDL[4] = {
@@ -4376,8 +4528,8 @@ Gfx gFootShadowDL[12] = {
 #include "assets/objects/gameplay_keep/gFootShadowDL.inc.c"
 };
 
-Vtx gFootShadowDL_040481E0_Vtx[] = {
-#include "assets/objects/gameplay_keep/gFootShadowDL_040481E0_Vtx.inc.c"
+Vtx gFootShadowVtx[] = {
+#include "assets/objects/gameplay_keep/gFootShadowVtx.inc.c"
 };
 
 u64 gFootShadowTex[TEX_LEN(u64, gFootShadowTex_WIDTH, gFootShadowTex_HEIGHT, 16)] = {
@@ -4388,16 +4540,16 @@ Gfx gCircleShadowDL[10] = {
 #include "assets/objects/gameplay_keep/gCircleShadowDL.inc.c"
 };
 
-Vtx gCircleShadowDL_04049260_Vtx[] = {
-#include "assets/objects/gameplay_keep/gCircleShadowDL_04049260_Vtx.inc.c"
+Vtx gCircleShadowVtx[] = {
+#include "assets/objects/gameplay_keep/gCircleShadowVtx.inc.c"
 };
 
 u64 gCircleShadowTex[TEX_LEN(u64, gCircleShadowTex_WIDTH, gCircleShadowTex_HEIGHT, 16)] = {
 #include "assets/objects/gameplay_keep/gCircleShadowTex.ia16.inc.c"
 };
 
-Vtx gHorseShadowDL_04049A90_Vtx[] = {
-#include "assets/objects/gameplay_keep/gHorseShadowDL_04049A90_Vtx.inc.c"
+Vtx gHorseShadowVtx[] = {
+#include "assets/objects/gameplay_keep/gHorseShadowVtx.inc.c"
 };
 
 Gfx gHorseShadowDL[10] = {
@@ -4408,22 +4560,22 @@ u64 gHorseShadowTex[TEX_LEN(u64, gHorseShadowTex_WIDTH, gHorseShadowTex_HEIGHT, 
 #include "assets/objects/gameplay_keep/gHorseShadowTex.i8.inc.c"
 };
 
-Vtx gDungeonDoorDL_04049F20_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gDungeonDoorDL_04049F20_Vtx_fused_.inc.c"
+Vtx gDungeonDoorVtx[] = {
+#include "assets/objects/gameplay_keep/gDungeonDoorVtx.inc.c"
 };
 
 Gfx gDungeonDoorDL[21] = {
 #include "assets/objects/gameplay_keep/gDungeonDoorDL.inc.c"
 };
 
-u8 gameplay_keep_zeros_04A088[8] = { 0 };
+u8 gameplay_keep_zeros_04F5B8[8] = { 0 };
 
 u64 gDoorMetalBarsTex[TEX_LEN(u64, gDoorMetalBarsTex_WIDTH, gDoorMetalBarsTex_HEIGHT, 8)] = {
 #include "assets/objects/gameplay_keep/gDoorMetalBarsTex.ia8.inc.c"
 };
 
-Vtx gDoorMetalBarsDL_0404B090_Vtx[] = {
-#include "assets/objects/gameplay_keep/gDoorMetalBarsDL_0404B090_Vtx.inc.c"
+Vtx gDoorMetalBarsVtx[] = {
+#include "assets/objects/gameplay_keep/gDoorMetalBarsVtx.inc.c"
 };
 
 Gfx gDoorMetalBarsDL[18] = {
@@ -4446,7 +4598,7 @@ u64 gSun3Tex[TEX_LEN(u64, gSun3Tex_WIDTH, gSun3Tex_HEIGHT, 4)] = {
 #include "assets/objects/gameplay_keep/gSun3Tex.i4.inc.c"
 };
 
-u8 gameplay_keep_zeros_04C940[32] = { 0 };
+u8 gameplay_keep_zeros_051E70[32] = { 0 };
 
 u64 gSunEvening1Tex[TEX_LEN(u64, gSunEvening1Tex_WIDTH, gSunEvening1Tex_HEIGHT, 4)] = {
 #include "assets/objects/gameplay_keep/gSunEvening1Tex.i4.inc.c"
@@ -4460,7 +4612,7 @@ u64 gSunEvening3Tex[TEX_LEN(u64, gSunEvening3Tex_WIDTH, gSunEvening3Tex_HEIGHT, 
 #include "assets/objects/gameplay_keep/gSunEvening3Tex.i4.inc.c"
 };
 
-u8 gameplay_keep_zeros_04D140[32] = { 0 };
+u8 gameplay_keep_zeros_052670[32] = { 0 };
 
 Gfx gKokiriDustMoteMaterialDL[9] = {
 #include "assets/objects/gameplay_keep/gKokiriDustMoteMaterialDL.inc.c"
@@ -4474,24 +4626,28 @@ Gfx gSunDL[49] = {
 #include "assets/objects/gameplay_keep/gSunDL.inc.c"
 };
 
-Vtx gSunDL_0404D348_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gSunDL_0404D348_Vtx_fused_.inc.c"
+Vtx gSunVtx[] = {
+#include "assets/objects/gameplay_keep/gSunVtx.inc.c"
 };
 
-u8 gameplay_keep_zeros_04D448[8] = { 0 };
+Vtx gKokiriDustMoteModelVtx[] = {
+#include "assets/objects/gameplay_keep/gKokiriDustMoteModelVtx.inc.c"
+};
+
+u8 gameplay_keep_zeros_052978[8] = { 0 };
 
 Gfx gLockOnReticleTriangleDL[3] = {
 #include "assets/objects/gameplay_keep/gLockOnReticleTriangleDL.inc.c"
 };
 
-Vtx gLockOnReticleTriangleDL_0404D468_Vtx[] = {
-#include "assets/objects/gameplay_keep/gLockOnReticleTriangleDL_0404D468_Vtx.inc.c"
+Vtx gLockOnReticleTriangleVtx[] = {
+#include "assets/objects/gameplay_keep/gLockOnReticleTriangleVtx.inc.c"
 };
 
-u8 gameplay_keep_zeros_04D498[8] = { 0 };
+u8 gameplay_keep_zeros_0529C8[8] = { 0 };
 
-Vtx gEffFire1DL_0404D4A0_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gEffFire1DL_0404D4A0_Vtx_fused_.inc.c"
+Vtx gEffFireVtx[] = {
+#include "assets/objects/gameplay_keep/gEffFireVtx.inc.c"
 };
 
 Gfx gEffFire1DL[24] = {
@@ -4510,8 +4666,8 @@ u64 gDecorativeFlameTex[TEX_LEN(u64, gDecorativeFlameTex_WIDTH, gDecorativeFlame
 #include "assets/objects/gameplay_keep/gDecorativeFlameTex.i8.inc.c"
 };
 
-Vtx gUnusedUnknownShape1DL_0404E660_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gUnusedUnknownShape1DL_0404E660_Vtx_fused_.inc.c"
+Vtx gUnusedUnknownShape1Vtx[] = {
+#include "assets/objects/gameplay_keep/gUnusedUnknownShape1Vtx.inc.c"
 };
 
 Gfx gUnusedUnknownShape1DL[112] = {
@@ -4522,8 +4678,8 @@ Gfx gUnusedUnknownShape1RefDL[2] = {
 #include "assets/objects/gameplay_keep/gUnusedUnknownShape1RefDL.inc.c"
 };
 
-Vtx gUnusedUnknownShape2DL_0404F640_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gUnusedUnknownShape2DL_0404F640_Vtx_fused_.inc.c"
+Vtx gUnusedUnknownShape2Vtx[] = {
+#include "assets/objects/gameplay_keep/gUnusedUnknownShape2Vtx.inc.c"
 };
 
 Gfx gUnusedUnknownShape2DL[100] = {
@@ -4534,8 +4690,8 @@ Gfx gUnusedUnknownShape2RefDL[2] = {
 #include "assets/objects/gameplay_keep/gUnusedUnknownShape2RefDL.inc.c"
 };
 
-Vtx gUnusedUnknownShape3DL_04050610_Vtx_fused_[] = {
-#include "assets/objects/gameplay_keep/gUnusedUnknownShape3DL_04050610_Vtx_fused_.inc.c"
+Vtx gUnusedUnknownShape3Vtx[] = {
+#include "assets/objects/gameplay_keep/gUnusedUnknownShape3Vtx.inc.c"
 };
 
 Gfx gUnusedUnknownShape3DL[99] = {
@@ -4546,7 +4702,7 @@ Gfx gUnusedUnknownShape3RefDL[2] = {
 #include "assets/objects/gameplay_keep/gUnusedUnknownShape3RefDL.inc.c"
 };
 
-u8 gameplay_keep_zeros_0515A8[8] = { 0 };
+u8 gameplay_keep_zeros_056AD8[8] = { 0 };
 
 u64 gUnusedUpsideDownZeldaTex[TEX_LEN(u64, gUnusedUpsideDownZeldaTex_WIDTH, gUnusedUpsideDownZeldaTex_HEIGHT, 8)] = {
 #include "assets/objects/gameplay_keep/gUnusedUpsideDownZeldaTex.i8.inc.c"
