@@ -54,6 +54,7 @@
 #include "assets/objects/gameplay_keep/gameplay_keep.h"
 #include "assets/objects/gameplay_field_keep/gameplay_field_keep.h"
 #include "assets/objects/object_link_child/object_link_child.h"
+#include "assets/objects/object_link_boy/object_link_boy.h"
 
 #include "config.h"
 
@@ -7202,8 +7203,15 @@ void func_8083DFE0(Player* this, f32* arg1, s16* arg2) {
             this->yaw = *arg2;
         }
     } else {
-        Math_AsymStepToF(&this->speedXZ, *arg1, 0.05f, 0.1f);
+        f32 incr_step;
+
+        if (this->gliding) incr_step = 0.65f;
+        else incr_step = 0.05f;
+
+        Math_AsymStepToF(&this->speedXZ, *arg1, incr_step, 0.1f);
         Math_ScaledStepToS(&this->yaw, *arg2, 200);
+
+        PRINT_SCREEN(5, 15, "yaw: %d / arg2: %d", this->yaw, *arg2);
     }
 }
 
@@ -9515,8 +9523,8 @@ static FallImpactInfo D_80854600[] = {
     { -16, 255, 140, 150, NA_SE_VO_LI_LAND_DAMAGE_S },
 };
 
-// handles falling?
-s32 func_80843E64(PlayState* play, Player* this) {
+// handles falling? (No, I think it handles LANDING)
+s32 Player_HandleLanding(PlayState* play, Player* this) {
     s32 fallDistance;
 
     if ((sFloorType == FLOOR_TYPE_6) || (sFloorType == FLOOR_TYPE_9)) {
@@ -9525,7 +9533,6 @@ s32 func_80843E64(PlayState* play, Player* this) {
         fallDistance = this->fallDistance;
     }
 
-    // the more u fall, the less u control (:
     Math_StepToF(&this->speedXZ, 0.0f, 1.0f);
 
     this->stateFlags1 &= ~(PLAYER_STATE1_18 | PLAYER_STATE1_19);
@@ -9533,7 +9540,7 @@ s32 func_80843E64(PlayState* play, Player* this) {
 
     /**
      * Fall damage is handled here. If we've been falling for 400units, we fall OOF.
-     * 
+     * (which reinforces my theory that this func handles landing)
      */
     if (fallDistance >= 400) {
         s32 impactIndex;
@@ -9592,6 +9599,7 @@ void func_8084409C(PlayState* play, Player* this, f32 speedXZ, f32 velocityY) {
     }
 }
 
+// THAT is probably falling then!
 void Player_Action_8084411C(Player* this, PlayState* play) {
     f32 speedTarget;
     s16 yawTarget;
@@ -9695,7 +9703,7 @@ void Player_Action_8084411C(Player* this, PlayState* play) {
             return;
         }
 
-        sp3C = func_80843E64(play, this);
+        sp3C = Player_HandleLanding(play, this);
 
         if (sp3C > 0) {
             func_8083A098(this, GET_PLAYER_ANIM(PLAYER_ANIMGROUP_landing, this->modelAnimType), play);
@@ -9850,7 +9858,7 @@ void Player_Action_80844AF4(Player* this, PlayState* play) {
             return;
         }
 
-        if (func_80843E64(play, this) >= 0) {
+        if (Player_HandleLanding(play, this) >= 0) {
             this->meleeWeaponAnimation += 2;
             func_80837948(play, this, this->meleeWeaponAnimation);
             this->unk_845 = 3;
@@ -12270,17 +12278,17 @@ void Player_Update(Actor* thisx, PlayState* play) {
      * If the player can Glide and button A has been pressed, we toggle gliding.
      * But if we cannot glide anymore, force gliding into false.
      */
-    if (PLAYER_CAN_GLIDE(this->actor.bgCheckFlags)) {
-        if (CHECK_BTN_ALL(input.press.button, BTN_A))
-            Player_ToggleGliding(play, this, !this->gliding);
-    } else {
-        // TODO: the safety check below should be enough. So this becomes unnecessary
+    if (PLAYER_CAN_GLIDE(this->actor.bgCheckFlags) && CHECK_BTN_ALL(input.press.button, BTN_A)) {
+        Player_ToggleGliding(play, this, !this->gliding);
+    }
+
+    if (!PLAYER_CAN_GLIDE(this->actor.bgCheckFlags) || CHECK_BTN_ALL(input.press.button, BTN_B)) {
         Player_ToggleGliding(play, this, false);
     }
 
-    // safety check
-    PRINT_SCREEN(0, 15, "gliding: %d", this->gliding);
-    PRINT_SCREEN(0, 16, "has child: %d", this->actor.child != NULL);
+    if (this->gliding) {
+        this->fallStartHeight = this->actor.world.pos.y;
+    }
 
     if (this->actor.child != NULL && this->actor.child->id == ACTOR_OBJ_GLIDER)
         Player_PositionGlider(this);
@@ -16468,11 +16476,18 @@ void Player_ToggleGliding(PlayState* play, Player* this, u8 new_gliding) {
             this->actor.world.pos.z, this->actor.world.rot.x,
             this->actor.world.rot.y, this->actor.world.rot.z, 0x0000
         );
+
+        // Player_AnimPlayLoop(play, this, &gLinkAdultSkelGlidingAnim);
     } else {
         // remove glider
         if (this->actor.child != NULL && this->actor.child->id == ACTOR_OBJ_GLIDER) {
+            Actor_Delete(&play->actorCtx, this->actor.child, play);
             this->actor.child = NULL;
         }
+        /*if (this->skelAnime.animation == &gLinkAdultSkelGlidingAnim) {
+            // nothin
+            PRINT_SCREEN(5, 20, "ye it playin ye");
+        }*/
     }
 }
 
