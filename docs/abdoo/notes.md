@@ -28,6 +28,11 @@
     Instead, I had to make a new empty 64x32 texture.
     So if I wanna do something similar, that's what I gotta do.
 
+-   If I want an entrance to trigger a cutscene when entered 
+    for the first time, I gotta go to `z_demo.c` and look 
+    for `sEntranceCutsceneTable`.
+
+-   I guess I can use the "Event Check Bits" (`EVENTCHKINF` defines).
 
 ## Blender
 
@@ -44,6 +49,10 @@
     KentonM discovered that (for some reasons), when `play->envCtx.skyboxDisabled` is `true`,
     the camera clips. (this property is also available in Blender's Fast64 when editing a scene
     with the `Disable Skybox` checkbox).
+
+-   Apparently, if I want to remove the vanilla scenes, I should just remove them from
+    `spec/scenes_n64.inc`. There will be errors cuz of the missing scenes but I think
+    I can fix each of them then bam: no more vanilla scenes (smaller ROM?)
 
 
 # Modifications
