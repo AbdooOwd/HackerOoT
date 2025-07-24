@@ -4569,7 +4569,6 @@ void Interface_Update(PlayState* play) {
         }
     }
 
-    Health_UpdateBeatingHeart(play);
     sEnvHazard = Player_GetEnvironmentalHazard(play);
 
     if (sEnvHazard == PLAYER_ENV_HAZARD_HOTROOM) {

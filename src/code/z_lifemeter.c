@@ -323,7 +323,6 @@ void Health_DrawMeter(PlayState* play) {
     s16 totalHeartCount = gSaveContext.save.info.playerData.healthCapacity / 0x10;
     s16 fullHeartCount = gSaveContext.save.info.playerData.health / 0x10;
     s32 pad2;
-    f32 beatingHeartPulsingSize = interfaceCtx->beatingHeartOscillator * 0.1f;
     s32 curCombineModeSet = 0;
     u8* curBgImgLoaded = NULL;
     s32 ddHeartCountMinusOne = gSaveContext.save.info.inventory.defenseHearts - 1;
@@ -487,9 +486,6 @@ void Health_DrawMeter(PlayState* play) {
             {
                 Mtx* matrix = GRAPH_ALLOC(gfxCtx, sizeof(Mtx));
                 f32 wideOffsetX = USE_WIDESCREEN ? (offsetX - (30.f * WIDE_GET_16_9)) : offsetX;
-                Matrix_SetTranslateScaleMtx2(
-                    matrix, 1.0f - (0.32f * beatingHeartPulsingSize), 1.0f - (0.32f * beatingHeartPulsingSize),
-                    1.0f - (0.32f * beatingHeartPulsingSize), -130.0f + wideOffsetX, 94.5f - offsetY, 0.0f);
                 gSPMatrix(OVERLAY_DISP++, matrix, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
                 gSPVertex(OVERLAY_DISP++, beatingHeartVtx, 4, 0);
                 gSP1Quadrangle(OVERLAY_DISP++, 0, 2, 3, 1, 0);
@@ -507,28 +503,6 @@ void Health_DrawMeter(PlayState* play) {
     }
 
     CLOSE_DISPS(gfxCtx, "../z_lifemeter.c", 606);
-}
-
-void Health_UpdateBeatingHeart(PlayState* play) {
-    InterfaceContext* interfaceCtx = &play->interfaceCtx;
-
-    if (interfaceCtx->beatingHeartOscillatorDirection != 0) {
-        interfaceCtx->beatingHeartOscillator--;
-        if (interfaceCtx->beatingHeartOscillator <= 0) {
-            interfaceCtx->beatingHeartOscillator = 0;
-            interfaceCtx->beatingHeartOscillatorDirection = 0;
-            if (ENABLE_LOW_HEALTH_BEEP && !Player_InCsMode(play) && !IS_PAUSED(&play->pauseCtx) &&
-                Health_IsCritical() && !Play_InCsMode(play)) {
-                Sfx_PlaySfxCentered(NA_SE_SY_HITPOINT_ALARM);
-            }
-        }
-    } else {
-        interfaceCtx->beatingHeartOscillator++;
-        if (interfaceCtx->beatingHeartOscillator >= 10) {
-            interfaceCtx->beatingHeartOscillator = 10;
-            interfaceCtx->beatingHeartOscillatorDirection = 1;
-        }
-    }
 }
 
 u32 Health_IsCritical(void) {
