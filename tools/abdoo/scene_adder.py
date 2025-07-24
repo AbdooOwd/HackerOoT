@@ -16,12 +16,12 @@ z_select_path = "src/overlays/gamestates/ovl_select/z_select.h"
 sScenesArray = "static SceneSelectEntry sScenes[] = {"	# hardcoded, used to detect where the array is
 titleScreenZSelect = "{ \"Title Screen\", (void*)MapSelect_LoadTitle, 0 },"
 
-def addEntranceTable(scene_name: str) -> None:
+def addEntranceTable(scene_name: str, entrance_id: int = 0) -> None:
 	with open(entrance_table_path, 'a') as file:
 		# file.write("\n\n/* PYTHON GENERATED CODE AHEAD */\n")
 		file.write("\n\n")
 		for i in range(4):
-			file.write(f"DEFINE_ENTRANCE(ENTR_{scene_name.upper()}_0_{i}, SCENE_{scene_name.upper()}, 0, false, true, TRANS_TYPE_FADE_WHITE, TRANS_TYPE_FADE_WHITE)\n")
+			file.write(f"DEFINE_ENTRANCE(ENTR_{scene_name.upper()}_{entrance_id}_{i}, SCENE_{scene_name.upper()}, 0, false, true, TRANS_TYPE_FADE_WHITE, TRANS_TYPE_FADE_WHITE)\n")
 	print("- Added scene entrances to entrance table!")
 
 def addSpec(scene_name: str, scene_path: str, room_count: int) -> None:
@@ -35,7 +35,7 @@ def addSpec(scene_name: str, scene_path: str, room_count: int) -> None:
 			f"\tname \"{scene_name}_scene\"\n" \
 			"\tcompress\n" \
 			"\tromalign 0x1000\n" \
-    		f"\tinclude \"$(BUILD_DIR)/assets/scenes/{correct_dir}/{scene_name}_scene.o\"\n" \
+    		f"\tinclude \"$(BUILD_DIR)/assets/scenes/{correct_dir}/{scene_name}/{scene_name}_scene.o\"\n" \
     		"\tnumber 2\n" \
 			"endseg\n"
 
@@ -47,7 +47,7 @@ def addSpec(scene_name: str, scene_path: str, room_count: int) -> None:
     			f"\tname \"{scene_name}_room_{room_id}\"\n" \
     			"\tcompress\n" \
     			"\tromalign 0x1000\n" \
-    			f"\tinclude \"$(BUILD_DIR)/assets/scenes/{correct_dir}/{scene_name}_room_{room_id}.o\"\n" \
+    			f"\tinclude \"$(BUILD_DIR)/assets/scenes/{correct_dir}/{scene_name}/{scene_name}_room_{room_id}.o\"\n" \
     			"\tnumber 3\n" \
 				"endseg\n"
 			)
@@ -84,11 +84,15 @@ def addSceneSelection(scene_name: str) -> None:
 def main():
 	argc = len(sys.argv)
 
-	if argc < 2 or argc != 4:
-		print(f"Not enough arguments! Usage: {sys.argv[0]} <scene name> <scene path> <room count>")
+	if argc < 4:
+		print(f"Not enough arguments! Usage: {sys.argv[0]} <scene name> <scene path> <room count> [entrance id]")
 		quit(-1)
 
-	addEntranceTable(sys.argv[1])
+	the_entrance_id: int = 0
+	if argc >= 5:
+		the_entrance_id = sys.argv[4]
+	
+	addEntranceTable(sys.argv[1], the_entrance_id)
 	addSceneSelection(sys.argv[1])
 
 	if argc >= 4:
