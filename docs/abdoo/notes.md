@@ -51,6 +51,9 @@
     applied). So, without modifications: 0.68 meters.
 -   And now it's saying Adult Link is 6.5 meters tall???
 
+-   Blender might be messing with my `config_debug.h`... Changing `BOOT_TO_SCENE` options,
+    `BOOT_ENTRANCE`, `BOOT_CUTSCENE`, and `BOOT_TIME`.
+
 
 # Discoveries
 
