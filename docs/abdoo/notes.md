@@ -1,20 +1,25 @@
 # Notes
 
 -   The First Person View Cam Func is `Camera_Subj3`
+
 -   How a `VecGeo` works (I guess?):
     -   `r` (radius) = Z-Axis
     -   `yaw` = Y-Axis
     -   `pitch` = X-Axis
+
 -   The devs should really fix their `new_actor.py`... It's outdated!
     -   Nevermind. It's just I didn't use it correctly.
+
 -   Apparently, `mod_assets/` is now outdated in HackerOoT. I must use
     `assets/` instead. Dumb me confused the content of `extracted/` with `assets/`.
+
 -   To add an assets (eg. object) to a gameplay_keep, I must make a copy
     of that gameplay_keep (only its .C and .H file) into my `assets/` directory.
     Then I include my object's .c file in gameplay_keep's .c file, and
     include my objects .h file into gameplay_keep's .h file.
     -   I have also been told that I can just include my object in
         gameplay_keep's spec. But I don't know how to do that.
+
 -   When changing build versions (ntsc-1.0, pal-1.0, ...), I must run `make setup`.
 
 -   When `Player_DrawImpl` is used, the game sets Link's face based on the `s32 face`
@@ -33,6 +38,11 @@
     for `sEntranceCutsceneTable`.
 
 -   I guess I can use the "Event Check Bits" (`EVENTCHKINF` defines).
+
+-   Each heart is 16. Meaning each quarter of heart holds the value of 4. 
+    From the variable `gSaveContext.save.info.playerData.health`.
+
+
 
 ## Blender
 
