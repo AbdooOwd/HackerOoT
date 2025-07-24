@@ -28,6 +28,22 @@
 -   Remove Link's face
     - Removed his eyes [X]
 
+## New Link Hurting
+
+-   Instead of constantly *beeping* on the player when Health is low,
+    we either make it an option (disable/enable), **OR** we implement it in...
+    "another way"...
+-   If we forget about the "option disable enable thingy for critical beeping",
+    we're left with the "other way": **Breath of the Wild's Critical Notifier!!!**
+-   In Breath of the Wild, when the player's health become critical, the player
+    is notified that he has "entered the danger zone" (in terms of health).
+    But this sound only plays once (iirc)!
+-   We still need to keep the player aware about his critical health.
+    So the games makes the player's body *\*beep\** with red.
+    -   The sound is really annoying, but a visual notifier might not be
+        as annoying!
+
+
 ## Hmm?
 -   I really gotta see why F3DEX3 is so cool...
 -   I also REALLY should check if decomp is better...
