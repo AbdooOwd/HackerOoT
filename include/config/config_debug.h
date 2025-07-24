@@ -28,9 +28,9 @@
 /**
  * Options for booting directly into a scene, the debug boot or the file select, instead of the title screen.
  */
-// #define BOOT_TO_SCENE false
-// #define BOOT_TO_SCENE_NEW_GAME_ONLY false
-// #define BOOT_TO_FILE_SELECT false
+#define BOOT_TO_SCENE false
+#define BOOT_TO_SCENE_NEW_GAME_ONLY false
+#define BOOT_TO_FILE_SELECT false
 #define BOOT_TO_DEBUG_OPENING true
 
 /**
@@ -40,13 +40,13 @@
 #define MAP_SELECT_ON_FILE_1 false
 
 // Change these if using `BOOT_TO_SCENE`, `BOOT_TO_SCENE_NEW_GAME_ONLY` or `BOOT_TO_DEBUG_OPENING`
-#define BOOT_ENTRANCE 0
+#define BOOT_ENTRANCE ENTR_EXAMPLE_0
 #define BOOT_AGE LINK_AGE_ADULT
-#define BOOT_CUTSCENE 0xFFEF
+#define BOOT_CUTSCENE 0x0000
 
 // Change these if using `BOOT_TO_SCENE` or `BOOT_TO_SCENE_NEW_GAME_ONLY`
-#define BOOT_TIME NEXT_TIME_NONE
-// #define BOOT_PLAYER_NAME 0x15, 0x12, 0x17, 0x14, 0x3E, 0x3E, 0x3E, 0x3E
+#define BOOT_TIME NEXT_TIME_DAY
+// #define BOOT_PLAYER_NAME 0x15, 0x12, 0x17, 0x14, 0x3E, 0x3E, 0x3E, 0x3E // "LINK"
 
 /**
  * Enable/Disable BGM on Map Select
