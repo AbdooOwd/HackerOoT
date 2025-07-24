@@ -14,7 +14,8 @@ struct Player;
 // in the player's params "ABCD" (imagine a hex value),
 // we take the "A" as bits to tweak things like gliding.
 // 'bit_mask' should be specified using the macros like 'PLAYER_SPPARAMS_<insert name>'
-#define PLAYER_GET_PARAMS_SPECIAL_BIT(params, bit_mask) ((params) >> 3) & (bit_mask)
+// supports only a maximum of 4 special bits
+#define PLAYER_GET_PARAMS_SPECIAL_BIT(params, bit_mask) ((params) >> 12) & (bit_mask)
 
 // Determines behavior when spawning. See `PlayerStartMode`.
 #define PLAYER_GET_START_MODE(thisx) PARAMS_GET_S((thisx)->params, 8, 4)

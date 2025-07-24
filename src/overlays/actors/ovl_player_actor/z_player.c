@@ -7211,8 +7211,6 @@ void func_8083DFE0(Player* this, f32* arg1, s16* arg2) {
 
         Math_AsymStepToF(&this->speedXZ, *arg1, incr_step, 0.1f);
         Math_ScaledStepToS(&this->yaw, *arg2, 200);
-
-        PRINT_SCREEN(5, 15, "yaw: %d / arg2: %d", this->yaw, *arg2);
     }
 }
 
@@ -12280,12 +12278,14 @@ void Player_Update(Actor* thisx, PlayState* play) {
      * If the player can Glide and button A has been pressed, we toggle gliding.
      * But if we cannot glide anymore, force gliding into false.
      */
-    if (PLAYER_CAN_GLIDE(this->actor.bgCheckFlags) && CHECK_BTN_ALL(input.press.button, BTN_A)) {
-        Player_ToggleGliding(play, this, !this->gliding);
-    }
+    if (!Player_InCsMode(play) && !IS_PAUSED(&play->pauseCtx) && !Play_InCsMode(play)) {
+        if (PLAYER_CAN_GLIDE(this->actor.bgCheckFlags) && CHECK_BTN_ALL(input.press.button, BTN_A)) {
+            Player_ToggleGliding(play, this, !this->gliding);
+        }
 
-    if (!PLAYER_CAN_GLIDE(this->actor.bgCheckFlags) || CHECK_BTN_ALL(input.press.button, BTN_B)) {
-        Player_ToggleGliding(play, this, false);
+        if (!PLAYER_CAN_GLIDE(this->actor.bgCheckFlags) || CHECK_BTN_ALL(input.press.button, BTN_B)) {
+            Player_ToggleGliding(play, this, false);
+        }
     }
 
     if (this->gliding) {
