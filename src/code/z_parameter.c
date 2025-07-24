@@ -25,6 +25,7 @@
 #include "play_state.h"
 #include "player.h"
 #include "save.h"
+#include "z_lib.h"
 
 #include "assets/textures/parameter_static/parameter_static.h"
 #include "assets/textures/do_action_static/do_action_static.h"
@@ -2575,6 +2576,11 @@ s32 Health_ChangeBy(PlayState* play, s16 amount) {
 
     if (gSaveContext.save.info.playerData.health > gSaveContext.save.info.playerData.healthCapacity) {
         gSaveContext.save.info.playerData.health = gSaveContext.save.info.playerData.healthCapacity;
+    }
+
+    if (ENABLE_LOW_HEALTH_BEEP && !Player_InCsMode(play) && 
+            !IS_PAUSED(&play->pauseCtx) && Health_IsCritical() && !Play_InCsMode(play)) {
+        Sfx_PlaySfxCentered(NA_SE_SY_HITPOINT_ALARM);
     }
 
     heartCount = gSaveContext.save.info.playerData.health % 0x10;

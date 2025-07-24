@@ -437,7 +437,7 @@ void Health_DrawMeter(PlayState* play) {
                                 G_TX_NOLOD, G_TX_NOLOD);
         }
 
-        if (heartIndex != fullHeartCount) {
+        //if (heartIndex != fullHeartCount) {
             if ((ddHeartCountMinusOne < 0) || (heartIndex > ddHeartCountMinusOne)) {
                 if (curCombineModeSet != 1) {
                     curCombineModeSet = 1;
@@ -466,7 +466,7 @@ void Health_DrawMeter(PlayState* play) {
                                 WIDE_DIV(((heartCenterX + halfHeartLength) * 4), WIDE_GET_RATIO),
                                 (s32)((heartCenterY + halfHeartLength) * 4), G_TX_RENDERTILE, 0, 0,
                                 WIDE_DIV(heartTexCoordPerPixel, WIDE_GET_RATIO), (s32)heartTexCoordPerPixel);
-        } else {
+        /*} else {
             if ((ddHeartCountMinusOne < 0) || (heartIndex > ddHeartCountMinusOne)) {
                 if (curCombineModeSet != 2) {
                     curCombineModeSet = 2;
@@ -486,11 +486,14 @@ void Health_DrawMeter(PlayState* play) {
             {
                 Mtx* matrix = GRAPH_ALLOC(gfxCtx, sizeof(Mtx));
                 f32 wideOffsetX = USE_WIDESCREEN ? (offsetX - (30.f * WIDE_GET_16_9)) : offsetX;
+                Matrix_SetTranslateScaleMtx2(
+                    matrix, 1.0f, 1.0f,
+                    1.0f, -130.0f + wideOffsetX, 94.5f - offsetY, 0.0f);
                 gSPMatrix(OVERLAY_DISP++, matrix, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
                 gSPVertex(OVERLAY_DISP++, beatingHeartVtx, 4, 0);
                 gSP1Quadrangle(OVERLAY_DISP++, 0, 2, 3, 1, 0);
             }
-        }
+        }*/
 
         // Move offset to next heart
         offsetX += 10.0f;
