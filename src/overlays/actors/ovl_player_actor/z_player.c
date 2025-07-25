@@ -66,8 +66,7 @@
 #define PLAYER_ANIM_ADJUSTED_SPEED (2.0f / 3.0f)
 
 #define PLAYER_DEFAULT_GRAVITY -1.0f
-#define PLAYER_CAN_GLIDE(flags) \
-    (!((flags) & (BGCHECKFLAG_GROUND_STRICT | BGCHECKFLAG_GROUND | BGCHECKFLAG_WATER | BGCHECKFLAG_GROUND_LEAVE)))
+
 
 typedef struct GetItemEntry {
     /* 0x00 */ u8 itemId;
@@ -11847,6 +11846,11 @@ void Player_UpdateCommon(Player* this, PlayState* play, Input* input) {
         this->hurtBeatTimer = 0;
     }
 
+    if (this->hurtBeatTimer <= 0 && PLAYER_CAN_HURT_BEAT) {
+        Player_SetupDrawHurtBeat(this);
+    }
+
+
     if (this->unk_890 != 0) {
         this->unk_890--;
     }
@@ -12439,8 +12443,9 @@ void Player_Draw(Actor* thisx, PlayState* play2) {
         }
 
         // link's red effect without damage
-        if (this->hurtBeatTimer > 0) {
-            Player_UpdateDrawHurtBeat(this, POLY_OPA_DISP)
+        if (this->hurtBeatTimer > 20) {
+            s8 reverseTimer = PLAYER_HURT_BEAT_TIMER - (this->hurtBeatTimer - PLAYER_HURT_BEAT_TIMER);
+            POLY_OPA_DISP = Gfx_SetFog2(POLY_OPA_DISP, 255, 0, 0, 0, 0, ((reverseTimer * reverseTimer) << 6) + 2000);
         }
 
         func_8002EBCC(&this->actor, play, 0);
@@ -16517,7 +16522,15 @@ void Player_PositionGlider(Player* this) {
 
 
 
-// Makes Link's body red, like when taking damage
+/**
+ * Makes Link's body red, like when taking damage
+ * 
+ * ### How it works:
+ * The value is set to `PLAYER_HURT_BEAT_TIMER * 2`. In `Player_Draw`,
+ * when the timer is `<= PLAYER_HURT_BEAT` (meaning half of the time), the effect is done.
+ * But we add that extra half to ensure the frequency of the hurt beat (that is if
+ * not used manually, meaning this effect is used by the game when having critical health)
+ */
 void Player_SetupDrawHurtBeat(Player* this) {
-    this->hurtBeatTimer = 20;
+    this->hurtBeatTimer = PLAYER_HURT_BEAT_TIMER * 2;
 }

@@ -42,6 +42,7 @@
     So the games makes the player's body *\*beep\** with red.
     -   The sound is really annoying, but a visual notifier might not be
         as annoying!
+-   No flickering! Red -> transparent
 
 
 ## Hmm?

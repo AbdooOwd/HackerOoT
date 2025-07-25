@@ -103,6 +103,20 @@
     `spec/scenes_n64.inc`. There will be errors cuz of the missing scenes but I think
     I can fix each of them then bam: no more vanilla scenes (smaller ROM?)
 
+-   DeepSeek says that the N64 handles bit-shifting faster than math. hmmm. He even replaced
+    a multiplication with a bit-shift!
+    From
+    ```c
+    reverseTimer * reverseTimer * 100 + 1000
+    ```
+    to
+    ```c
+    (reverseTimer * reverseTimer << 7) + 1000
+    ```
+
+    But he says that this has less precision (likely to have the effects of multiplying 
+    by 128 cuz of the `<< 7` instead of 100).
+
 
 # Modifications
 

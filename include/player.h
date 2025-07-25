@@ -10,12 +10,20 @@ struct Player;
 
 #define PLAYER_PARAMS(startMode, startBgCamIndex) (PARAMS_PACK_NOMASK(startMode, 8) | PARAMS_PACK_NOMASK(startBgCamIndex, 0))
 
+
 // TODO: change the name of  this macro
 // in the player's params "ABCD" (imagine a hex value),
 // we take the "A" as bits to tweak things like gliding.
 // 'bit_mask' should be specified using the macros like 'PLAYER_SPPARAMS_<insert name>'
 // supports only a maximum of 4 special bits
 #define PLAYER_GET_PARAMS_SPECIAL_BIT(params, bit_mask) ((params) >> 12) & (bit_mask)
+
+#define PLAYER_CAN_GLIDE(flags) \
+    (!((flags) & (BGCHECKFLAG_GROUND_STRICT | BGCHECKFLAG_GROUND | BGCHECKFLAG_WATER | BGCHECKFLAG_GROUND_LEAVE)))
+
+#define PLAYER_HURT_BEAT_TIMER 20
+#define PLAYER_CAN_HURT_BEAT (!Player_InCsMode(play) && !IS_PAUSED(&play->pauseCtx) && Health_IsCritical() && !Play_InCsMode(play))
+
 
 // Determines behavior when spawning. See `PlayerStartMode`.
 #define PLAYER_GET_START_MODE(thisx) PARAMS_GET_S((thisx)->params, 8, 4)
@@ -1084,9 +1092,10 @@ extern s16 gLinkObjectIds[2];
  * Draws Link's Body Red Damage effect. idk why it doesn't work as a void function.
  * @param p usually, it's gfxCtx->polyOpa.p which can also be accessed 
  * with `POLY_OPA_DISP` (use `OPEN_DISPS(current_gfxCtx, "../your_file.c", ...)` first!)
+ * 
+ * UNUSED
  */
 #define Player_UpdateDrawHurtBeat(player, p) \
-    (player)->damageFlickerAnimCounter += CLAMP(50 - (player)->hurtBeatTimer, 8, 40); \
-    (p) = Gfx_SetFog2((p), 255, 0, 0, 0, 0, 4000 - (s32)(Math_CosS((player)->damageFlickerAnimCounter * 256) * 2000.0f));
+    (p) = Gfx_SetFog2((p), 255, 0, 0, 0, 0, 4000 - (player)->hurtBeatTimer * 2000);
 
 #endif
