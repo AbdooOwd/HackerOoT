@@ -12627,11 +12627,6 @@ void func_8084B000(Player* this) {
     }
 
     this->actor.velocity.y += phi_f18;
-    // TODO: does this control gravity effects?
-    /*
-    PRINT_SCREEN(20, 12, "velo: %.5f", this->actor.velocity.y);
-    PRINT_SCREEN(20, 13, "f_18: %.5f", phi_f18);
-    */
 
     if (((this->actor.velocity.y - phi_f14) * phi_f18) > 0) {
         this->actor.velocity.y = phi_f14;
@@ -16497,18 +16492,12 @@ void Player_ToggleGliding(PlayState* play, Player* this, u8 new_gliding) {
             this->actor.world.pos.z, this->actor.world.rot.x,
             this->actor.world.rot.y, this->actor.world.rot.z, 0x0000
         );
-
-        // Player_AnimPlayLoop(play, this, &gLinkAdultSkelGlidingAnim);
     } else {
         // remove glider
         if (this->actor.child != NULL && this->actor.child->id == ACTOR_OBJ_GLIDER) {
             Actor_Delete(&play->actorCtx, this->actor.child, play);
             this->actor.child = NULL;
         }
-        /*if (this->skelAnime.animation == &gLinkAdultSkelGlidingAnim) {
-            // nothin
-            PRINT_SCREEN(5, 20, "ye it playin ye");
-        }*/
     }
 }
 
