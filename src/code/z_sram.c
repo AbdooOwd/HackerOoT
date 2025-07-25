@@ -249,8 +249,8 @@ static SavePlayerData sDebugSavePlayerData = {
     }, // playerName
 #endif
     0,                  // n64ddFlag
-    0xE0,               // healthCapacity
-    0xE0,               // health
+    DBGSAVE_HEALTH_CAPACITY, // healthCapacity
+    DBGSAVE_HEALTH_CAPACITY, // health
     0,                  // magicLevel
     MAGIC_NORMAL_METER, // magic
     150,                // rupees

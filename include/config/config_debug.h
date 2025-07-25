@@ -84,4 +84,9 @@
  */
 #define ENABLE_DEBUG_BOOT true
 
+
+// Debug Save Options
+
+#define DBGSAVE_HEALTH_CAPACITY 0x10 * 5
+
 #endif
