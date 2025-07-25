@@ -1097,24 +1097,16 @@ Gfx* sBootDListGroups[][2] = {
 void Player_DrawImpl(PlayState* play, void** skeleton, Vec3s* jointTable, s32 dListCount, s32 lod, s32 tunic, s32 boots,
                      s32 face, OverrideLimbDrawOpa overrideLimbDraw, PostLimbDrawOpa postLimbDraw, void* data) {
     Color_RGB8* color;
-    s32 eyesIndex;
     s32 mouthIndex;
 
     // Player's animation data includes eyes and mouth indices for which texture to use on a given frame.
     // Despite being accessed as "the x component of the 22nd limb", the eyes and mouth indices are stored in 2
     // additional bytes tacked onto the end of the limb rotation data for a given animation frame.
-    eyesIndex = (jointTable[22].x & 0xF) - 1;
     mouthIndex = (jointTable[22].x >> 4) - 1;
 
     OPEN_DISPS(play->state.gfxCtx, "../z_player_lib.c", 1721);
 
-#ifndef AVOID_UB
-    // gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyeTextures[eyesIndex]));
     gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(gLinkAdultEyesEmptyTex));
-#else
-    // gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyeTextures[gSaveContext.save.linkAge][eyesIndex]));
-    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(gLinkAdultEyesEmptyTex));
-#endif
 
     // If the mouth index provided by the animation is negative, use the value provided by the `face` argument instead
     if (mouthIndex < 0) {
