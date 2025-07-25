@@ -1706,6 +1706,6 @@ extern u64 gEffSpark4Tex[TEX_LEN(u64, gEffSpark4Tex_WIDTH, gEffSpark4Tex_HEIGHT,
 
 #include "assets/objects/object_glider/gGlider.h"
 
-extern LinkAnimationHeader gLinkAdultSkelGlidingAnim;
+// extern LinkAnimationHeader gLinkAdultSkelGlidingAnim;
 
 #endif

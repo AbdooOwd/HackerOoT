@@ -2361,9 +2361,9 @@ LinkAnimationHeader gPlayerAnim_Link_ue_wait = {
 };
 
 /* custom animations */
-LinkAnimationHeader gLinkAdultSkelGlidingAnim = {
-    #include "assets/objects/object_link_boy/gLinkAdultSkelGlidingAnimData.inc.c"
-};
+// LinkAnimationHeader gLinkAdultSkelGlidingAnim = {
+//     #include "assets/objects/object_link_boy/gLinkAdultSkelGlidingAnimData.inc.c"
+// };
 
 u8 gameplay_keep_zeros_0034F8[8] = { 0 };
 
