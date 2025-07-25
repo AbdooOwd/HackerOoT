@@ -42,6 +42,42 @@
 -   Each heart is 16. Meaning each quarter of heart holds the value of 4. 
     From the variable `gSaveContext.save.info.playerData.health`.
 
+### Copying Link's Red Damage Effect
+
+-   For some reasons, using something like this:
+    ```c
+    void Player_UpdateDrawHurtBeat(Player* this, Gfx* p) {
+        this->damageFlickerAnimCounter += CLAMP(50 - this->hurtBeatTimer, 8, 40); \
+        p = Gfx_SetFog2(p, 255, 0, 0, 0, 0, 4000 - (s32)(Math_CosS(this->damageFlickerAnimCounter * 256) * 2000.0f));
+    }
+    ```
+    doesn't work. Like, if I use the function, there is no result/effect. But it does work if the function is inlined.
+    So if I turn it into a macro (so it is inlined):
+    ```c
+    #define Player_UpdateDrawHurtBeat(player, p) \
+        (player)->damageFlickerAnimCounter += CLAMP(50 - (player)->hurtBeatTimer, 8, 40); \
+        (p) = Gfx_SetFog2((p), 255, 0, 0, 0, 0, 4000 - (s32)(Math_CosS((player)->damageFlickerAnimCounter * 256) * 2000.0f));
+    ```
+    I get what I want! But, not exactly what I want...
+    -   I was trying to add this "BotW critical-health visual-notifier". So I had to copy
+        the behavior of that red effect that happens when Link receives damage/gets hurt.
+        For some reasons, the macro above didn't affect only Link; it affected props too!
+        Doors & torches *\*beeped\** with red like Link!
+    -   But I finally discovered the problem! I was applying my version of the vanilla effect (`hurtBeat`) 
+        in `Player_Draw`, before `Player_DrawGameplay` was called (like the vanilla damage effect) .
+        But it wasn't the only thing I had to copy! The vanilla hurt effect had a second 
+        thingy **AFTER** `Player_DrawGameplay` was called:
+        ```c
+        Player_DrawGameplay(play, this, lod, gCullBackDList, overrideLimbDraw);
+
+        // This if-statement here!!! It's the "second part" I missed!
+        if (this->invincibilityTimer > 0) {
+            POLY_OPA_DISP = Play_SetFog(play, POLY_OPA_DISP);
+        }
+        ``` 
+        Just right after it!
+    -   So I just copied that with my `this->hurtBeatTimer` and the props no longer
+        become red (:
 
 
 ## Blender

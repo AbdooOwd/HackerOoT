@@ -1007,7 +1007,8 @@ typedef struct Player {
     /* 0x0A87 */ u8 unk_A87;
     /* 0x0A88 */ Vec3f unk_A88; // previous body part 0 position
     /* 0x0A94 */ u8 gliding;  // bool
-} Player; // size = 0xA95
+    /* 0x0A95 */ s8 hurtBeatTimer;  // used to draw visual effect of Link's red body like when taking damage
+} Player; // size = 0xA96
 
 // z_player_lib.c
 void Player_SetBootData(struct PlayState* play, Player* this);
@@ -1075,5 +1076,17 @@ extern Gfx gCullFrontDList[];
 
 // object_table.c
 extern s16 gLinkObjectIds[2];
+
+
+// tape & needles fixes
+
+/**
+ * Draws Link's Body Red Damage effect. idk why it doesn't work as a void function.
+ * @param p usually, it's gfxCtx->polyOpa.p which can also be accessed 
+ * with `POLY_OPA_DISP` (use `OPEN_DISPS(current_gfxCtx, "../your_file.c", ...)` first!)
+ */
+#define Player_UpdateDrawHurtBeat(player, p) \
+    (player)->damageFlickerAnimCounter += CLAMP(50 - (player)->hurtBeatTimer, 8, 40); \
+    (p) = Gfx_SetFog2((p), 255, 0, 0, 0, 0, 4000 - (s32)(Math_CosS((player)->damageFlickerAnimCounter * 256) * 2000.0f));
 
 #endif

@@ -375,6 +375,8 @@ void Player_Action_CsAction(Player* this, PlayState* play);
 void Player_ToggleGliding(PlayState* play, Player* this, u8 new_gliding);
 void Player_PositionGlider(Player* this);
 
+void Player_SetupDrawHurtBeat(Player* this);
+
 // .bss part 1
 
 #pragma increment_block_number "gc-eu:0 gc-eu-mq:0 gc-jp:0 gc-jp-ce:0 gc-jp-mq:0 gc-us:0 gc-us-mq:0 ique-cn:0" \
@@ -4634,6 +4636,8 @@ static LinkAnimationHeader* D_808544B0[] = {
     &gPlayerAnim_link_normal_back_hit,   &gPlayerAnim_link_anchor_back_hitR,
 };
 
+
+// Handles taking damage
 void func_80837C0C(PlayState* play, Player* this, s32 hitResponseType, f32 speed, f32 yVelocity, s16 yRot,
                    s32 invincibilityTimer) {
     LinkAnimationHeader* anim = NULL;
@@ -7967,7 +7971,6 @@ s32 func_8083FD78(Player* this, f32* arg1, s16* arg2, PlayState* play) {
             func_8083DB98(this, true);
         } else {
             Math_SmoothStepToS(&this->actor.focus.rot.x, sControlInput->rel.stick_y * 240.0f, 14, 4000, 30);
-             Print_Screen(&gDebug.printer, 1, 9, COLOR_GREEN, "Smoothed: %3.2f", this->actor.focus.rot.x);
             func_80836AB8(this, true);
         }
     } else {
@@ -10904,6 +10907,7 @@ void Player_Init(Actor* thisx, PlayState* play2) {
     }
 
     Player_ToggleGliding(play, this, PLAYER_GET_PARAMS_SPECIAL_BIT(this->actor.params, PLAYER_SPARAMS_GLIDING));
+    this->hurtBeatTimer = 0;
 
     Map_SavePlayerInitialInfo(play);
     MREG(64) = 0;
@@ -11837,6 +11841,12 @@ void Player_UpdateCommon(Player* this, PlayState* play, Input* input) {
         this->invincibilityTimer--;
     }
 
+    if (this->hurtBeatTimer > 0) {
+        this->hurtBeatTimer--;
+    } else if (this->hurtBeatTimer < 0) {
+        this->hurtBeatTimer = 0;
+    }
+
     if (this->unk_890 != 0) {
         this->unk_890--;
     }
@@ -12421,10 +12431,16 @@ void Player_Draw(Actor* thisx, PlayState* play2) {
         func_80093C80(play);
         Gfx_SetupDL_25Xlu(play->state.gfxCtx);
 
+        // Link's body red effect when taking damage
         if (this->invincibilityTimer > 0) {
             this->damageFlickerAnimCounter += CLAMP(50 - this->invincibilityTimer, 8, 40);
             POLY_OPA_DISP = Gfx_SetFog2(POLY_OPA_DISP, 255, 0, 0, 0, 0,
                                         4000 - (s32)(Math_CosS(this->damageFlickerAnimCounter * 256) * 2000.0f));
+        }
+
+        // link's red effect without damage
+        if (this->hurtBeatTimer > 0) {
+            Player_UpdateDrawHurtBeat(this, POLY_OPA_DISP)
         }
 
         func_8002EBCC(&this->actor, play, 0);
@@ -12472,6 +12488,10 @@ void Player_Draw(Actor* thisx, PlayState* play2) {
         Player_DrawGameplay(play, this, lod, gCullBackDList, overrideLimbDraw);
 
         if (this->invincibilityTimer > 0) {
+            POLY_OPA_DISP = Play_SetFog(play, POLY_OPA_DISP);
+        }
+
+        if (this->hurtBeatTimer > 0) {
             POLY_OPA_DISP = Play_SetFog(play, POLY_OPA_DISP);
         }
 
@@ -16504,4 +16524,11 @@ void Player_PositionGlider(Player* this) {
     Vec3f* glider_rot = (Vec3f*) &this->actor.child->world.rot;
     Vec3f* player_rot = (Vec3f*) &this->actor.world.rot;
     Math_Vec3f_Copy(glider_rot, player_rot);
+}
+
+
+
+// Makes Link's body red, like when taking damage
+void Player_SetupDrawHurtBeat(Player* this) {
+    this->hurtBeatTimer = 20;
 }
