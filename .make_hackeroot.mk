@@ -33,7 +33,7 @@ COMPRESSION_TYPE ?= $(shell echo $(COMPRESSION) | tr '[:lower:]' '[:upper:]')
 TARGET ?=
 ifeq ($(TARGET),wad)
 CFLAGS := -fno-reorder-blocks -fno-optimize-sibling-calls
-CPP_DEFINES := -DCONSOLE_WIIVC
+CPP_DEFINES := -DCONSOLE_WIIVC -DMML_VERSION=MML_VERSION_OOT
 REVISION := 0
 REVISION := 0
 else ifeq ($(TARGET),iso)
