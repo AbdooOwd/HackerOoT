@@ -4505,7 +4505,6 @@ s32 Camera_Subj3(Camera* camera) {
     camera->fov = Camera_LERPCeilF(roData->fovTarget, camera->fov, 0.25f, 1.0f);
     camera->roll = 0;
     camera->atLERPStepScale = 0.0f;
-    Print_Screen(&gDebug.printer, 1, 16, COLOR_WHITE, "END At: %3.2f, %3.2f, %3.2f", at->x, at->y, at->z);
 
     return 1;
 }
