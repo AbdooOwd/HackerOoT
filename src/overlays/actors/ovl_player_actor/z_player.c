@@ -12443,8 +12443,8 @@ void Player_Draw(Actor* thisx, PlayState* play2) {
         }
 
         // link's red effect without damage
-        if (this->hurtBeatTimer > 20) {
-            s8 reverseTimer = PLAYER_HURT_BEAT_TIMER - (this->hurtBeatTimer - PLAYER_HURT_BEAT_TIMER);
+        if (this->hurtBeatTimer > PLAYER_HURT_BEAT_TIME_ADDITIONAL) {
+            s8 reverseTimer = PLAYER_HURT_BEAT_TIME - (this->hurtBeatTimer - PLAYER_HURT_BEAT_TIME_ADDITIONAL);
             POLY_OPA_DISP = Gfx_SetFog2(POLY_OPA_DISP, 255, 0, 0, 0, 0, ((reverseTimer * reverseTimer) << 6) + 2000);
         }
 
@@ -12496,7 +12496,7 @@ void Player_Draw(Actor* thisx, PlayState* play2) {
             POLY_OPA_DISP = Play_SetFog(play, POLY_OPA_DISP);
         }
 
-        if (this->hurtBeatTimer > 0) {
+        if (this->hurtBeatTimer > PLAYER_HURT_BEAT_TIME_ADDITIONAL) {
             POLY_OPA_DISP = Play_SetFog(play, POLY_OPA_DISP);
         }
 
@@ -16526,11 +16526,11 @@ void Player_PositionGlider(Player* this) {
  * Makes Link's body red, like when taking damage
  * 
  * ### How it works:
- * The value is set to `PLAYER_HURT_BEAT_TIMER * 2`. In `Player_Draw`,
- * when the timer is `<= PLAYER_HURT_BEAT` (meaning half of the time), the effect is done.
+ * The value is set to `PLAYER_HURT_BEAT_TIME`. In `Player_Draw`,
+ * when the timer is `<= PLAYER_HURT_BEAT_TIME`, the effect is done.
  * But we add that extra half to ensure the frequency of the hurt beat (that is if
  * not used manually, meaning this effect is used by the game when having critical health)
  */
 void Player_SetupDrawHurtBeat(Player* this) {
-    this->hurtBeatTimer = PLAYER_HURT_BEAT_TIMER * 2;
+    this->hurtBeatTimer = PLAYER_HURT_BEAT_TIME + PLAYER_HURT_BEAT_TIME_ADDITIONAL;
 }

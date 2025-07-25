@@ -21,7 +21,9 @@ struct Player;
 #define PLAYER_CAN_GLIDE(flags) \
     (!((flags) & (BGCHECKFLAG_GROUND_STRICT | BGCHECKFLAG_GROUND | BGCHECKFLAG_WATER | BGCHECKFLAG_GROUND_LEAVE)))
 
-#define PLAYER_HURT_BEAT_TIMER 20
+// how much time added after visual effect before marking effect as done
+#define PLAYER_HURT_BEAT_TIME_ADDITIONAL 10
+#define PLAYER_HURT_BEAT_TIME 20 // how long the effect visual lasts
 #define PLAYER_CAN_HURT_BEAT (!Player_InCsMode(play) && !IS_PAUSED(&play->pauseCtx) && Health_IsCritical() && !Play_InCsMode(play))
 
 
