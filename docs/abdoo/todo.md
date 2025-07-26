@@ -4,7 +4,7 @@
     When the player moves the view with his joystick, the view
     should stay as the player left it (kind of like Indigo).
 
-## Gliding
+## Gliding [ ]
 
 -   If I keep A pressed when jumping of an edge, Link's gravity
     doesn't stop him from infinitely jumping (he thus flies upwards).
@@ -28,7 +28,7 @@
 -   Remove Link's face
     - Removed his eyes [X]
 
-## New Link Hurting
+## New Link Hurting [X]
 
 -   Instead of constantly *beeping* on the player when Health is low,
     we either make it an option (disable/enable), **OR** we implement it in...
